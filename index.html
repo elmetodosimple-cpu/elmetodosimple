@@ -2765,7 +2765,7 @@ function addMeta(){
   renderMetas();toast('◎ Meta agregada');
 }
 function renderMetas(){
-  const all=S.g('metas',[]);
+  const all=FZ_S.goals||[];
   const list=metaFilter==='todas'?all:all.filter(m=>m.area===metaFilter);
   const el=document.getElementById('metasList');
   if(!list.length){el.innerHTML='<div class="empty"><div class="empty-icon">◎</div><div class="empty-text">No hay metas en esta categoría.</div></div>';return;}
@@ -2940,12 +2940,12 @@ function addTx(){
   renderPresupuesto();toast('💰 Transacción registrada');
 }
 function renderPresupuesto(){
-  document.getElementById('budgetMonthLabel').textContent=MESES[TODAY.getMonth()]+' '+TODAY.getFullYear();
-  const txs=S.g('txs',[]);
-  const m=TODAY.getMonth(),y=TODAY.getFullYear();
-  const month=txs.filter(t=>{const d=new Date(t.fecha+'T12:00:00');return d.getMonth()===m&&d.getFullYear()===y;});
-  const ing=month.filter(t=>t.tipo==='ing').reduce((s,t)=>s+t.monto,0);
-  const gas=month.filter(t=>t.tipo==='gas').reduce((s,t)=>s+t.monto,0);
+  document.getElementById('budgetMonthLabel').textContent=MONTHS[curMonth]+' '+curYear;
+  const txs=FZ_S.transactions||[];
+  const m=curMonth,y=curYear;
+  const month=txs.filter(t=>{const d=new Date(t.date+'T12:00:00');return d.getMonth()===m&&d.getFullYear()===y;});
+  const ing=month.filter(t=>t.type==='ingreso').reduce((s,t)=>s+t.amount,0);
+  const gas=month.filter(t=>t.type==='gasto').reduce((s,t)=>s+t.amount,0);
   const bal=ing-gas;
   document.getElementById('bIng').textContent='$'+ing.toLocaleString('es-AR');
   document.getElementById('bGas').textContent='$'+gas.toLocaleString('es-AR');
@@ -4032,7 +4032,6 @@ function saveTx(){
   const desc=document.getElementById('tx-desc').value.trim();
   const date=document.getElementById('tx-date').value;
   if(!amount||amount<=0){alert('Ingresa un importe válido');return;}
-  if(txType==='gasto'&&!selCat){alert('Selecciona una categoría');return;}
   if(!date){alert('Selecciona una fecha');return;}
   FZ_S.transactions.push({id:uid(),type:txType,amount,desc,category:selCat||'otros',date});
   save(); closeModal('gasto'); renderPage(curPage());
