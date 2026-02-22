@@ -1029,24 +1029,24 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
     <div class="ob-icon">✦</div>
     <div class="ob-title">Bienvenido/a a tu<br>Agenda 2025</div>
     <div class="ob-sub">Tu espacio para organizarte, crecer y alcanzar todo lo que te propusiste este año.</div>
-    <button class="ob-btn" onclick="obNext()">Empezar →</button>
+    <button class="ob-btn" onclick="FZ_obNext()">Empezar →</button>
   </div>
 
   <div class="ob-step" id="ob1">
     <div class="ob-icon">👤</div>
     <div class="ob-title">¿Cómo te llamás?</div>
     <div class="ob-sub">Personalizamos la agenda para vos.</div>
-    <input class="ob-input" id="obName" placeholder="Tu nombre" maxlength="30" onkeydown="if(event.key==='Enter')obNext()">
+    <input class="ob-input" id="obName" placeholder="Tu nombre" maxlength="30" onkeydown="if(event.key==='Enter')FZ_obNext()">
     <input class="ob-input" id="obWord" placeholder="Tu palabra del año (ej: Crecer, Abundancia...)" maxlength="30">
-    <button class="ob-btn" onclick="obNext()">Continuar →</button>
-    <button class="ob-btn-skip" onclick="obNext()">Omitir</button>
+    <button class="ob-btn" onclick="FZ_obNext()">Continuar →</button>
+    <button class="ob-btn-skip" onclick="FZ_obNext()">Omitir</button>
   </div>
 
   <div class="ob-step" id="ob2">
     <div class="ob-icon">🎯</div>
     <div class="ob-title">¿Cuántas metas<br>tenés en mente?</div>
     <div class="ob-sub">Podés agregarlas ahora o más adelante. La agenda te acompaña en cada paso.</div>
-    <button class="ob-btn" onclick="obFinish()">Abrir mi Agenda ✦</button>
+    <button class="ob-btn" onclick="FZ_obFinish()">Abrir mi Agenda ✦</button>
   </div>
 </div>
 
@@ -1177,15 +1177,15 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
         </div>
         <label class="form-label">¿Por qué importa?</label>
         <input class="inp" id="mPorque" placeholder="Mi motivación es...">
-        <button class="btn btn-gold" onclick="addMeta()">✦ Agregar meta</button>
+        <button class="btn btn-gold" onclick="FZ_addMeta()">✦ Agregar meta</button>
       </div>
 
       <div class="inner-tabs" id="metaTabsEl">
-        <div class="inner-tab active" onclick="setMetaFilter('todas',this)">Todas</div>
-        <div class="inner-tab" onclick="setMetaFilter('🏋️ Salud',this)">Salud</div>
-        <div class="inner-tab" onclick="setMetaFilter('💼 Trabajo',this)">Trabajo</div>
-        <div class="inner-tab" onclick="setMetaFilter('💰 Finanzas',this)">$</div>
-        <div class="inner-tab" onclick="setMetaFilter('🎨 Personal',this)">Personal</div>
+        <div class="inner-tab active" onclick="FZ_setMetaFilter('todas',this)">Todas</div>
+        <div class="inner-tab" onclick="FZ_setMetaFilter('🏋️ Salud',this)">Salud</div>
+        <div class="inner-tab" onclick="FZ_setMetaFilter('💼 Trabajo',this)">Trabajo</div>
+        <div class="inner-tab" onclick="FZ_setMetaFilter('💰 Finanzas',this)">$</div>
+        <div class="inner-tab" onclick="FZ_setMetaFilter('🎨 Personal',this)">Personal</div>
       </div>
       <div id="metasList"></div>
     </section>
@@ -1268,9 +1268,9 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 
       <div class="card">
         <div class="cal-nav">
-          <button class="cal-arrow" onclick="changeMonth(-1)">‹</button>
+          <button class="cal-arrow" onclick="FZ_changeMonth(-1)">‹</button>
           <div class="cal-month" id="calMonthLabel">—</div>
-          <button class="cal-arrow" onclick="changeMonth(1)">›</button>
+          <button class="cal-arrow" onclick="FZ_changeMonth(1)">›</button>
         </div>
         <div class="cal-grid" id="calGrid"></div>
       </div>
@@ -1320,8 +1320,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       </div>
 
       <div class="inner-tabs">
-        <div class="inner-tab active" onclick="setBudgetTab('add',this)">+ Agregar</div>
-        <div class="inner-tab" onclick="setBudgetTab('hist',this)">Historial</div>
+        <div class="inner-tab active" onclick="FZ_setBudgetTab('add',this)">+ Agregar</div>
+        <div class="inner-tab" onclick="FZ_setBudgetTab('hist',this)">Historial</div>
       </div>
 
       <div id="budgetAdd">
@@ -1658,7 +1658,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <div class="ob-step-label">Paso 1 de 6</div>
       <div class="ob-title">Por fin sabrás a dónde va tu dinero.</div>
       <div class="ob-desc">Control total de tus gastos, suscripciones, tarjetas y metas. Todo en tu dispositivo, sin que nadie vea tus datos.</div>
-      <div class="ob-nav"><div></div><button class="btn btn-primary" onclick="obGo(2)">Empezar →</button></div>
+      <div class="ob-nav"><div></div><button class="btn btn-primary" onclick="FZ_obGo(2)">Empezar →</button></div>
     </div>
 
     <div class="ob-step-content" id="obs-2">
@@ -1676,8 +1676,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
         </div>
       </div>
       <div class="ob-nav">
-        <button class="btn btn-ghost" onclick="obGo(1)">← Atrás</button>
-        <button class="btn btn-primary" onclick="obGo(3)">Continuar →</button>
+        <button class="btn btn-ghost" onclick="FZ_obGo(1)">← Atrás</button>
+        <button class="btn btn-primary" onclick="FZ_obGo(3)">Continuar →</button>
       </div>
     </div>
 
@@ -1686,12 +1686,12 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <div class="ob-title">¿Tienes vehículo?</div>
       <div class="ob-desc">Activamos el módulo de gastos del coche si lo necesitas.</div>
       <div class="ob-toggle-wrap" id="ob-car-wrap">
-        <div class="ob-toggle selected" id="ob-car-no" onclick="selectCar(false)"><span class="tog-icon">🚶</span>No tengo</div>
-        <div class="ob-toggle" id="ob-car-yes" onclick="selectCar(true)"><span class="tog-icon">🚗</span>Sí tengo</div>
+        <div class="ob-toggle selected" id="ob-car-no" onclick="FZ_selectCar(false)"><span class="tog-icon">🚶</span>No tengo</div>
+        <div class="ob-toggle" id="ob-car-yes" onclick="FZ_selectCar(true)"><span class="tog-icon">🚗</span>Sí tengo</div>
       </div>
       <div class="ob-nav" style="margin-top:16px">
-        <button class="btn btn-ghost" onclick="obGo(2)">← Atrás</button>
-        <button class="btn btn-primary" onclick="obGo(4)">Continuar →</button>
+        <button class="btn btn-ghost" onclick="FZ_obGo(2)">← Atrás</button>
+        <button class="btn btn-primary" onclick="FZ_obGo(4)">Continuar →</button>
       </div>
     </div>
 
@@ -1700,8 +1700,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <div class="ob-title">¿Tienes tarjeta de crédito?</div>
       <div class="ob-desc">Controlamos cuotas pendientes, límite y gastos.</div>
       <div class="ob-toggle-wrap" id="ob-cc-wrap">
-        <div class="ob-toggle selected" id="ob-cc-no" onclick="selectCC(false)"><span class="tog-icon">🚫</span>No tengo</div>
-        <div class="ob-toggle" id="ob-cc-yes" onclick="selectCC(true)"><span class="tog-icon">💳</span>Sí tengo</div>
+        <div class="ob-toggle selected" id="ob-cc-no" onclick="FZ_selectCC(false)"><span class="tog-icon">🚫</span>No tengo</div>
+        <div class="ob-toggle" id="ob-cc-yes" onclick="FZ_selectCC(true)"><span class="tog-icon">💳</span>Sí tengo</div>
       </div>
       <div id="ob-cc-fields" style="display:none;margin-top:16px">
         <div class="form-row">
@@ -1720,8 +1720,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
         </div>
       </div>
       <div class="ob-nav" style="margin-top:16px">
-        <button class="btn btn-ghost" onclick="obGo(3)">← Atrás</button>
-        <button class="btn btn-primary" onclick="obGo(5)">Continuar →</button>
+        <button class="btn btn-ghost" onclick="FZ_obGo(3)">← Atrás</button>
+        <button class="btn btn-primary" onclick="FZ_obGo(5)">Continuar →</button>
       </div>
     </div>
 
@@ -1732,8 +1732,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <div class="ob-sub-grid" id="ob-subs-grid"></div>
       <div id="ob-subs-prices" style="margin-top:12px"></div>
       <div class="ob-nav" style="margin-top:4px">
-        <button class="btn btn-ghost" onclick="obGo(4)">← Atrás</button>
-        <button class="btn btn-primary" onclick="obGo(6)">Continuar →</button>
+        <button class="btn btn-ghost" onclick="FZ_obGo(4)">← Atrás</button>
+        <button class="btn btn-primary" onclick="FZ_obGo(6)">Continuar →</button>
       </div>
     </div>
 
@@ -1743,8 +1743,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <div class="ob-desc">Personalizamos alertas y consejos para ti.</div>
       <div id="ob-goals-list"></div>
       <div class="ob-nav">
-        <button class="btn btn-ghost" onclick="obGo(5)">← Atrás</button>
-        <button class="btn btn-primary" onclick="finishOnboarding()">¡Entrar a mis finanzas! 🚀</button>
+        <button class="btn btn-ghost" onclick="FZ_obGo(5)">← Atrás</button>
+        <button class="btn btn-primary" onclick="FZ_finishOnboarding()">¡Entrar a mis finanzas! 🚀</button>
       </div>
     </div>
 
@@ -1792,7 +1792,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
           <div class="page-title">Resumen <span style="color:var(--green)" id="dash-month-title"></span></div>
           <div class="page-subtitle">Tu panorama financiero del mes</div>
         </div>
-        <button class="btn btn-primary" onclick="openModal('gasto')">+ Registrar</button>
+        <button class="btn btn-primary" onclick="FZ_openModal('gasto')">+ Registrar</button>
       </div>
       <div id="dash-semaforo" class="semaforo sem-green"><span>🟢</span><span id="sem-text">Cargando...</span></div>
       <div class="grid-4" id="stat-cards"></div>
@@ -1846,12 +1846,12 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
           <div class="page-title">Gastos</div>
           <div class="page-subtitle" id="gastos-sub">Todos tus movimientos</div>
         </div>
-        <button class="btn btn-primary" onclick="openModal('gasto')">+ Nuevo</button>
+        <button class="btn btn-primary" onclick="FZ_openModal('gasto')">+ Nuevo</button>
       </div>
       <div class="tabs">
-        <button class="tab active" onclick="filterTx('todos',this)">Todos</button>
-        <button class="tab" onclick="filterTx('gasto',this)">Gastos</button>
-        <button class="tab" onclick="filterTx('ingreso',this)">Ingresos</button>
+        <button class="tab active" onclick="FZ_filterTx('todos',this)">Todos</button>
+        <button class="tab" onclick="FZ_filterTx('gasto',this)">Gastos</button>
+        <button class="tab" onclick="FZ_filterTx('ingreso',this)">Ingresos</button>
       </div>
       <div class="card"><div id="all-tx"></div></div>
     </div>
@@ -1860,7 +1860,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
     <div class="page" id="page-presupuesto">
       <div class="page-header">
         <div><div class="page-title">Presupuesto</div><div class="page-subtitle">Control por categorías</div></div>
-        <button class="btn btn-ghost" onclick="openModal('presupuesto')">⚙️ Configurar límites</button>
+        <button class="btn btn-ghost" onclick="FZ_openModal('presupuesto')">⚙️ Configurar límites</button>
       </div>
       <div class="grid-2" id="budget-cards"></div>
     </div>
@@ -1869,7 +1869,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
     <div class="page" id="page-suscripciones">
       <div class="page-header">
         <div><div class="page-title">Suscripciones</div><div class="page-subtitle" id="subs-sub">Tus pagos recurrentes</div></div>
-        <button class="btn btn-primary" onclick="openModal('suscripcion')">+ Agregar</button>
+        <button class="btn btn-primary" onclick="FZ_openModal('suscripcion')">+ Agregar</button>
       </div>
       <div class="card"><div id="subs-list"></div></div>
     </div>
@@ -1879,9 +1879,9 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <div class="page-header">
         <div><div class="page-title">Tarjetas de crédito</div><div class="page-subtitle">Control de gastos y cuotas</div></div>
         <div style="display:flex;gap:8px">
-          <button class="btn btn-ghost" onclick="openModal('cuota')">+ Cuota</button>
-          <button class="btn btn-ghost" onclick="openModal('cc-gasto')">+ Gasto</button>
-          <button class="btn btn-primary" onclick="openModal('add-card')">+ Tarjeta</button>
+          <button class="btn btn-ghost" onclick="FZ_openModal('cuota')">+ Cuota</button>
+          <button class="btn btn-ghost" onclick="FZ_openModal('cc-gasto')">+ Gasto</button>
+          <button class="btn btn-primary" onclick="FZ_openModal('add-card')">+ Tarjeta</button>
         </div>
       </div>
       <div id="cc-visual"></div>
@@ -1902,7 +1902,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
     <div class="page" id="page-vehiculo">
       <div class="page-header">
         <div><div class="page-title">Vehículo</div><div class="page-subtitle">Gastos de tu coche</div></div>
-        <button class="btn btn-primary" onclick="openModal('vehiculo')">+ Registrar</button>
+        <button class="btn btn-primary" onclick="FZ_openModal('vehiculo')">+ Registrar</button>
       </div>
       <div class="grid-3" id="vehicle-stats" style="margin-bottom:20px"></div>
       <div class="card"><div id="vehicle-list"></div></div>
@@ -1912,7 +1912,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
     <div class="page" id="page-metas">
       <div class="page-header">
         <div><div class="page-title">Metas de ahorro</div><div class="page-subtitle">Tus objetivos financieros</div></div>
-        <button class="btn btn-primary" onclick="openModal('meta')">+ Nueva meta</button>
+        <button class="btn btn-primary" onclick="FZ_openModal('meta')">+ Nueva meta</button>
       </div>
       <div class="card"><div id="metas-list"></div></div>
     </div>
@@ -1928,7 +1928,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
         <div style="font-size:.95rem;font-weight:600;margin-bottom:4px">💾 Copia de seguridad</div>
         <div style="font-size:.8rem;color:var(--text2);margin-bottom:16px;line-height:1.5">Exporta todos tus datos a un archivo JSON. Guárdalo en un lugar seguro y úsalo para restaurar si cambias de dispositivo o navegador.</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <button class="btn btn-primary" onclick="exportJSON()">💾 Exportar datos (.json)</button>
+          <button class="btn btn-primary" onclick="FZ_exportJSON()">💾 Exportar datos (.json)</button>
           <label class="btn btn-ghost" style="cursor:pointer">
             📂 Importar datos
             <input type="file" accept=".json" style="display:none" onchange="importJSON(this)">
@@ -1941,7 +1941,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <div class="card" style="margin-bottom:16px">
         <div style="font-size:.95rem;font-weight:600;margin-bottom:4px">📄 Informe mensual</div>
         <div style="font-size:.8rem;color:var(--text2);margin-bottom:16px;line-height:1.5">Genera un informe visual del mes actual con todos tus gastos, ingresos y resumen. Puedes guardarlo como PDF desde el diálogo de impresión de tu navegador.</div>
-        <button class="btn btn-ghost" onclick="generarInforme()">📄 Ver informe de <span id="btn-informe-mes"></span></button>
+        <button class="btn btn-ghost" onclick="FZ_generarInforme()">📄 Ver informe de <span id="btn-informe-mes"></span></button>
       </div>
 
       <!-- Config moneda -->
@@ -1950,7 +1950,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
         <div style="font-size:.8rem;color:var(--text2);margin-bottom:12px">Símbolo que aparece en todos los importes.</div>
         <div style="display:flex;gap:10px;align-items:center">
           <input type="text" class="form-input" id="cfg-currency" style="width:100px" maxlength="5" placeholder="€">
-          <button class="btn btn-primary btn-sm" onclick="saveCurrency()">Guardar</button>
+          <button class="btn btn-primary btn-sm" onclick="FZ_saveCurrency()">Guardar</button>
         </div>
       </div>
 
@@ -1958,7 +1958,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <div class="card" style="border-color:rgba(248,113,113,.2)">
         <div style="font-size:.95rem;font-weight:600;margin-bottom:4px;color:var(--red)">⚠️ Zona de peligro</div>
         <div style="font-size:.8rem;color:var(--text2);margin-bottom:14px">Elimina todos tus datos y vuelve al inicio. Esta acción no se puede deshacer.</div>
-        <button class="btn btn-danger" onclick="resetApp()">🗑️ Borrar todos los datos</button>
+        <button class="btn btn-danger" onclick="FZ_resetApp()">🗑️ Borrar todos los datos</button>
       </div>
     </div>
 
@@ -1974,8 +1974,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
   <div class="modal">
     <div class="modal-title">Registrar movimiento</div>
     <div class="tabs">
-      <button class="tab active" onclick="setTxType('gasto',this)">💸 Gasto</button>
-      <button class="tab" onclick="setTxType('ingreso',this)">💰 Ingreso</button>
+      <button class="tab active" onclick="FZ_setTxType('gasto',this)">💸 Gasto</button>
+      <button class="tab" onclick="FZ_setTxType('ingreso',this)">💰 Ingreso</button>
     </div>
     <div class="form-group">
       <label class="form-label">Importe</label>
@@ -1994,8 +1994,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <input type="date" class="form-input" id="tx-date">
     </div>
     <div class="form-actions">
-      <button class="btn btn-ghost" style="flex:1" onclick="closeModal('gasto')">Cancelar</button>
-      <button class="btn btn-primary" style="flex:2" onclick="saveTx()">Guardar</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="FZ_closeModal('gasto')">Cancelar</button>
+      <button class="btn btn-primary" style="flex:2" onclick="FZ_saveTx()">Guardar</button>
     </div>
   </div>
 </div>
@@ -2034,8 +2034,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <input type="date" class="form-input" id="sub-renew">
     </div>
     <div class="form-actions">
-      <button class="btn btn-ghost" style="flex:1" onclick="closeModal('suscripcion')">Cancelar</button>
-      <button class="btn btn-primary" style="flex:2" onclick="saveSub()">Guardar</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="FZ_closeModal('suscripcion')">Cancelar</button>
+      <button class="btn btn-primary" style="flex:2" onclick="FZ_saveSub()">Guardar</button>
     </div>
   </div>
 </div>
@@ -2063,8 +2063,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <div class="cat-grid" id="cc-cat-grid"></div>
     </div>
     <div class="form-actions">
-      <button class="btn btn-ghost" style="flex:1" onclick="closeModal('cc-gasto')">Cancelar</button>
-      <button class="btn btn-primary" style="flex:2" onclick="saveCCGasto()">Guardar</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="FZ_closeModal('cc-gasto')">Cancelar</button>
+      <button class="btn btn-primary" style="flex:2" onclick="FZ_saveCCGasto()">Guardar</button>
     </div>
   </div>
 </div>
@@ -2102,7 +2102,7 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       </div>
     </div>
     <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeModal('add-card')">Cancelar</button>
+      <button class="btn btn-ghost" onclick="FZ_closeModal('add-card')">Cancelar</button>
       <button class="btn btn-primary" onclick="saveCard()">Guardar tarjeta</button>
     </div>
   </div>
@@ -2130,8 +2130,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <input type="number" class="form-input" id="cuota-day" placeholder="15" min="1" max="31">
     </div>
     <div class="form-actions">
-      <button class="btn btn-ghost" style="flex:1" onclick="closeModal('cuota')">Cancelar</button>
-      <button class="btn btn-primary" style="flex:2" onclick="saveCuota()">Guardar</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="FZ_closeModal('cuota')">Cancelar</button>
+      <button class="btn btn-primary" style="flex:2" onclick="FZ_saveCuota()">Guardar</button>
     </div>
   </div>
 </div>
@@ -2167,8 +2167,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <input type="text" class="form-input" id="veh-notes" placeholder="Ej: Full tank 45L, Taller Pepe...">
     </div>
     <div class="form-actions">
-      <button class="btn btn-ghost" style="flex:1" onclick="closeModal('vehiculo')">Cancelar</button>
-      <button class="btn btn-primary" style="flex:2" onclick="saveVehiculo()">Guardar</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="FZ_closeModal('vehiculo')">Cancelar</button>
+      <button class="btn btn-primary" style="flex:2" onclick="FZ_saveVehiculo()">Guardar</button>
     </div>
   </div>
 </div>
@@ -2202,8 +2202,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <input type="date" class="form-input" id="meta-date">
     </div>
     <div class="form-actions">
-      <button class="btn btn-ghost" style="flex:1" onclick="closeModal('meta')">Cancelar</button>
-      <button class="btn btn-primary" style="flex:2" onclick="saveMeta()">Guardar</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="FZ_closeModal('meta')">Cancelar</button>
+      <button class="btn btn-primary" style="flex:2" onclick="FZ_saveMeta()">Guardar</button>
     </div>
   </div>
 </div>
@@ -2214,8 +2214,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
     <div class="modal-title">Límites de presupuesto</div>
     <div id="budget-form" style="max-height:60vh;overflow-y:auto"></div>
     <div class="form-actions">
-      <button class="btn btn-ghost" style="flex:1" onclick="closeModal('presupuesto')">Cancelar</button>
-      <button class="btn btn-primary" style="flex:2" onclick="saveBudgets()">Guardar</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="FZ_closeModal('presupuesto')">Cancelar</button>
+      <button class="btn btn-primary" style="flex:2" onclick="FZ_saveBudgets()">Guardar</button>
     </div>
   </div>
 </div>
@@ -2574,7 +2574,7 @@ function getMonday(d){
 
 // ══════ ONBOARDING ══════
 let obStep=0;
-function obNext(){
+function FZ_obNext(){
   if(obStep===0){obStep=1;showOb(1);return}
   if(obStep===1){
     const n=document.getElementById('obName').value.trim();
@@ -2587,7 +2587,7 @@ function showOb(i){
   document.querySelectorAll('.ob-step').forEach((s,j)=>{s.classList.toggle('active',j===i)});
   document.querySelectorAll('.ob-dot').forEach((d,j)=>{d.classList.toggle('active',j===i)});
 }
-function obFinish(){
+function FZ_obFinish(){
   document.getElementById('onboarding').style.display='none';
   document.getElementById('app').classList.add('visible');
   initApp();
@@ -2742,13 +2742,13 @@ function renderHome(){
 
 // ══════ METAS ══════
 let metaFilter='todas';
-function setMetaFilter(f,el){
+function FZ_setMetaFilter(f,el){
   metaFilter=f;
   document.querySelectorAll('#metaTabsEl .inner-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
   renderMetas();
 }
-function addMeta(){
+function FZ_addMeta(){
   const n=document.getElementById('mNombre').value.trim();if(!n)return;
   const metas=S.g('metas',[]);
   metas.push({
@@ -2781,7 +2781,7 @@ function renderMetas(){
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
           <div class="meta-pct-big">${m.pct}%</div>
-          <button class="del-btn" onclick="delMeta(${i})">🗑</button>
+          <button class="del-btn" onclick="FZ_delMeta(${i})">🗑</button>
         </div>
       </div>
       <div class="prog-bar"><div class="prog-fill ${c}" style="width:${m.pct}%"></div></div>
@@ -2792,7 +2792,7 @@ function renderMetas(){
 function updateMeta(i,v){
   const m=S.g('metas',[]);m[i].pct=parseInt(v);S.s('metas',m);renderMetas();
 }
-function delMeta(i){const m=S.g('metas',[]);m.splice(i,1);S.s('metas',m);renderMetas();toast('Meta eliminada');}
+function FZ_delMeta(i){const m=S.g('metas',[]);m.splice(i,1);S.s('metas',m);renderMetas();toast('Meta eliminada');}
 
 // ══════ HÁBITOS ══════
 function addHabit(){
@@ -2881,7 +2881,7 @@ function saveRef(){
 
 // ══════ CALENDARIO ══════
 let calY=TODAY.getFullYear(),calM=TODAY.getMonth();
-function changeMonth(d){
+function FZ_changeMonth(d){
   calM+=d;if(calM<0){calM=11;calY--;}if(calM>11){calM=0;calY++;}
   renderMes();
 }
@@ -2922,7 +2922,7 @@ function delEvent(i){const e=S.g('events',[]);e.splice(i,1);S.s('events',e);rend
 
 // ══════ PRESUPUESTO ══════
 let budgetTab='add';
-function setBudgetTab(t,el){
+function FZ_setBudgetTab(t,el){
   budgetTab=t;
   document.querySelectorAll('#page-presupuesto .inner-tab').forEach(x=>x.classList.remove('active'));
   el.classList.add('active');
@@ -2964,10 +2964,10 @@ function renderTxList(){
       <div class="tx-icon" style="background:${t.tipo==='ing'?'#122018':'#201210'}">${t.cat.split(' ')[0]}</div>
       <div class="tx-body"><div class="tx-desc">${t.desc}</div><div class="tx-cat">${t.cat} · ${fmtDate(t.fecha)}</div></div>
       <div class="tx-amount ${t.tipo==='ing'?'tx-pos':'tx-neg'}">${t.tipo==='ing'?'+':'-'}$${t.monto.toLocaleString('es-AR')}</div>
-      <button class="del-btn" onclick="delTx(${txs.length-1-i})">🗑</button>
+      <button class="del-btn" onclick="FZ_delTx(${txs.length-1-i})">🗑</button>
     </div>`).join('')+'</div>';
 }
-function delTx(i){const t=S.g('txs',[]);t.splice(i,1);S.s('txs',t);renderPresupuesto();renderTxList();}
+function FZ_delTx(i){const t=S.g('txs',[]);t.splice(i,1);S.s('txs',t);renderPresupuesto();renderTxList();}
 
 // ══════ VIAJES ══════
 function addViaje(){
@@ -3438,7 +3438,39 @@ function doRestore(event){
   reader.readAsText(file);
 }</script>
 
-<script>// ======= CATEGORIES =======
+<script>
+// ── CLOUD SYNC ──
+const FZ_DEBOUNCE={};
+function FZ_cloudSave(val){
+  const sess=window.getSession&&getSession();
+  if(!sess)return;
+  clearTimeout(FZ_DEBOUNCE.fz);
+  FZ_DEBOUNCE.fz=setTimeout(async()=>{
+    try{
+      await fetch(SUPA_URL+'/rest/v1/datos_finanzas',{
+        method:'POST',
+        headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+sess.access_token,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+        body:JSON.stringify({user_id:sess.user.id,valor:val,updated_at:new Date().toISOString()})
+      });
+    }catch(e){}
+  },1500);
+}
+async function FZ_cloudLoad(){
+  const sess=window.getSession&&getSession();
+  if(!sess)return;
+  try{
+    const r=await fetch(SUPA_URL+'/rest/v1/datos_finanzas?user_id=eq.'+sess.user.id+'&select=valor',{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+sess.access_token}
+    });
+    const rows=await r.json();
+    if(Array.isArray(rows)&&rows[0]&&rows[0].valor){
+      localStorage.setItem('fz_v2',JSON.stringify(rows[0].valor));
+      S=rows[0].valor;
+    }
+  }catch(e){}
+}
+
+// ======= CATEGORIES =======
 const CATS = [
   {id:'vivienda',l:'Vivienda',e:'🏠',c:'#60a5fa'},
   {id:'alimentacion',l:'Alimentación',e:'🛒',c:'#4ade80'},
@@ -3469,7 +3501,7 @@ const GOALS_LIST = [
 ];
 
 // ======= STATE =======
-function defaultState() {
+function FZ_defaultState() {
   return { onboarded:false, currency:'$', income:0, hasCar:false, hasCC:false,
     ccData:{bank:'',limit:0,digits:''},
     cards:[],
@@ -3477,7 +3509,7 @@ function defaultState() {
     ccTransactions:[], ccCuotas:[], goals:[], budgets:{} };
 }
 
-let FZ_S = (() => { try { return JSON.parse(localStorage.getItem('fz_v2')) || defaultState(); } catch(e) { return defaultState(); } })();
+let S = (() => { try { return JSON.parse(localStorage.getItem('fz_v2')) || FZ_defaultState(); } catch(e) { return FZ_defaultState(); } })();
 let curMonth = new Date().getMonth();
 let curYear = new Date().getFullYear();
 let txType = 'gasto';
@@ -3485,7 +3517,7 @@ let selCat = '';
 let ccSelCat = '';
 let txFilter = 'todos';
 
-function save() { localStorage.setItem('fz_v2', JSON.stringify(S)); if(window.cloudSaveDebounced)cloudSaveDebounced('datos_finanzas','fz_v2',S); }
+function FZ_save() { localStorage.setItem('fz_v2', JSON.stringify(S)); FZ_cloudSave(S); }
 
 // ======= ONBOARDING =======
 let obCur = 1;
@@ -3495,7 +3527,7 @@ let obHasCC = false;
 let obSelSubs = {};
 let obSelGoal = '';
 
-function initOB() {
+function FZ_initOB() {
   // dots
   const dc = document.getElementById('ob-dots');
   for (let i=1;i<=OB_TOTAL;i++) {
@@ -3512,7 +3544,7 @@ function initOB() {
       el.classList.toggle('selected');
       if (el.classList.contains('selected')) obSelSubs[s.name] = {name:s.name, icon:s.icon, price:0};
       else delete obSelSubs[s.name];
-      renderSubPrices();
+      FZ_renderSubPrices();
     };
     sg.appendChild(el);
   });
@@ -3527,7 +3559,7 @@ function initOB() {
   });
 }
 
-function renderSubPrices() {
+function FZ_renderSubPrices() {
   const el = document.getElementById('ob-subs-prices');
   const subs = Object.values(obSelSubs);
   if (subs.length === 0) { el.innerHTML=''; return; }
@@ -3538,7 +3570,7 @@ function renderSubPrices() {
     </div>`).join('');
 }
 
-function obGo(step) {
+function FZ_obGo(step) {
   document.getElementById(`obs-${obCur}`).classList.remove('active');
   obCur = step;
   document.getElementById(`obs-${obCur}`).classList.add('active');
@@ -3548,38 +3580,38 @@ function obGo(step) {
   }
 }
 
-function selectCar(v) {
+function FZ_selectCar(v) {
   obHasCar = v;
   document.getElementById('ob-car-yes').classList.toggle('selected',v);
   document.getElementById('ob-car-no').classList.toggle('selected',!v);
 }
 
-function selectCC(v) {
+function FZ_selectCC(v) {
   obHasCC = v;
   document.getElementById('ob-cc-yes').classList.toggle('selected',v);
   document.getElementById('ob-cc-no').classList.toggle('selected',!v);
   document.getElementById('ob-cc-fields').style.display = v ? 'block' : 'none';
 }
 
-function finishOnboarding() {
-  FZ_S.onboarded = true;
-  FZ_S.currency = document.getElementById('ob-currency').value.trim() || '€';
-  FZ_S.income = parseFloat(document.getElementById('ob-income').value) || 0;
-  FZ_S.hasCar = obHasCar;
-  FZ_S.hasCC = obHasCC;
+function FZ_finishOnboarding() {
+  S.onboarded = true;
+  S.currency = document.getElementById('ob-currency').value.trim() || '€';
+  S.income = parseFloat(document.getElementById('ob-income').value) || 0;
+  S.hasCar = obHasCar;
+  S.hasCC = obHasCC;
   if (obHasCC) {
-    FZ_S.ccData = {
+    S.ccData = {
       bank: document.getElementById('ob-cc-bank').value.trim() || 'Mi Tarjeta',
       limit: parseFloat(document.getElementById('ob-cc-limit').value) || 0,
       digits: document.getElementById('ob-cc-digits').value.trim() || '****',
     };
   }
-  FZ_S.goal = obSelGoal;
+  S.goal = obSelGoal;
   // add subs
   Object.values(obSelSubs).forEach(s => {
-    FZ_S.subscriptions.push({ id:uid(), name:s.name, icon:s.icon, price:s.price||0, freq:'mensual', renew:futureDate(1) });
+    S.subscriptions.push({ id:FZ_uid(), name:s.name, icon:s.icon, price:s.price||0, freq:'mensual', renew:FZ_futureDate(1) });
   });
-  save();
+  FZ_save();
   document.getElementById('onboarding').classList.add('hidden');
   FZ_initApp();
 }
@@ -3592,12 +3624,12 @@ function FZ_showPage(id) {
   document.getElementById(`page-${id}`).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>{ if(n.getAttribute('onclick')?.includes(`'${id}'`)) n.classList.add('active'); });
-  renderPage(id);
+  FZ_renderPage(id);
 }
 
-function curPage() { const p=document.querySelector('.page.active'); return p?p.id.replace('page-',''):'dashboard'; }
+function FZ_curPage() { const p=document.querySelector('.page.active'); return p?p.id.replace('page-',''):'dashboard'; }
 
-function renderPage(id) {
+function FZ_renderPage(id) {
   const map = {dashboard:renderDash, gastos:renderGastos, presupuesto:renderPresupuesto,
     suscripciones:renderSubs, tarjeta:renderTarjeta, vehiculo:renderVehiculo, metas:renderMetas, ajustes:renderAjustes};
   map[id]?.();
@@ -3607,25 +3639,25 @@ function FZ_changeMonth(d) {
   curMonth += d;
   if(curMonth>11){curMonth=0;curYear++;} if(curMonth<0){curMonth=11;curYear--;}
   document.getElementById('month-label').textContent = MONTHS[curMonth].slice(0,3)+' '+curYear;
-  renderPage(curPage());
+  FZ_renderPage(FZ_curPage());
 }
 
-function monthTxs() {
-  return FZ_S.transactions.filter(t=>{ const d=new Date(t.date); return d.getMonth()===curMonth&&d.getFullYear()===curYear; });
+function FZ_monthTxs() {
+  return S.transactions.filter(t=>{ const d=new Date(t.date); return d.getMonth()===curMonth&&d.getFullYear()===curYear; });
 }
 
 // ======= DASHBOARD =======
-function renderDash() {
-  const txs = monthTxs();
+function FZ_renderDash() {
+  const txs = FZ_monthTxs();
   const gastos = txs.filter(t=>t.type==='gasto');
   const ingresos = txs.filter(t=>t.type==='ingreso');
-  const tGasto = sum(gastos);
-  const tIngreso = sum(ingresos) + (FZ_S.income||0);
+  const tGasto = FZ_sum(gastos);
+  const tIngreso = FZ_sum(ingresos) + (S.income||0);
   const balance = tIngreso - tGasto;
-  const subsCost = FZ_S.subscriptions.reduce((a,s)=>a+mPrice(s),0);
-  const ccGastos = FZ_S.ccTransactions.filter(t=>{ const d=new Date(t.date); return d.getMonth()===curMonth&&d.getFullYear()===curYear; });
-  const tCC = sum(ccGastos);
-  const cuotasMes = FZ_S.ccCuotas.reduce((a,c)=>a+(c.remaining>0?c.amount:0),0);
+  const subsCost = S.subscriptions.reduce((a,s)=>a+FZ_mPrice(s),0);
+  const ccGastos = S.ccTransactions.filter(t=>{ const d=new Date(t.date); return d.getMonth()===curMonth&&d.getFullYear()===curYear; });
+  const tCC = FZ_sum(ccGastos);
+  const cuotasMes = S.ccCuotas.reduce((a,c)=>a+(c.remaining>0?c.amount:0),0);
 
   document.getElementById('dash-month-title').textContent = MONTHS[curMonth];
 
@@ -3644,56 +3676,56 @@ function renderDash() {
       <div class="stat-sub">${gastos.length} movimientos</div></div>
     <div class="card" style="position:relative"><div class="stat-icon">💰</div>
       <div class="stat-label">Ingresos</div><div class="stat-amount green">${FZ_fmt(tIngreso)}</div>
-      <div class="stat-sub">${FZ_S.income>0?'Salario incluido':ingresos.length+' registros'}</div></div>
+      <div class="stat-sub">${S.income>0?'Salario incluido':ingresos.length+' registros'}</div></div>
     <div class="card" style="position:relative"><div class="stat-icon">${balance>=0?'📈':'📉'}</div>
       <div class="stat-label">Balance</div><div class="stat-amount ${balance>=0?'green':'red'}">${FZ_fmt(balance)}</div>
       <div class="stat-sub">${balance>=0?'✓ Positivo':'✗ Negativo'}</div></div>`;
-  if (FZ_S.hasCC) {
+  if (S.hasCC) {
     statsHTML += `<div class="card" style="position:relative"><div class="stat-icon">💳</div>
       <div class="stat-label">Tarjeta + Cuotas</div><div class="stat-amount purple">${FZ_fmt(tCC+cuotasMes)}</div>
       <div class="stat-sub">${FZ_fmt(cuotasMes)} en cuotas</div></div>`;
   } else {
     statsHTML += `<div class="card" style="position:relative"><div class="stat-icon">📱</div>
       <div class="stat-label">Suscripciones</div><div class="stat-amount amber">${FZ_fmt(subsCost)}</div>
-      <div class="stat-sub">${FZ_S.subscriptions.length} activas/mes</div></div>`;
+      <div class="stat-sub">${S.subscriptions.length} activas/mes</div></div>`;
   }
   document.getElementById('stat-cards').innerHTML = statsHTML;
 
   // Score
-  const score = calcScore(txs, pct);
+  const score = FZ_calcScore(txs, pct);
   const ringFill = document.getElementById('ring-fill');
   const circ = 201;
   ringFill.style.strokeDashoffset = circ - (circ*score/100);
   ringFill.style.stroke = score>=70?'var(--green)':score>=40?'var(--amber)':'var(--red)';
   document.getElementById('score-num').textContent = score;
   document.getElementById('score-num').className = 'score-num '+(score>=70?'green':score>=40?'amber':'red');
-  document.getElementById('score-desc').textContent = scoreMsg(score);
+  document.getElementById('score-desc').textContent = FZ_scoreMsg(score);
 
   // Recent
-  const rec = [...FZ_S.transactions].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
-  document.getElementById('recent-tx').innerHTML = rec.length ? rec.map(t=>txHTML(t)).join('') : emptyState('💸','Aún sin movimientos.<br>¡Registra tu primer gasto!');
+  const rec = [...S.transactions].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
+  document.getElementById('recent-tx').innerHTML = rec.length ? rec.map(t=>FZ_txHTML(t)).join('') : FZ_emptyState('💸','Aún sin movimientos.<br>¡Registra tu primer gasto!');
 
-  renderDonut(gastos);
-  renderStreak();
-  renderAlerts(txs, subsCost, pct, cuotasMes);
+  FZ_renderDonut(gastos);
+  FZ_renderStreak();
+  FZ_renderAlerts(txs, subsCost, pct, cuotasMes);
 }
 
-function calcScore(txs, pct) {
+function FZ_calcScore(txs, pct) {
   let s=55;
   if(pct<0.7) s+=25; else if(pct<0.9) s+=10; else s-=10;
   const days = new Set(txs.map(t=>t.date)).size;
   s += Math.min(days*2,20);
-  if(FZ_S.goals.length>0) s += Math.round(FZ_S.goals.filter(g=>g.saved>=g.target*.1).length/FZ_S.goals.length*15);
+  if(S.goals.length>0) s += Math.round(S.goals.filter(g=>g.saved>=g.target*.1).length/S.goals.length*15);
   return Math.max(0,Math.min(100,s));
 }
-function scoreMsg(s) {
+function FZ_scoreMsg(s) {
   if(s>=80) return '¡Excelente! Lo estás haciendo muy bien.';
   if(s>=60) return 'Buen control. Hay margen de mejora.';
   if(s>=40) return 'Regular. Registra más y ajusta gastos.';
   return 'Mes difícil. ¡El próximo mejor!';
 }
 
-function renderDonut(gastos) {
+function FZ_renderDonut(gastos) {
   const byCat = {};
   gastos.forEach(t=>{ byCat[t.category]=(byCat[t.category]||0)+t.amount; });
   const total = Object.values(byCat).reduce((a,b)=>a+b,0);
@@ -3714,9 +3746,9 @@ function renderDonut(gastos) {
   svg.innerHTML=svgH; legend.innerHTML=legH;
 }
 
-function renderStreak() {
+function FZ_renderStreak() {
   const today=new Date(), wrap=document.getElementById('streak-days');
-  const days=[], daysWithTx=new Set(FZ_S.transactions.map(t=>t.date));
+  const days=[], daysWithTx=new Set(S.transactions.map(t=>t.date));
   for(let i=6;i>=0;i--){ const d=new Date(today); d.setDate(d.getDate()-i); days.push(d.toISOString().split('T')[0]); }
   const DAY=['D','L','M','X','J','V','S'];
   wrap.innerHTML=days.map(d=>{
@@ -3731,18 +3763,18 @@ function renderStreak() {
   document.getElementById('streak-text').textContent = streak===0 ? 'Registra hoy para iniciar tu racha 🔥' : `${streak} día${streak>1?'s':''} seguidos registrando 🔥`;
 }
 
-function renderAlerts(txs, subsCost, pct, cuotasMes) {
+function FZ_renderAlerts(txs, subsCost, pct, cuotasMes) {
   const alerts=[], today=new Date();
   // Subs proximas
-  FZ_S.subscriptions.forEach(s=>{
+  S.subscriptions.forEach(s=>{
     if(!s.renew) return;
     const diff=Math.ceil((new Date(s.renew)-today)/(864e5));
     if(diff>=0&&diff<=5) alerts.push({t:'amber',m:`📱 <b>${s.name}</b> renueva en ${diff} días (${FZ_fmt(s.price)})`});
   });
   // Budget
-  Object.entries(FZ_S.budgets).forEach(([cid,bud])=>{
+  Object.entries(S.budgets).forEach(([cid,bud])=>{
     if(!bud||bud<=0) return;
-    const spent=sum(txs.filter(t=>t.category===cid&&t.type==='gasto'));
+    const spent=FZ_sum(txs.filter(t=>t.category===cid&&t.type==='gasto'));
     const p=spent/bud, cat=CATS.find(c=>c.id===cid);
     if(p>=1) alerts.push({t:'red',m:`${cat?.e} <b>${cat?.l}</b>: ¡Presupuesto superado! ${FZ_fmt(spent)} de ${FZ_fmt(bud)}`});
     else if(p>=0.8) alerts.push({t:'amber',m:`${cat?.e} <b>${cat?.l}</b>: ${Math.round(p*100)}% del presupuesto usado`});
@@ -3758,17 +3790,17 @@ function renderAlerts(txs, subsCost, pct, cuotasMes) {
 }
 
 // ======= GASTOS =======
-function filterTx(f,btn) { txFilter=f; document.querySelectorAll('#page-gastos .tab').forEach(t=>t.classList.remove('active')); btn.classList.add('active'); renderGastos(); }
+function FZ_filterTx(f,btn) { txFilter=f; document.querySelectorAll('#page-gastos .tab').forEach(t=>t.classList.remove('active')); btn.classList.add('active'); FZ_renderGastos(); }
 
-function renderGastos() {
-  let txs = monthTxs();
+function FZ_renderGastos() {
+  let txs = FZ_monthTxs();
   if(txFilter!=='todos') txs=txs.filter(t=>t.type===txFilter);
   txs.sort((a,b)=>new Date(b.date)-new Date(a.date));
   document.getElementById('gastos-sub').textContent = `${txs.length} movimiento${txs.length!==1?'s':''} — ${MONTHS[curMonth]} ${curYear}`;
-  document.getElementById('all-tx').innerHTML = txs.length ? txs.map(t=>txHTML(t,true)).join('') : emptyState('💸','Sin movimientos este mes.');
+  document.getElementById('all-tx').innerHTML = txs.length ? txs.map(t=>FZ_txHTML(t,true)).join('') : FZ_emptyState('💸','Sin movimientos este mes.');
 }
 
-function txHTML(t, showDel=false) {
+function FZ_txHTML(t, showDel=false) {
   const cat=CATS.find(c=>c.id===t.category)||{e:'📦',l:'Otros',c:'#666'};
   const isIng=t.type==='ingreso';
   return `<div class="tx-item">
@@ -3782,14 +3814,14 @@ function txHTML(t, showDel=false) {
   </div>`;
 }
 
-function FZ_delTx(id) { if(!confirm('¿Eliminar?')) return; FZ_S.transactions=FZ_S.transactions.filter(t=>t.id!==id); save(); renderPage(curPage()); }
+function FZ_delTx(id) { if(!confirm('¿Eliminar?')) return; S.transactions=S.transactions.filter(t=>t.id!==id); FZ_save(); FZ_renderPage(FZ_curPage()); }
 
 // ======= PRESUPUESTO =======
 function FZ_renderPresupuesto() {
-  const txs=monthTxs();
+  const txs=FZ_monthTxs();
   document.getElementById('budget-cards').innerHTML = CATS.filter(c=>c.id!=='otros').map(cat=>{
-    const spent=sum(txs.filter(t=>t.category===cat.id&&t.type==='gasto'));
-    const bud=FZ_S.budgets[cat.id]||0;
+    const spent=FZ_sum(txs.filter(t=>t.category===cat.id&&t.type==='gasto'));
+    const bud=S.budgets[cat.id]||0;
     const pct=bud>0?Math.min(spent/bud,1):0;
     const bc=pct>=1?'var(--red)':pct>=0.8?'var(--amber)':'var(--green)';
     return `<div class="card" style="padding:18px">
@@ -3805,30 +3837,30 @@ function FZ_renderPresupuesto() {
   }).join('');
 }
 
-function openBudgetModal() {
+function FZ_openBudgetModal() {
   document.getElementById('budget-form').innerHTML = CATS.filter(c=>c.id!=='otros').map(cat=>`
     <div class="form-group">
       <label class="form-label">${cat.e} ${cat.l}</label>
-      <input type="number" class="form-input" id="bud-${cat.id}" placeholder="0 = sin límite" value="${FZ_S.budgets[cat.id]||''}" min="0">
+      <input type="number" class="form-input" id="bud-${cat.id}" placeholder="0 = sin límite" value="${S.budgets[cat.id]||''}" min="0">
     </div>`).join('');
 }
 
-function saveBudgets() {
+function FZ_saveBudgets() {
   CATS.filter(c=>c.id!=='otros').forEach(cat=>{
     const v=parseFloat(document.getElementById(`bud-${cat.id}`).value);
-    if(!isNaN(v)&&v>0) FZ_S.budgets[cat.id]=v; else delete FZ_S.budgets[cat.id];
+    if(!isNaN(v)&&v>0) S.budgets[cat.id]=v; else delete S.budgets[cat.id];
   });
-  save(); closeModal('presupuesto'); FZ_renderPresupuesto();
+  FZ_save(); FZ_closeModal('presupuesto'); FZ_renderPresupuesto();
 }
 
 // ======= SUSCRIPCIONES =======
-function renderSubs() {
-  const total=FZ_S.subscriptions.reduce((a,s)=>a+mPrice(s),0);
-  document.getElementById('subs-sub').textContent = `${FZ_S.subscriptions.length} activas · ${FZ_fmt(total)}/mes`;
+function FZ_renderSubs() {
+  const total=S.subscriptions.reduce((a,s)=>a+FZ_mPrice(s),0);
+  document.getElementById('subs-sub').textContent = `${S.subscriptions.length} activas · ${FZ_fmt(total)}/mes`;
   const el=document.getElementById('subs-list');
-  if(!FZ_S.subscriptions.length){ el.innerHTML=emptyState('📱','Sin suscripciones aún.'); return; }
+  if(!S.subscriptions.length){ el.innerHTML=FZ_emptyState('📱','Sin suscripciones aún.'); return; }
   const today=new Date();
-  el.innerHTML=FZ_S.subscriptions.map(s=>{
+  el.innerHTML=S.subscriptions.map(s=>{
     const diff=s.renew?Math.ceil((new Date(s.renew)-today)/864e5):null;
     let badge='';
     if(diff!==null){ if(diff<=3) badge=`<span class="badge b-red">Renueva en ${diff}d</span>`; else if(diff<=7) badge=`<span class="badge b-amber">En ${diff} días</span>`; else badge=`<span class="badge b-green">En ${diff}d</span>`; }
@@ -3837,16 +3869,16 @@ function renderSubs() {
       <div class="sub-info"><div class="sub-name">${s.name}</div>
         <div class="sub-meta">${s.freq}${s.renew?' · '+FZ_fmtDate(s.renew):''} ${badge}</div></div>
       <div style="display:flex;align-items:center;gap:8px">
-        <div style="font-family:'DM Mono',monospace;font-size:.88rem;color:var(--amber)">${FZ_fmt(mPrice(s))}/mes</div>
-        <button class="tx-del" style="opacity:1" onclick="delSub('${s.id}')">✕</button>
+        <div style="font-family:'DM Mono',monospace;font-size:.88rem;color:var(--amber)">${FZ_fmt(FZ_mPrice(s))}/mes</div>
+        <button class="tx-del" style="opacity:1" onclick="FZ_delSub('${s.id}')">✕</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function delSub(id){ if(!confirm('¿Eliminar suscripción?')) return; FZ_S.subscriptions=FZ_S.subscriptions.filter(s=>s.id!==id); save(); renderSubs(); }
+function FZ_delSub(id){ if(!confirm('¿Eliminar suscripción?')) return; S.subscriptions=S.subscriptions.filter(s=>s.id!==id); FZ_save(); FZ_renderSubs(); }
 
-function mPrice(s){
+function FZ_mPrice(s){
   if(s.freq==='anual') return s.price/12;
   if(s.freq==='semanal') return s.price*4.33;
   if(s.freq==='trimestral') return s.price/3;
@@ -3854,38 +3886,33 @@ function mPrice(s){
 }
 
 // ======= TARJETA =======
-function renderTarjeta() {
-  const cc=FZ_S.ccData;
-  const allCards=FZ_S.cards||[];
-  const ccTxMonth=FZ_S.ccTransactions.filter(t=>{const d=new Date(t.date);return d.getMonth()===curMonth&&d.getFullYear()===curYear;});
-  const tCC=sum(ccTxMonth);
-  const tCuotas=FZ_S.ccCuotas.reduce((a,c)=>a+(c.remaining>0?c.amount:0),0);
+function FZ_renderTarjeta() {
+  const cc=S.ccData;
+  const ccTxMonth=S.ccTransactions.filter(t=>{const d=new Date(t.date);return d.getMonth()===curMonth&&d.getFullYear()===curYear;});
+  const tCC=FZ_sum(ccTxMonth);
+  const tCuotas=S.ccCuotas.reduce((a,c)=>a+(c.remaining>0?c.amount:0),0);
   const usedCredit=tCC+tCuotas;
+  const available=cc.limit>0?Math.max(cc.limit-usedCredit,0):0;
   const usePct=cc.limit>0?Math.min(usedCredit/cc.limit,1):0;
 
-  // Mostrar todas las tarjetas (la principal + las adicionales)
-  const cards = [];
-  if(cc.bank||allCards.length===0) {
-    cards.push({...cc, isMain:true});
-  }
-  allCards.forEach(c=>cards.push(c));
-
-  document.getElementById('cc-visual').innerHTML = cards.map((c,i)=>`
-    <div class="cc-card" style="margin-bottom:12px;${c.color?'background:'+c.color:''}">
-      <div class="cc-top"><div class="cc-bank">${c.bank||'Mi Tarjeta'}</div><div style="display:flex;gap:8px;align-items:center"><div class="cc-chip">💳</div>${!c.isMain?`<button onclick="delCard(${i-1})" style="background:rgba(255,255,255,.2);border:none;color:white;cursor:pointer;border-radius:50%;width:20px;height:20px;font-size:10px">✕</button>`:''}</div></div>
-      <div class="cc-number">•••• •••• •••• ${c.digits||'****'}</div>
+  // Card visual
+  document.getElementById('cc-visual').innerHTML = `
+    <div class="cc-card">
+      <div class="cc-top"><div class="cc-bank">${cc.bank||'Mi Tarjeta'}</div><div class="cc-chip">💳</div></div>
+      <div class="cc-number">•••• •••• •••• ${cc.digits||'****'}</div>
       <div class="cc-bottom">
-        <div><div class="cc-label">${c.isMain?'Gastado este mes':'Límite'}</div><div class="cc-value purple">${c.isMain?FZ_fmt(tCC):(c.limit>0?FZ_fmt(c.limit):'—')}</div></div>
-        <div><div class="cc-label">${c.closeDay?'Cierre día '+c.closeDay:'Cuotas/mes'}</div><div class="cc-value amber">${c.isMain?FZ_fmt(tCuotas):(c.closeDay||'—')}</div></div>
+        <div><div class="cc-label">Gastado este mes</div><div class="cc-value purple">${FZ_fmt(tCC)}</div></div>
+        <div><div class="cc-label">Cuotas pendientes</div><div class="cc-value amber">${FZ_fmt(tCuotas)}</div></div>
+        <div><div class="cc-label">Límite</div><div class="cc-value">${cc.limit>0?FZ_fmt(cc.limit):'—'}</div></div>
       </div>
-      ${c.isMain&&cc.limit>0?`<div class="cc-limit-bar">
+      ${cc.limit>0?`<div class="cc-limit-bar">
         <div class="cc-limit-info"><span style="color:rgba(255,255,255,.5)">Usado</span><span>${FZ_fmt(usedCredit)} de ${FZ_fmt(cc.limit)}</span></div>
         <div class="prog-bar" style="height:5px;background:rgba(255,255,255,.1)"><div class="prog-fill" style="width:${usePct*100}%;background:${usePct>0.8?'var(--red)':usePct>0.6?'var(--amber)':'var(--purple)'}"></div></div>
       </div>`:''}
-    </div>`).join('');
+    </div>`;
 
   // Stats
-  const cuotasActivas=FZ_S.ccCuotas.filter(c=>c.remaining>0);
+  const cuotasActivas=S.ccCuotas.filter(c=>c.remaining>0);
   document.getElementById('cc-stats').innerHTML=`
     <div class="vehicle-stat"><div class="vehicle-stat-icon">💸</div><div class="vehicle-stat-val purple">${FZ_fmt(tCC)}</div><div class="vehicle-stat-lbl">Gastos mes</div></div>
     <div class="vehicle-stat"><div class="vehicle-stat-icon">📅</div><div class="vehicle-stat-val amber">${FZ_fmt(tCuotas)}</div><div class="vehicle-stat-lbl">Cuotas/mes</div></div>
@@ -3899,13 +3926,13 @@ function renderTarjeta() {
       <div class="tx-icon" style="background:var(--purple-dim);color:var(--purple)">${cat.e}</div>
       <div class="tx-info"><div class="tx-name">${t.desc||'Gasto tarjeta'}</div><div class="tx-meta">${FZ_fmtDate(t.date)}</div></div>
       <div class="tx-amount purple">-${FZ_fmt(t.amount)}</div>
-      <button class="tx-del" style="opacity:1" onclick="delCCTx('${t.id}')">✕</button>
+      <button class="tx-del" style="opacity:1" onclick="FZ_delCCTx('${t.id}')">✕</button>
     </div>`;
-  }).join('') : emptyState('💳','Sin gastos con tarjeta este mes.','+ Agregar gasto',"openModal('cc-gasto')");
+  }).join('') : FZ_emptyState('💳','Sin gastos con tarjeta este mes.');
 
   // Cuotas
   const cuEl=document.getElementById('cc-cuotas-list');
-  cuEl.innerHTML=FZ_S.ccCuotas.length ? FZ_S.ccCuotas.map(c=>`
+  cuEl.innerHTML=S.ccCuotas.length ? S.ccCuotas.map(c=>`
     <div class="tx-item">
       <div class="tx-icon" style="background:var(--amber-dim);color:var(--amber)">📅</div>
       <div class="tx-info">
@@ -3918,22 +3945,22 @@ function renderTarjeta() {
         <div style="font-size:.7rem;color:var(--text3)">Total: ${FZ_fmt(c.amount*c.remaining)}</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:4px">
-        <button class="tx-del" style="opacity:1" onclick="pagarCuota('${c.id}')">✓</button>
-        <button class="tx-del" style="opacity:1" onclick="delCuota('${c.id}')">✕</button>
+        <button class="tx-del" style="opacity:1" onclick="FZ_pagarCuota('${c.id}')">✓</button>
+        <button class="tx-del" style="opacity:1" onclick="FZ_delCuota('${c.id}')">✕</button>
       </div>
-    </div>`).join('') : emptyState('📅','Sin cuotas pendientes.','+ Agregar cuota',"openModal('cuota')");
+    </div>`).join('') : FZ_emptyState('📅','Sin cuotas pendientes.');
 }
 
-function delCCTx(id){ FZ_S.ccTransactions=FZ_S.ccTransactions.filter(t=>t.id!==id); save(); renderTarjeta(); }
-function delCuota(id){ if(!confirm('¿Eliminar cuota?')) return; FZ_S.ccCuotas=FZ_S.ccCuotas.filter(c=>c.id!==id); save(); renderTarjeta(); }
-function pagarCuota(id){ const c=FZ_S.ccCuotas.find(c=>c.id===id); if(c&&c.remaining>0){ c.remaining--; save(); renderTarjeta(); } }
+function FZ_delCCTx(id){ S.ccTransactions=S.ccTransactions.filter(t=>t.id!==id); FZ_save(); FZ_renderTarjeta(); }
+function FZ_delCuota(id){ if(!confirm('¿Eliminar cuota?')) return; S.ccCuotas=S.ccCuotas.filter(c=>c.id!==id); FZ_save(); FZ_renderTarjeta(); }
+function FZ_pagarCuota(id){ const c=S.ccCuotas.find(c=>c.id===id); if(c&&c.remaining>0){ c.remaining--; FZ_save(); FZ_renderTarjeta(); } }
 
 // ======= VEHICULO =======
-function renderVehiculo() {
-  const vTxs=FZ_S.vehicleExpenses.filter(v=>{const d=new Date(v.date);return d.getMonth()===curMonth&&d.getFullYear()===curYear;});
-  const total=sum(vTxs);
-  const gas=sum(vTxs.filter(v=>v.type==='gasolina'));
-  const mant=sum(vTxs.filter(v=>!['gasolina','aparcamiento'].includes(v.type)));
+function FZ_renderVehiculo() {
+  const vTxs=S.vehicleExpenses.filter(v=>{const d=new Date(v.date);return d.getMonth()===curMonth&&d.getFullYear()===curYear;});
+  const total=FZ_sum(vTxs);
+  const gas=FZ_sum(vTxs.filter(v=>v.type==='gasolina'));
+  const mant=FZ_sum(vTxs.filter(v=>!['gasolina','aparcamiento'].includes(v.type)));
   document.getElementById('vehicle-stats').innerHTML=`
     <div class="vehicle-stat"><div class="vehicle-stat-icon">💶</div><div class="vehicle-stat-val">${FZ_fmt(total)}</div><div class="vehicle-stat-lbl">Total mes</div></div>
     <div class="vehicle-stat"><div class="vehicle-stat-icon">⛽</div><div class="vehicle-stat-val">${FZ_fmt(gas)}</div><div class="vehicle-stat-lbl">Combustible</div></div>
@@ -3945,17 +3972,17 @@ function renderVehiculo() {
       <div class="tx-icon" style="background:var(--amber-dim);color:var(--amber)">${ICONS[v.type]||'📦'}</div>
       <div class="tx-info"><div class="tx-name">${v.notes||v.type}</div><div class="tx-meta">${v.type.charAt(0).toUpperCase()+v.type.slice(1)} · ${FZ_fmtDate(v.date)}</div></div>
       <div class="tx-amount red">-${FZ_fmt(v.amount)}</div>
-      <button class="tx-del" style="opacity:1" onclick="delVeh('${v.id}')">✕</button>
-    </div>`).join('') : emptyState('🚗','Sin gastos de vehículo este mes.');
+      <button class="tx-del" style="opacity:1" onclick="FZ_delVeh('${v.id}')">✕</button>
+    </div>`).join('') : FZ_emptyState('🚗','Sin gastos de vehículo este mes.');
 }
 
-function delVeh(id){ FZ_S.vehicleExpenses=FZ_S.vehicleExpenses.filter(v=>v.id!==id); save(); renderVehiculo(); }
+function FZ_delVeh(id){ S.vehicleExpenses=S.vehicleExpenses.filter(v=>v.id!==id); FZ_save(); FZ_renderVehiculo(); }
 
 // ======= METAS =======
 function FZ_renderMetas() {
   const el=document.getElementById('metas-list');
-  if(!FZ_S.goals.length){ el.innerHTML=emptyState('🏆','Sin metas. ¡Define tu primer objetivo de ahorro!'); return; }
-  el.innerHTML=FZ_S.goals.map(g=>{
+  if(!S.goals.length){ el.innerHTML=FZ_emptyState('🏆','Sin metas. ¡Define tu primer objetivo de ahorro!'); return; }
+  el.innerHTML=S.goals.map(g=>{
     const pct=Math.min(g.saved/g.target,1);
     const bc=pct>=1?'var(--green)':pct>=.5?'var(--blue)':'var(--amber)';
     const today=new Date(), target=g.date?new Date(g.date):null;
@@ -3981,145 +4008,146 @@ function FZ_renderMetas() {
   }).join('');
 }
 
-function FZ_delMeta(id){ FZ_S.goals=FZ_S.goals.filter(g=>g.id!==id); save(); FZ_renderMetas(); }
-function FZ_addMeta(id){ const a=parseFloat(prompt('¿Cuánto añades?')); if(isNaN(a)||a<=0) return; const g=FZ_S.goals.find(g=>g.id===id); if(g){g.saved=Math.min(g.saved+a,g.target);save();FZ_renderMetas();} }
+function FZ_delMeta(id){ S.goals=S.goals.filter(g=>g.id!==id); FZ_save(); FZ_renderMetas(); }
+function FZ_addMeta(id){ const a=parseFloat(prompt('¿Cuánto añades?')); if(isNaN(a)||a<=0) return; const g=S.goals.find(g=>g.id===id); if(g){g.saved=Math.min(g.saved+a,g.target);FZ_save();FZ_renderMetas();} }
 
 // ======= MODALS =======
-function openModal(type) {
+function FZ_openModal(type) {
   if(type==='gasto'){
-    buildCatGrid('cat-grid', id=>{selCat=id;});
+    FZ_buildCatGrid('cat-grid', id=>{selCat=id;});
     selCat=''; txType='gasto';
     document.getElementById('cat-group').style.display='block';
-    document.getElementById('tx-date').value=today();
+    document.getElementById('tx-date').value=FZ_today();
     document.getElementById('tx-amount').value='';
     document.getElementById('tx-desc').value='';
     document.querySelectorAll('#modal-gasto .tab').forEach((t,i)=>t.classList.toggle('active',i===0));
   }
-  if(type==='presupuesto') openBudgetModal();
-  if(type==='suscripcion'){ document.getElementById('sub-renew').value=futureDate(1); ['sub-name','sub-icon','sub-price'].forEach(id=>document.getElementById(id).value=''); }
-  if(type==='vehiculo'){ document.getElementById('veh-date').value=today(); document.getElementById('veh-amount').value=''; document.getElementById('veh-notes').value=''; }
-  if(type==='meta'){ ['meta-name','meta-icon','meta-target','meta-saved'].forEach(id=>document.getElementById(id).value=''); document.getElementById('meta-date').value=futureDate(6); }
-  if(type==='cc-gasto'){ buildCatGrid('cc-cat-grid',id=>{ccSelCat=id;}); ccSelCat=''; document.getElementById('cc-date').value=today(); document.getElementById('cc-amount').value=''; document.getElementById('cc-desc').value=''; }
+  if(type==='presupuesto') FZ_openBudgetModal();
+  if(type==='suscripcion'){ document.getElementById('sub-renew').value=FZ_futureDate(1); ['sub-name','sub-icon','sub-price'].forEach(id=>document.getElementById(id).value=''); }
+  if(type==='vehiculo'){ document.getElementById('veh-date').value=FZ_today(); document.getElementById('veh-amount').value=''; document.getElementById('veh-notes').value=''; }
+  if(type==='meta'){ ['meta-name','meta-icon','meta-target','meta-saved'].forEach(id=>document.getElementById(id).value=''); document.getElementById('meta-date').value=FZ_futureDate(6); }
+  if(type==='cc-gasto'){ FZ_buildCatGrid('cc-cat-grid',id=>{ccSelCat=id;}); ccSelCat=''; document.getElementById('cc-date').value=FZ_today(); document.getElementById('cc-amount').value=''; document.getElementById('cc-desc').value=''; }
   if(type==='cuota'){ ['cuota-desc','cuota-amount','cuota-remaining','cuota-day'].forEach(id=>document.getElementById(id).value=''); }
   document.getElementById(`modal-${type}`).classList.add('open');
 }
 
-function closeModal(type){ document.getElementById(`modal-${type}`).classList.remove('open'); }
+function FZ_closeModal(type){ document.getElementById(`modal-${type}`).classList.remove('open'); }
 document.querySelectorAll('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
 
-function buildCatGrid(gridId, onSelect) {
+function FZ_buildCatGrid(gridId, onSelect) {
   const grid=document.getElementById(gridId);
-  grid.innerHTML=CATS.map(c=>`<div class="cat-btn" id="${gridId}-${c.id}" onclick="selectCatIn('${gridId}','${c.id}')"><span class="ce">${c.e}</span><span>${c.l}</span></div>`).join('');
+  grid.innerHTML=CATS.map(c=>`<div class="cat-btn" id="${gridId}-${c.id}" onclick="FZ_selectCatIn('${gridId}','${c.id}')"><span class="ce">${c.e}</span><span>${c.l}</span></div>`).join('');
   grid._onSelect = onSelect;
 }
 
-function selectCatIn(gridId, catId) {
+function FZ_selectCatIn(gridId, catId) {
   document.querySelectorAll(`#${gridId} .cat-btn`).forEach(b=>b.classList.remove('selected'));
   document.getElementById(`${gridId}-${catId}`)?.classList.add('selected');
   const grid=document.getElementById(gridId);
   if(grid._onSelect) grid._onSelect(catId);
 }
 
-function setTxType(type,btn){
+function FZ_setTxType(type,btn){
   txType=type;
   document.querySelectorAll('#modal-gasto .tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById('cat-group').style.display=type==='gasto'?'block':'none';
 }
 
-function saveTx(){
+function FZ_saveTx(){
   const amount=parseFloat(document.getElementById('tx-amount').value);
   const desc=document.getElementById('tx-desc').value.trim();
   const date=document.getElementById('tx-date').value;
   if(!amount||amount<=0){alert('Ingresa un importe válido');return;}
+  // categoría opcional
   if(!date){alert('Selecciona una fecha');return;}
-  FZ_S.transactions.push({id:uid(),type:txType,amount,desc,category:selCat||'otros',date});
-  save(); closeModal('gasto'); renderPage(curPage());
+  S.transactions.push({id:FZ_uid(),type:txType,amount,desc,category:selCat||'otros',date});
+  FZ_save(); FZ_closeModal('gasto'); FZ_renderPage(FZ_curPage());
 }
 
-function saveSub(){
+function FZ_saveSub(){
   const name=document.getElementById('sub-name').value.trim();
   const price=parseFloat(document.getElementById('sub-price').value);
   const freq=document.getElementById('sub-freq').value;
   const renew=document.getElementById('sub-renew').value;
   const icon=document.getElementById('sub-icon').value||'📱';
   if(!name||!price||price<=0){alert('Completa nombre e importe');return;}
-  FZ_S.subscriptions.push({id:uid(),name,price,freq,renew,icon});
-  save(); closeModal('suscripcion'); renderSubs();
+  S.subscriptions.push({id:FZ_uid(),name,price,freq,renew,icon});
+  FZ_save(); FZ_closeModal('suscripcion'); FZ_renderSubs();
 }
 
-function saveVehiculo(){
+function FZ_saveVehiculo(){
   const type=document.getElementById('veh-type').value;
   const amount=parseFloat(document.getElementById('veh-amount').value);
   const notes=document.getElementById('veh-notes').value.trim();
   const date=document.getElementById('veh-date').value;
   if(!amount||amount<=0){alert('Ingresa un importe válido');return;}
-  FZ_S.vehicleExpenses.push({id:uid(),type,amount,notes,date});
-  save(); closeModal('vehiculo'); renderVehiculo();
+  S.vehicleExpenses.push({id:FZ_uid(),type,amount,notes,date});
+  FZ_save(); FZ_closeModal('vehiculo'); FZ_renderVehiculo();
 }
 
-function saveMeta(){
+function FZ_saveMeta(){
   const name=document.getElementById('meta-name').value.trim();
   const target=parseFloat(document.getElementById('meta-target').value);
   const saved=parseFloat(document.getElementById('meta-saved').value)||0;
   const date=document.getElementById('meta-date').value;
   const icon=document.getElementById('meta-icon').value||'🎯';
   if(!name||!target||target<=0){alert('Completa nombre y objetivo');return;}
-  FZ_S.goals.push({id:uid(),name,target,saved,date,icon});
-  save(); closeModal('meta'); FZ_renderMetas();
+  S.goals.push({id:FZ_uid(),name,target,saved,date,icon});
+  FZ_save(); FZ_closeModal('meta'); FZ_renderMetas();
 }
 
-function saveCCGasto(){
+function FZ_saveCCGasto(){
   const desc=document.getElementById('cc-desc').value.trim();
   const amount=parseFloat(document.getElementById('cc-amount').value);
   const date=document.getElementById('cc-date').value;
   if(!amount||amount<=0){alert('Ingresa un importe válido');return;}
   if(!ccSelCat){alert('Selecciona una categoría');return;}
-  FZ_S.ccTransactions.push({id:uid(),desc,amount,category:ccSelCat,date});
-  save(); closeModal('cc-gasto'); renderTarjeta();
+  S.ccTransactions.push({id:FZ_uid(),desc,amount,category:ccSelCat,date});
+  FZ_save(); FZ_closeModal('cc-gasto'); FZ_renderTarjeta();
 }
 
-function saveCuota(){
+function FZ_saveCuota(){
   const desc=document.getElementById('cuota-desc').value.trim();
   const amount=parseFloat(document.getElementById('cuota-amount').value);
   const remaining=parseInt(document.getElementById('cuota-remaining').value);
   const day=parseInt(document.getElementById('cuota-day').value)||0;
   if(!desc||!amount||amount<=0||!remaining||remaining<=0){alert('Completa todos los campos');return;}
-  FZ_S.ccCuotas.push({id:uid(),desc,amount,remaining,total:remaining,day});
-  save(); closeModal('cuota'); renderTarjeta();
+  S.ccCuotas.push({id:FZ_uid(),desc,amount,remaining,total:remaining,day});
+  FZ_save(); FZ_closeModal('cuota'); FZ_renderTarjeta();
 }
 
 // ======= UTILS =======
-function FZ_fmt(n){ return (FZ_S.currency||'€')+new Intl.NumberFormat('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n||0); }
-function sum(arr){ return arr.reduce((a,t)=>a+(t.amount||0),0); }
-function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2); }
-function today(){ return new Date().toISOString().split('T')[0]; }
-function futureDate(months){ const d=new Date(); d.setMonth(d.getMonth()+months); return d.toISOString().split('T')[0]; }
+function FZ_fmt(n){ return (S.currency||'€')+new Intl.NumberFormat('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n||0); }
+function FZ_sum(arr){ return arr.reduce((a,t)=>a+(t.amount||0),0); }
+function FZ_uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2); }
+function FZ_today(){ return new Date().toISOString().split('T')[0]; }
+function FZ_futureDate(months){ const d=new Date(); d.setMonth(d.getMonth()+months); return d.toISOString().split('T')[0]; }
 function FZ_fmtDate(str){ if(!str) return ''; return new Date(str).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'}); }
-function emptyState(icon,text,btnText,btnAction){ return `<div class="empty-state"><div class="empty-icon">${icon}</div><div class="empty-text">${text}</div>${btnText?`<button class="btn btn-primary" style="margin-top:12px" onclick="${btnAction}">${btnText}</button>`:''}</div>`; }
+function FZ_emptyState(icon,text){ return `<div class="empty-state"><div class="empty-icon">${icon}</div><div class="empty-text">${text}</div></div>`; }
 
 // ======= AJUSTES =======
-function renderAjustes() {
-  document.getElementById('cfg-currency').value = FZ_S.currency || '€';
+function FZ_renderAjustes() {
+  document.getElementById('cfg-currency').value = S.currency || '€';
   document.getElementById('btn-informe-mes').textContent = MONTHS[curMonth] + ' ' + curYear;
 }
 
-function saveCurrency() {
+function FZ_saveCurrency() {
   const v = document.getElementById('cfg-currency').value.trim();
   if (!v) return;
-  FZ_S.currency = v;
-  save();
-  document.getElementById('sidebar-currency-label').textContent = 'Moneda: ' + FZ_S.currency;
-  showStatus('✅ Moneda actualizada a "' + v + '"');
+  S.currency = v;
+  FZ_save();
+  document.getElementById('sidebar-currency-label').textContent = 'Moneda: ' + S.currency;
+  FZ_showStatus('✅ Moneda actualizada a "' + v + '"');
 }
 
-function showStatus(msg) {
+function FZ_showStatus(msg) {
   const el = document.getElementById('backup-status');
   if (el) { el.textContent = msg; setTimeout(() => { el.textContent = ''; }, 4000); }
 }
 
 // ---- EXPORT JSON ----
-function exportJSON() {
+function FZ_exportJSON() {
   const data = JSON.stringify(S, null, 2);
   const blob = new Blob([data], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -4129,11 +4157,11 @@ function exportJSON() {
   a.download = `finanzas-backup-${date}.json`;
   a.click();
   URL.revokeObjectURL(url);
-  showStatus('✅ Datos exportados correctamente. ¡Guarda el archivo en un lugar seguro!');
+  FZ_showStatus('✅ Datos exportados correctamente. ¡Guarda el archivo en un lugar seguro!');
 }
 
 // ---- IMPORT JSON ----
-function importJSON(input) {
+function FZ_importJSON(input) {
   const file = input.files[0];
   if (!file) return;
   const reader = new FileReader();
@@ -4142,12 +4170,12 @@ function importJSON(input) {
       const data = JSON.parse(e.target.result);
       if (!data.transactions && !data.subscriptions) throw new Error('Archivo no válido');
       if (!confirm(`¿Importar datos de ${file.name}? Esto reemplazará tus datos actuales.`)) return;
-      S = { ...defaultState(), ...data };
-      save();
-      showStatus('✅ Datos importados correctamente. ¡Bienvenido de vuelta!');
+      S = { ...FZ_defaultState(), ...data };
+      FZ_save();
+      FZ_showStatus('✅ Datos importados correctamente. ¡Bienvenido de vuelta!');
       setTimeout(() => { FZ_initApp(); FZ_showPage('dashboard'); }, 1000);
     } catch(err) {
-      showStatus('❌ Error al importar. Asegúrate de que el archivo es un backup válido.');
+      FZ_showStatus('❌ Error al importar. Asegúrate de que el archivo es un backup válido.');
     }
   };
   reader.readAsText(file);
@@ -4155,24 +4183,24 @@ function importJSON(input) {
 }
 
 // ---- RESET ----
-function resetApp() {
+function FZ_resetApp() {
   if (!confirm('⚠️ ¿Seguro que quieres borrar TODOS los datos? Esta acción es irreversible.')) return;
   if (!confirm('Última confirmación: ¿borrar todo?')) return;
   localStorage.removeItem('fz_v2');
-  S = defaultState();
+  S = FZ_defaultState();
   location.reload();
 }
 
 // ---- INFORME MENSUAL ----
-function generarInforme() {
-  const txs = monthTxs();
+function FZ_generarInforme() {
+  const txs = FZ_monthTxs();
   const gastos = txs.filter(t => t.type === 'gasto');
   const ingresos = txs.filter(t => t.type === 'ingreso');
-  const tGasto = sum(gastos);
-  const tIngreso = sum(ingresos) + (FZ_S.income || 0);
+  const tGasto = FZ_sum(gastos);
+  const tIngreso = FZ_sum(ingresos) + (S.income || 0);
   const balance = tIngreso - tGasto;
-  const subsCost = FZ_S.subscriptions.reduce((a, s) => a + mPrice(s), 0);
-  const score = calcScore(txs, tIngreso > 0 ? tGasto / tIngreso : 0);
+  const subsCost = S.subscriptions.reduce((a, s) => a + FZ_mPrice(s), 0);
+  const score = FZ_calcScore(txs, tIngreso > 0 ? tGasto / tIngreso : 0);
 
   // Gastos por categoria
   const byCat = {};
@@ -4198,12 +4226,12 @@ function generarInforme() {
     }).join('');
 
   // Suscripciones
-  const subRows = FZ_S.subscriptions.map(s =>
-    `<tr><td>${s.icon || '📱'} ${s.name}</td><td>${s.freq}</td><td style="text-align:right">${FZ_fmt(mPrice(s))}/mes</td></tr>`
+  const subRows = S.subscriptions.map(s =>
+    `<tr><td>${s.icon || '📱'} ${s.name}</td><td>${s.freq}</td><td style="text-align:right">${FZ_fmt(FZ_mPrice(s))}/mes</td></tr>`
   ).join('');
 
   // Cuotas tarjeta
-  const cuotaRows = FZ_S.hasCC && FZ_S.ccCuotas.length ? FZ_S.ccCuotas.filter(c => c.remaining > 0).map(c =>
+  const cuotaRows = S.hasCC && S.ccCuotas.length ? S.ccCuotas.filter(c => c.remaining > 0).map(c =>
     `<tr><td>${c.desc}</td><td style="text-align:center">${c.remaining} restantes</td><td style="text-align:right">${FZ_fmt(c.amount)}/mes</td></tr>`
   ).join('') : '';
 
@@ -4234,7 +4262,7 @@ function generarInforme() {
       <div class="informe-kpi">
         <div class="informe-kpi-label">💰 Ingresos totales</div>
         <div class="informe-kpi-val g">${FZ_fmt(tIngreso)}</div>
-        <div style="font-size:10px;color:#888;margin-top:4px">${FZ_S.income > 0 ? 'Salario incluido' : ingresos.length + ' registros'}</div>
+        <div style="font-size:10px;color:#888;margin-top:4px">${S.income > 0 ? 'Salario incluido' : ingresos.length + ' registros'}</div>
       </div>
       <div class="informe-kpi">
         <div class="informe-kpi-label">${balance >= 0 ? '📈' : '📉'} Balance</div>
@@ -4269,7 +4297,7 @@ function generarInforme() {
 
     ${cuotaRows ? `
     <div class="informe-section">
-      <div class="informe-section-title">Cuotas tarjeta pendientes · ${FZ_fmt(FZ_S.ccCuotas.filter(c=>c.remaining>0).reduce((a,c)=>a+c.amount,0))}/mes</div>
+      <div class="informe-section-title">Cuotas tarjeta pendientes · ${FZ_fmt(S.ccCuotas.filter(c=>c.remaining>0).reduce((a,c)=>a+c.amount,0))}/mes</div>
       <table class="informe-table">
         <thead><tr><th>Descripción</th><th style="text-align:center">Cuotas</th><th style="text-align:right">Importe</th></tr></thead>
         <tbody>${cuotaRows}</tbody>
@@ -4288,57 +4316,49 @@ function generarInforme() {
 // ======= INIT =======
 function FZ_initApp() {
   document.getElementById('month-label').textContent = MONTHS[curMonth].slice(0,3)+' '+curYear;
-  document.getElementById('sidebar-currency-label').textContent = 'Moneda: '+FZ_S.currency;
+  document.getElementById('sidebar-currency-label').textContent = 'Moneda: '+S.currency;
   document.getElementById('nav-vehiculo').style.display='flex';
   document.getElementById('nav-tarjeta').style.display='flex';
-  renderDash();
+  FZ_renderDash();
 }
 
-function init() {
-  // Saltar onboarding - ir directo a la app con defaults
-  if(!FZ_S.onboarded) {
-    FZ_S.onboarded = true;
-    FZ_S.currency = FZ_S.currency || '$';
-    save();
+function FZ_init() {
+  if(!S.onboarded) {
+    S.onboarded = true;
+    S.currency = S.currency || '$';
+    FZ_save();
   }
   document.getElementById('onboarding').classList.add('hidden');
   FZ_initApp();
 }
 
-window.startFinanzas = async function() {
-  await cloudLoadFinanzas();
-  init();
-};
-function selectCardColor(el, color) {
+// startFinanzas() se llama desde la plataforma
+
+function selectCardColor(el,color){
   document.querySelectorAll('#modal-add-card [onclick^="selectCardColor"]').forEach(e=>e.style.border='none');
   el.style.border='2px solid #E8C547';
-  el.dataset.color=color;
-  window._selectedCardColor=color;
+  window._selCardColor=color;
 }
-
-function saveCard() {
+function saveCard(){
   const bank=document.getElementById('card-bank').value.trim();
   const digits=document.getElementById('card-digits').value.trim();
   const limit=parseFloat(document.getElementById('card-limit').value)||0;
   const closeDay=parseInt(document.getElementById('card-close-day').value)||0;
   if(!bank){alert('Ingresá el nombre del banco');return;}
-  if(!FZ_S.cards) FZ_S.cards=[];
-  FZ_S.cards.push({bank,digits,limit,closeDay,color:window._selectedCardColor||'#2d2d3a'});
-  save();
-  closeModal('add-card');
-  renderTarjeta();
-  document.getElementById('card-bank').value='';
-  document.getElementById('card-digits').value='';
-  document.getElementById('card-limit').value='';
-  document.getElementById('card-close-day').value='';
+  if(!S.cards)S.cards=[];
+  S.cards.push({bank,digits,limit,closeDay,color:window._selCardColor||'#2d2d3a'});
+  FZ_save();FZ_closeModal('add-card');FZ_renderTarjeta();
+  ['card-bank','card-digits','card-limit','card-close-day'].forEach(id=>document.getElementById(id).value='');
+}
+function delCard(idx){
+  if(!confirm('¿Eliminar esta tarjeta?'))return;
+  S.cards.splice(idx,1);FZ_save();FZ_renderTarjeta();
 }
 
-function delCard(idx) {
-  if(!confirm('¿Eliminar esta tarjeta?')) return;
-  FZ_S.cards.splice(idx,1);
-  save();
-  renderTarjeta();
-}
+window.startFinanzas = async function() {
+  await FZ_cloudLoad();
+  FZ_init();
+};
 </script>
 
 </body>
