@@ -1877,10 +1877,11 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
     <!-- TARJETA -->
     <div class="page" id="page-tarjeta">
       <div class="page-header">
-        <div><div class="page-title">Tarjeta de crédito</div><div class="page-subtitle">Control de gastos y cuotas</div></div>
+        <div><div class="page-title">Tarjetas de crédito</div><div class="page-subtitle">Control de gastos y cuotas</div></div>
         <div style="display:flex;gap:8px">
           <button class="btn btn-ghost" onclick="openModal('cuota')">+ Cuota</button>
-          <button class="btn btn-primary" onclick="openModal('cc-gasto')">+ Gasto</button>
+          <button class="btn btn-ghost" onclick="openModal('cc-gasto')">+ Gasto</button>
+          <button class="btn btn-primary" onclick="openModal('add-card')">+ Tarjeta</button>
         </div>
       </div>
       <div id="cc-visual"></div>
