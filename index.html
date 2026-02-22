@@ -1765,8 +1765,8 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
       <div class="nav-item" onclick="FZ_showPage('presupuesto')"><span class="nav-icon">🎯</span><span>Presupuesto</span></div>
       <div class="nav-section" style="margin-top:6px">Módulos</div>
       <div class="nav-item" onclick="FZ_showPage('suscripciones')"><span class="nav-icon">📱</span><span>Suscripciones</span></div>
-      <div class="nav-item" id="nav-tarjeta" onclick="FZ_showPage('tarjeta')" style="display:none"><span class="nav-icon">💳</span><span>Tarjeta</span></div>
-      <div class="nav-item" id="nav-vehiculo" onclick="FZ_showPage('vehiculo')" style="display:none"><span class="nav-icon">🚗</span><span>Vehículo</span></div>
+      <div class="nav-item" id="nav-tarjeta" onclick="FZ_showPage('tarjeta')"><span class="nav-icon">💳</span><span>Tarjeta</span></div>
+      <div class="nav-item" id="nav-vehiculo" onclick="FZ_showPage('vehiculo')"><span class="nav-icon">🚗</span><span>Vehículo</span></div>
       <div class="nav-item" onclick="FZ_showPage('metas')"><span class="nav-icon">🏆</span><span>Metas</span></div>
     </nav>
     <div class="sidebar-bottom">
@@ -2069,6 +2069,44 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 </div>
 
 <!-- MODAL CUOTA -->
+<div class="modal-overlay" id="modal-add-card">
+  <div class="modal">
+    <div class="modal-title">Nueva tarjeta</div>
+    <div class="form-group">
+      <label class="form-label">Banco / Nombre</label>
+      <input type="text" class="form-input" id="card-bank" placeholder="Ej: Visa Galicia, Mastercard BBVA...">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Últimos 4 dígitos</label>
+        <input type="text" class="form-input" id="card-digits" placeholder="1234" maxlength="4">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Límite</label>
+        <input type="number" class="form-input" id="card-limit" placeholder="0" min="0">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Cierre (día del mes)</label>
+      <input type="number" class="form-input" id="card-close-day" placeholder="Ej: 15" min="1" max="31">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Color</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div onclick="selectCardColor(this,'#2d2d3a')" style="width:32px;height:32px;border-radius:8px;background:#2d2d3a;cursor:pointer;border:2px solid #E8C547"></div>
+        <div onclick="selectCardColor(this,'#1a3a5c')" style="width:32px;height:32px;border-radius:8px;background:#1a3a5c;cursor:pointer"></div>
+        <div onclick="selectCardColor(this,'#2d4a3e')" style="width:32px;height:32px;border-radius:8px;background:#2d4a3e;cursor:pointer"></div>
+        <div onclick="selectCardColor(this,'#4a2d2d')" style="width:32px;height:32px;border-radius:8px;background:#4a2d2d;cursor:pointer"></div>
+        <div onclick="selectCardColor(this,'#3a2d4a')" style="width:32px;height:32px;border-radius:8px;background:#3a2d4a;cursor:pointer"></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('add-card')">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveCard()">Guardar tarjeta</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modal-cuota">
   <div class="modal">
     <div class="modal-title">Añadir cuota pendiente</div>
@@ -3431,8 +3469,9 @@ const GOALS_LIST = [
 
 // ======= STATE =======
 function defaultState() {
-  return { onboarded:false, currency:'€', income:0, hasCar:false, hasCC:false,
+  return { onboarded:false, currency:'$', income:0, hasCar:false, hasCC:false,
     ccData:{bank:'',limit:0,digits:''},
+    cards:[],
     transactions:[], subscriptions:[], vehicleExpenses:[],
     ccTransactions:[], ccCuotas:[], goals:[], budgets:{} };
 }
@@ -3816,28 +3855,33 @@ function mPrice(s){
 // ======= TARJETA =======
 function renderTarjeta() {
   const cc=FZ_S.ccData;
+  const allCards=FZ_S.cards||[];
   const ccTxMonth=FZ_S.ccTransactions.filter(t=>{const d=new Date(t.date);return d.getMonth()===curMonth&&d.getFullYear()===curYear;});
   const tCC=sum(ccTxMonth);
   const tCuotas=FZ_S.ccCuotas.reduce((a,c)=>a+(c.remaining>0?c.amount:0),0);
   const usedCredit=tCC+tCuotas;
-  const available=cc.limit>0?Math.max(cc.limit-usedCredit,0):0;
   const usePct=cc.limit>0?Math.min(usedCredit/cc.limit,1):0;
 
-  // Card visual
-  document.getElementById('cc-visual').innerHTML = `
-    <div class="cc-card">
-      <div class="cc-top"><div class="cc-bank">${cc.bank||'Mi Tarjeta'}</div><div class="cc-chip">💳</div></div>
-      <div class="cc-number">•••• •••• •••• ${cc.digits||'****'}</div>
+  // Mostrar todas las tarjetas (la principal + las adicionales)
+  const cards = [];
+  if(cc.bank||allCards.length===0) {
+    cards.push({...cc, isMain:true});
+  }
+  allCards.forEach(c=>cards.push(c));
+
+  document.getElementById('cc-visual').innerHTML = cards.map((c,i)=>`
+    <div class="cc-card" style="margin-bottom:12px;${c.color?'background:'+c.color:''}">
+      <div class="cc-top"><div class="cc-bank">${c.bank||'Mi Tarjeta'}</div><div style="display:flex;gap:8px;align-items:center"><div class="cc-chip">💳</div>${!c.isMain?`<button onclick="delCard(${i-1})" style="background:rgba(255,255,255,.2);border:none;color:white;cursor:pointer;border-radius:50%;width:20px;height:20px;font-size:10px">✕</button>`:''}</div></div>
+      <div class="cc-number">•••• •••• •••• ${c.digits||'****'}</div>
       <div class="cc-bottom">
-        <div><div class="cc-label">Gastado este mes</div><div class="cc-value purple">${FZ_fmt(tCC)}</div></div>
-        <div><div class="cc-label">Cuotas pendientes</div><div class="cc-value amber">${FZ_fmt(tCuotas)}</div></div>
-        <div><div class="cc-label">Límite</div><div class="cc-value">${cc.limit>0?FZ_fmt(cc.limit):'—'}</div></div>
+        <div><div class="cc-label">${c.isMain?'Gastado este mes':'Límite'}</div><div class="cc-value purple">${c.isMain?FZ_fmt(tCC):(c.limit>0?FZ_fmt(c.limit):'—')}</div></div>
+        <div><div class="cc-label">${c.closeDay?'Cierre día '+c.closeDay:'Cuotas/mes'}</div><div class="cc-value amber">${c.isMain?FZ_fmt(tCuotas):(c.closeDay||'—')}</div></div>
       </div>
-      ${cc.limit>0?`<div class="cc-limit-bar">
+      ${c.isMain&&cc.limit>0?`<div class="cc-limit-bar">
         <div class="cc-limit-info"><span style="color:rgba(255,255,255,.5)">Usado</span><span>${FZ_fmt(usedCredit)} de ${FZ_fmt(cc.limit)}</span></div>
         <div class="prog-bar" style="height:5px;background:rgba(255,255,255,.1)"><div class="prog-fill" style="width:${usePct*100}%;background:${usePct>0.8?'var(--red)':usePct>0.6?'var(--amber)':'var(--purple)'}"></div></div>
       </div>`:''}
-    </div>`;
+    </div>`).join('');
 
   // Stats
   const cuotasActivas=FZ_S.ccCuotas.filter(c=>c.remaining>0);
@@ -3856,7 +3900,7 @@ function renderTarjeta() {
       <div class="tx-amount purple">-${FZ_fmt(t.amount)}</div>
       <button class="tx-del" style="opacity:1" onclick="delCCTx('${t.id}')">✕</button>
     </div>`;
-  }).join('') : emptyState('💳','Sin gastos con tarjeta este mes.');
+  }).join('') : emptyState('💳','Sin gastos con tarjeta este mes.','+ Agregar gasto',"openModal('cc-gasto')");
 
   // Cuotas
   const cuEl=document.getElementById('cc-cuotas-list');
@@ -3876,7 +3920,7 @@ function renderTarjeta() {
         <button class="tx-del" style="opacity:1" onclick="pagarCuota('${c.id}')">✓</button>
         <button class="tx-del" style="opacity:1" onclick="delCuota('${c.id}')">✕</button>
       </div>
-    </div>`).join('') : emptyState('📅','Sin cuotas pendientes.');
+    </div>`).join('') : emptyState('📅','Sin cuotas pendientes.','+ Agregar cuota',"openModal('cuota')");
 }
 
 function delCCTx(id){ FZ_S.ccTransactions=FZ_S.ccTransactions.filter(t=>t.id!==id); save(); renderTarjeta(); }
@@ -4052,7 +4096,7 @@ function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(
 function today(){ return new Date().toISOString().split('T')[0]; }
 function futureDate(months){ const d=new Date(); d.setMonth(d.getMonth()+months); return d.toISOString().split('T')[0]; }
 function FZ_fmtDate(str){ if(!str) return ''; return new Date(str).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'}); }
-function emptyState(icon,text){ return `<div class="empty-state"><div class="empty-icon">${icon}</div><div class="empty-text">${text}</div></div>`; }
+function emptyState(icon,text,btnText,btnAction){ return `<div class="empty-state"><div class="empty-icon">${icon}</div><div class="empty-text">${text}</div>${btnText?`<button class="btn btn-primary" style="margin-top:12px" onclick="${btnAction}">${btnText}</button>`:''}</div>`; }
 
 // ======= AJUSTES =======
 function renderAjustes() {
@@ -4245,25 +4289,57 @@ function generarInforme() {
 function FZ_initApp() {
   document.getElementById('month-label').textContent = MONTHS[curMonth].slice(0,3)+' '+curYear;
   document.getElementById('sidebar-currency-label').textContent = 'Moneda: '+FZ_S.currency;
-  if(FZ_S.hasCar) document.getElementById('nav-vehiculo').style.display='flex';
-  if(FZ_S.hasCC) document.getElementById('nav-tarjeta').style.display='flex';
+  document.getElementById('nav-vehiculo').style.display='flex';
+  document.getElementById('nav-tarjeta').style.display='flex';
   renderDash();
 }
 
 function init() {
-  initOB();
+  // Saltar onboarding - ir directo a la app con defaults
   if(!FZ_S.onboarded) {
-    document.getElementById('onboarding').classList.remove('hidden');
-  } else {
-    document.getElementById('onboarding').classList.add('hidden');
-    FZ_initApp();
+    FZ_S.onboarded = true;
+    FZ_S.currency = FZ_S.currency || '$';
+    save();
   }
+  document.getElementById('onboarding').classList.add('hidden');
+  FZ_initApp();
 }
 
 window.startFinanzas = async function() {
   await cloudLoadFinanzas();
   init();
-};</script>
+};
+function selectCardColor(el, color) {
+  document.querySelectorAll('#modal-add-card [onclick^="selectCardColor"]').forEach(e=>e.style.border='none');
+  el.style.border='2px solid #E8C547';
+  el.dataset.color=color;
+  window._selectedCardColor=color;
+}
+
+function saveCard() {
+  const bank=document.getElementById('card-bank').value.trim();
+  const digits=document.getElementById('card-digits').value.trim();
+  const limit=parseFloat(document.getElementById('card-limit').value)||0;
+  const closeDay=parseInt(document.getElementById('card-close-day').value)||0;
+  if(!bank){alert('Ingresá el nombre del banco');return;}
+  if(!FZ_S.cards) FZ_S.cards=[];
+  FZ_S.cards.push({bank,digits,limit,closeDay,color:window._selectedCardColor||'#2d2d3a'});
+  save();
+  closeModal('add-card');
+  renderTarjeta();
+  document.getElementById('card-bank').value='';
+  document.getElementById('card-digits').value='';
+  document.getElementById('card-limit').value='';
+  document.getElementById('card-close-day').value='';
+}
+
+function delCard(idx) {
+  if(!confirm('¿Eliminar esta tarjeta?')) return;
+  FZ_S.cards.splice(idx,1);
+  save();
+  renderTarjeta();
+}
+</script>
 
 </body>
 </html>
