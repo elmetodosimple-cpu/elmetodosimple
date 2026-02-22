@@ -2436,13 +2436,79 @@ document.addEventListener('DOMContentLoaded', async () => {
   clearSession();
   showLayer('auth');
 });
+
+
+// ── CLOUD SYNC ──
+const SYNC_DEBOUNCE = {};
+
+async function cloudSave(tabla, key, valor) {
+  const session = getSession();
+  if (!session) return;
+  const userId = session.user.id;
+  const token = session.access_token;
+  
+  try {
+    await fetch(SUPA_URL + '/rest/v1/' + tabla, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPA_KEY,
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json',
+        'Prefer': 'resolution=merge-duplicates'
+      },
+      body: JSON.stringify(
+        tabla === 'datos_agenda' 
+          ? { user_id: userId, key: key, valor: valor, updated_at: new Date().toISOString() }
+          : { user_id: userId, valor: valor, updated_at: new Date().toISOString() }
+      )
+    });
+  } catch(e) {
+    // Fallo silencioso - los datos ya están en localStorage
+  }
+}
+
+function cloudSaveDebounced(tabla, key, valor) {
+  const dKey = tabla + '_' + key;
+  clearTimeout(SYNC_DEBOUNCE[dKey]);
+  SYNC_DEBOUNCE[dKey] = setTimeout(() => cloudSave(tabla, key, valor), 1500);
+}
+
+async function cloudLoadAgenda() {
+  const session = getSession();
+  if (!session) return;
+  try {
+    const res = await fetch(SUPA_URL + '/rest/v1/datos_agenda?user_id=eq.' + session.user.id + '&select=key,valor', {
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + session.access_token }
+    });
+    const rows = await res.json();
+    if (Array.isArray(rows)) {
+      rows.forEach(row => {
+        localStorage.setItem('ems_ag_' + row.key, JSON.stringify(row.valor));
+      });
+    }
+  } catch(e) {}
+}
+
+async function cloudLoadFinanzas() {
+  const session = getSession();
+  if (!session) return;
+  try {
+    const res = await fetch(SUPA_URL + '/rest/v1/datos_finanzas?user_id=eq.' + session.user.id + '&select=valor', {
+      headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + session.access_token }
+    });
+    const rows = await res.json();
+    if (Array.isArray(rows) && rows[0]) {
+      localStorage.setItem('fz_v2', JSON.stringify(rows[0].valor));
+    }
+  } catch(e) {}
+}
+
 </script>
 
-<script>
-// ══════ DATA ══════
+<script>// ══════ DATA ══════
 const S = {
   g(k,d){try{const v=localStorage.getItem('ems_ag_'+k);return v?JSON.parse(v):d}catch{return d}},
-  s(k,v){try{localStorage.setItem('ems_ag_'+k,JSON.stringify(v))}catch{}}
+  s(k,v){try{localStorage.setItem('ems_ag_'+k,JSON.stringify(v));if(window.cloudSaveDebounced)cloudSaveDebounced('datos_agenda',k,v);}catch{}}
 };
 
 const TODAY = new Date();
@@ -2489,7 +2555,8 @@ function obFinish(){
 }
 
 // check if already onboarded
-window.startAgenda = function() {
+window.startAgenda = async function() {
+  await cloudLoadAgenda();
   renderPomoTime();
   renderPomoStats();
   document.getElementById('evDate').value=fmt(TODAY);
@@ -3330,8 +3397,7 @@ function doRestore(event){
     }catch{toast('❌ Error al leer el archivo');}
   };
   reader.readAsText(file);
-}
-</script>
+}</script>
 
 <script>// ======= CATEGORIES =======
 const CATS = [
@@ -3379,7 +3445,7 @@ let selCat = '';
 let ccSelCat = '';
 let txFilter = 'todos';
 
-function save() { localStorage.setItem('fz_v2', JSON.stringify(S)); }
+function save() { localStorage.setItem('fz_v2', JSON.stringify(S)); if(window.cloudSaveDebounced)cloudSaveDebounced('datos_finanzas','fz_v2',S); }
 
 // ======= ONBOARDING =======
 let obCur = 1;
@@ -4194,7 +4260,10 @@ function init() {
   }
 }
 
-window.startFinanzas = init;</script>
+window.startFinanzas = async function() {
+  await cloudLoadFinanzas();
+  init();
+};</script>
 
 </body>
 </html>
