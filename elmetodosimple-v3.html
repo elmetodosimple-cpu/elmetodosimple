@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ElMétodoSimple</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,700&family=Outfit:wght@400;600;700;800&family=DM+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09090a;--surface:#111113;--card:#18181b;--card2:#1e1e22;--border:#27272a;--border2:#323236;--yellow:#E8C547;--ydim:rgba(232,197,71,0.09);--ymid:rgba(232,197,71,0.22);--text:#f1f0ec;--muted:#52525b;--muted2:#8a8a9a;--green:#4ade80;--red:#f87171;--orange:#fb923c;--blue:#60a5fa;--purple:#c084fc;--teal:#2dd4bf;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;width:100%;max-width:430px;margin:0 auto;display:flex;flex-direction:column}
+.screen{display:none;flex-direction:column;min-height:100vh}.screen.active{display:flex}
+#loginScreen{padding:48px 24px 32px;justify-content:flex-start}
+.login-logo{font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:var(--yellow);text-align:center;margin-bottom:4px}
+.login-tag{font-size:13px;color:var(--muted2);text-align:center;margin-bottom:36px}
+.login-tabs{display:flex;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:22px}
+.lt{flex:1;padding:10px;text-align:center;font-size:14px;font-weight:700;color:var(--muted2);border-radius:9px;cursor:pointer;transition:all .2s}
+.lt.active{background:var(--yellow);color:#000}
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:5px}
+.fg input,.fg select{width:100%;background:var(--card);border:1px solid var(--border2);color:var(--text);font-family:'Outfit',sans-serif;font-size:16px;padding:13px 15px;border-radius:12px;transition:border-color .2s}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--yellow)}
+.fg input::placeholder{color:var(--muted)}
+.btn-main{width:100%;background:var(--yellow);color:#000;border:none;border-radius:12px;padding:15px;font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;cursor:pointer;margin-top:4px}
+.btn-main:active{transform:scale(.98)}
+.btn-ghost{width:100%;background:transparent;border:1px solid var(--border2);color:var(--muted2);border-radius:12px;padding:13px;font-family:'Outfit',sans-serif;font-weight:600;font-size:14px;cursor:pointer;margin-top:8px}
+.err{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.3);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--red);margin-bottom:11px;display:none}
+.err.show{display:block}
+.login-foot{text-align:center;margin-top:32px;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;line-height:1.7}
+#appScreen{background:var(--bg)}
+.app-hdr{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;flex-shrink:0}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;padding:12px 18px 0}
+.hdr-logo{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);letter-spacing:2px}
+.hdr-user{display:flex;align-items:center;gap:7px;cursor:pointer}
+.hdr-av{width:28px;height:28px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#000}
+.hdr-name{font-size:13px;font-weight:600}
+.app-nav{display:flex;overflow-x:auto;scrollbar-width:none;padding:8px 0 0}
+.app-nav::-webkit-scrollbar{display:none}
+.np{padding:8px 14px 10px;font-size:12px;font-weight:700;color:var(--muted2);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .15s;flex-shrink:0}
+.np.active{color:var(--yellow);border-bottom-color:var(--yellow)}
+.app-body{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:40px}
+.app-body::-webkit-scrollbar{display:none}
+.ap{display:none}.ap.active{display:block}
+.ptitle{font-family:'Fraunces',serif;font-size:22px;font-weight:900;padding:16px 18px 0;margin-bottom:12px}
+.ptitle em{color:var(--yellow);font-style:italic}
+.kpi4{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 18px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px}
+.kpi-l{font-size:11px;color:var(--muted2);margin-bottom:3px}
+.kpi-v{font-family:'Fraunces',serif;font-size:21px;font-weight:700;color:var(--yellow)}
+.kpi-s{font-size:11px;color:var(--muted2);margin-top:2px}
+.sec{padding:0 18px;margin-bottom:14px}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.sec-t{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.sec-a{font-size:12px;color:var(--yellow);cursor:pointer}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:8px}
+.pill-row{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:12px 18px 0}
+.pill-row::-webkit-scrollbar{display:none}
+.pill{font-size:11px;padding:6px 13px;border-radius:20px;border:1px solid var(--border);color:var(--muted2);cursor:pointer;white-space:nowrap;font-family:'DM Mono',monospace;transition:all .15s;flex-shrink:0;background:transparent}
+.pill.active{border-color:var(--yellow);color:var(--yellow);background:var(--ydim)}
+.pbar{height:6px;background:var(--border);border-radius:10px;overflow:hidden;margin-top:6px}
+.pbar-f{height:100%;border-radius:10px;transition:width .5s}
+.badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;font-family:'DM Mono',monospace}
+.bg{background:rgba(74,222,128,.12);color:var(--green)}.br{background:rgba(248,113,113,.12);color:var(--red)}
+.bo{background:rgba(251,146,60,.12);color:var(--orange)}.bb{background:rgba(96,165,250,.12);color:var(--blue)}
+.bm{background:var(--card2);color:var(--muted2)}
+.av{display:flex;align-items:center;justify-content:center;font-weight:800;color:#000;border-radius:10px;flex-shrink:0}
+.add-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:transparent;border:1.5px dashed var(--border);border-radius:12px;padding:12px;color:var(--muted2);font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;margin-top:4px}
+.btn-y{width:100%;background:var(--yellow);color:#000;border:none;border-radius:12px;padding:13px;font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;cursor:pointer;margin-top:4px}
+.mov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:200;align-items:flex-end;backdrop-filter:blur(6px)}
+.mov.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:22px 22px 0 0;padding:20px 20px 48px;width:100%;max-height:85vh;overflow-y:auto;animation:slideUp .3s cubic-bezier(.32,.72,0,1)}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mh{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:0 auto 15px}
+.mt{font-family:'Fraunces',serif;font-size:20px;font-weight:900;margin-bottom:14px;color:var(--yellow)}
+.mfg{margin-bottom:11px}
+.mfg label{display:block;font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;font-family:'DM Mono',monospace}
+.mfg input,.mfg select,.mfg textarea{width:100%;background:var(--card2);border:1px solid var(--border2);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;padding:11px 13px;border-radius:10px;transition:border-color .15s}
+.mfg input:focus,.mfg select:focus,.mfg textarea:focus{outline:none;border-color:var(--yellow)}
+.mfg textarea{resize:none;height:68px}
+.mfg input::placeholder,.mfg textarea::placeholder{color:var(--muted)}
+.dash-hero{padding:18px 18px 14px}
+.dash-g{font-family:'Fraunces',serif;font-size:28px;font-weight:900;line-height:1.1;margin-bottom:4px}
+.dash-g em{color:var(--yellow);font-style:italic}
+.dash-d{font-size:12px;color:var(--muted2);font-family:'DM Mono',monospace}
+.ds-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 18px;margin-bottom:14px}
+.ds{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;cursor:pointer;transition:border-color .15s}
+.ds:active{border-color:var(--border2)}
+.ds-icon{font-size:20px;margin-bottom:6px}
+.ds-mod{font-size:10px;color:var(--muted2);font-family:'DM Mono',monospace;margin-bottom:3px}
+.ds-val{font-family:'Fraunces',serif;font-size:19px;font-weight:700}
+.ds-sub{font-size:11px;color:var(--muted2);margin-top:2px}
+.today-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px}
+.today-t{font-size:13px;font-weight:700;color:var(--yellow);margin-bottom:10px}
+.ti{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)}
+.ti:last-child{border-bottom:none}
+.ti-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ti-text{font-size:13px;flex:1;line-height:1.3}
+.ti-tag{font-size:9px;color:var(--muted2);font-family:'DM Mono',monospace;white-space:nowrap}
+.week-strip{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding:12px 18px}
+.week-strip::-webkit-scrollbar{display:none}
+.db{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 8px;border-radius:11px;cursor:pointer;border:1px solid transparent;flex-shrink:0;min-width:44px;transition:all .15s}
+.db.today{background:var(--yellow)}.db.today .db-n,.db.today .db-d{color:#000}
+.db.has{border-color:var(--border2)}
+.db-n{font-size:9px;color:var(--muted2);font-family:'DM Mono',monospace}
+.db-d{font-size:15px;font-weight:700}
+.db-dot{width:4px;height:4px;border-radius:50%;background:var(--yellow)}
+.db.today .db-dot{background:#000}
+.slot{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.slot:last-child{border-bottom:none}
+.slot-t{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);width:44px;flex-shrink:0;padding-top:2px}
+.slot-bar{width:3px;border-radius:2px;flex-shrink:0;min-height:34px}
+.slot-title{font-size:13px;font-weight:600;margin-bottom:2px}
+.slot-sub{font-size:11px;color:var(--muted2)}
+.t3-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.t3-row:last-child{border-bottom:none}
+.t3-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.t3-row input{flex:1;background:transparent;border:none;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;padding:4px 0}
+.t3-row input:focus{outline:none}
+.bal-hero{margin:12px 18px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;text-align:center;position:relative;overflow:hidden}
+.bal-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(232,197,71,.1),transparent 70%)}
+.bh-l{font-size:10px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px}
+.bh-v{font-family:'Fraunces',serif;font-size:42px;font-weight:900;color:var(--yellow);letter-spacing:-2px;line-height:1}
+.bh-c{font-size:12px;color:var(--green);margin-top:5px;font-family:'DM Mono',monospace}
+.bh-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}
+.bh-i{background:var(--card2);border-radius:10px;padding:9px}
+.bh-il{font-size:10px;color:var(--muted2);margin-bottom:3px}
+.bh-iv{font-family:'DM Mono',monospace;font-size:14px;font-weight:700}
+.bars{display:flex;align-items:flex-end;gap:5px;height:70px}
+.bcg{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.bc-pair{display:flex;gap:2px;align-items:flex-end;width:100%}
+.bci{flex:1;border-radius:3px 3px 0 0}
+.bcl{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted2)}.bcl.cur{color:var(--yellow)}
+.tx{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.tx-icon{font-size:20px;flex-shrink:0}
+.tx-name{font-size:13px;font-weight:600}.tx-date{font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace;margin-top:1px}
+.tx-amt{margin-left:auto;font-family:'DM Mono',monospace;font-size:14px;font-weight:700}
+.cat-row{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.cat-color{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.cat-name{font-size:13px;font-weight:600;flex:1}
+.cat-right{text-align:right}
+.cat-amt{font-family:'DM Mono',monospace;font-size:13px;font-weight:700}
+.cat-pct{font-size:10px;color:var(--muted2);font-family:'DM Mono',monospace}
+.bud-row{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:6px}
+.bud-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.bud-name{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
+.bud-amts{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2)}
+.bud-amts span{color:var(--text)}
+.cuenta{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.cuenta-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cuenta-name{font-size:14px;font-weight:700}.cuenta-type{font-size:11px;color:var(--muted2);margin-top:1px}
+.cuenta-bal{margin-left:auto;font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--yellow)}
+.habit{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:8px}
+.h-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.h-left{display:flex;align-items:center;gap:9px}
+.h-icon{font-size:20px}.h-name{font-size:14px;font-weight:700}.h-sub{font-size:11px;color:var(--muted2);margin-top:1px}
+.h-pct{font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--yellow)}
+.wdots{display:flex;gap:4px}
+.wd{flex:1;min-width:0;height:30px;border-radius:7px;border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
+.wd-l{font-family:'DM Mono',monospace;font-size:7px;color:var(--muted2)}
+.wd-n{font-family:'DM Mono',monospace;font-size:9px;font-weight:700}
+.wd.wy{border-color:var(--yellow);background:var(--yellow)}.wd.wy .wd-l,.wd.wy .wd-n{color:#000}
+.wd.wg{border-color:var(--green);background:var(--green)}.wd.wg .wd-l,.wd.wg .wd-n{color:#000}
+.wd.wb{border-color:var(--blue);background:var(--blue)}.wd.wb .wd-l,.wd.wb .wd-n{color:#000}
+.wd.wp{border-color:var(--purple);background:var(--purple)}.wd.wp .wd-l,.wd.wp .wd-n{color:#000}
+.wd.tr{border-color:var(--yellow)}.wd.tr .wd-n{color:var(--yellow)}.wd.ms{background:rgba(248,113,113,.08)}
+.mdots{display:flex;flex-wrap:wrap;gap:3px}
+.md{width:calc((100% - 18px)/7);aspect-ratio:1;border-radius:5px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:7px;cursor:pointer;transition:all .1s}
+.md.wy{background:var(--yellow);border-color:var(--yellow);color:#000;font-weight:700}
+.md.wg{background:var(--green);border-color:var(--green);color:#000;font-weight:700}
+.md.wb{background:var(--blue);border-color:var(--blue);color:#000;font-weight:700}
+.md.wp{background:var(--purple);border-color:var(--purple);color:#000;font-weight:700}
+.md.tr{border-color:var(--yellow);color:var(--yellow);font-weight:700}.md.ms{background:rgba(248,113,113,.08)}.md.fut{opacity:.2}
+.proj{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;display:flex;gap:11px;margin-bottom:8px}
+.p-body{flex:1;min-width:0}.p-name{font-size:14px;font-weight:700;margin-bottom:2px}
+.p-desc{font-size:12px;color:var(--muted2);margin-bottom:7px}
+.p-foot{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.p-due{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+.p-amt{margin-left:auto;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:var(--green)}
+.fac{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:8px}
+.fac-t{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.fac-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2)}
+.fac-name{font-size:14px;font-weight:700;margin-bottom:2px}
+.fac-srv{font-size:12px;color:var(--muted2);margin-bottom:7px}
+.fac-bot{display:flex;align-items:center;justify-content:space-between}
+.fac-date{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+.fac-amt{font-family:'DM Mono',monospace;font-size:16px;font-weight:700}
+.timer-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;text-align:center;margin:12px 18px}
+.timer-sel{width:100%;background:var(--card2);border:1px solid var(--border2);color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;padding:10px 12px;border-radius:10px;margin-bottom:13px}
+.timer-sel:focus{outline:none;border-color:var(--yellow)}
+.timer-d{font-family:'DM Mono',monospace;font-size:46px;font-weight:700;color:var(--yellow);letter-spacing:3px;margin-bottom:5px}
+.timer-p{font-size:12px;color:var(--muted2);margin-bottom:15px}
+.timer-btns{display:flex;gap:8px}
+.tb{flex:1;border:none;border-radius:11px;padding:12px;font-family:'Outfit',sans-serif;font-weight:800;font-size:14px;cursor:pointer}
+.tb-s{background:var(--yellow);color:#000}.tb-r{background:var(--card2);border:1px solid var(--border);color:var(--red)}
+.tlog-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.tlog-item:last-child{border-bottom:none}
+.tl-task{font-size:13px;font-weight:600}.tl-date{font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace}
+.tl-time{margin-left:auto;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--yellow)}
+.cli{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:8px}
+.cli-top{display:flex;align-items:center;gap:11px;margin-bottom:11px}
+.cli-av{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#000;flex-shrink:0}
+.cli-name{font-size:14px;font-weight:700}.cli-since{font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace}
+.cli-dot{width:8px;height:8px;border-radius:50%;margin-left:auto;flex-shrink:0}
+.cli-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.cs{background:var(--card2);border-radius:8px;padding:8px;text-align:center}
+.cs-n{font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--yellow)}.cs-l{font-size:10px;color:var(--muted2);margin-top:2px}
+.cli-notes label{display:block;font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.cli-notes textarea{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Outfit',sans-serif;font-size:12px;padding:9px;resize:none;height:52px}
+.cli-notes textarea:focus{outline:none;border-color:var(--yellow)}
+.item-row{display:grid;grid-template-columns:1fr 60px 75px 28px;gap:5px;align-items:center;margin-bottom:6px}
+.item-row input{background:var(--card2);border:1px solid var(--border2);color:var(--text);font-family:'Outfit',sans-serif;font-size:12px;padding:8px 9px;border-radius:8px;width:100%}
+.item-row input:focus{outline:none;border-color:var(--yellow)}
+.rm-b{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);color:var(--red);border-radius:7px;width:28px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px}
+.pres-total{background:var(--ydim);border:1px solid var(--ymid);border-radius:12px;padding:13px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.pp{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px}
+.pp-hdr{display:flex;justify-content:space-between;padding-bottom:11px;border-bottom:1px solid var(--border);margin-bottom:11px}
+.pp-logo{font-family:'DM Mono',monospace;font-size:10px;color:var(--yellow);letter-spacing:2px}
+.pp-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);text-align:right}
+.pp-table{width:100%;border-collapse:collapse;margin-bottom:9px}
+.pp-table th{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;color:var(--muted);text-align:left;padding:5px 0;border-bottom:1px solid var(--border)}
+.pp-table td{font-size:12px;padding:6px 0;border-bottom:1px solid var(--border)}
+.pp-table td:last-child,.pp-table th:last-child{text-align:right;font-family:'DM Mono',monospace}
+.pp-total{display:flex;justify-content:space-between;padding-top:8px;font-weight:700;font-size:13px}
+.pp-total span:last-child{font-family:'DM Mono',monospace;color:var(--yellow)}
+.area-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:8px;cursor:pointer}
+.area-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:9px}
+.area-icon{font-size:24px}.area-pct{font-family:'Fraunces',serif;font-size:24px;font-weight:700}
+.area-name{font-size:15px;font-weight:700;margin-bottom:2px}.area-sub{font-size:12px;color:var(--muted2);margin-bottom:9px}
+.meta-c{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:8px}
+.mc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:7px}
+.mc-title{font-size:14px;font-weight:700;flex:1;margin-right:10px;line-height:1.3}
+.mc-ck{width:21px;height:21px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:10px;transition:all .2s}
+.mc-ck.done{background:var(--yellow);border-color:var(--yellow);color:#000}
+.mc-desc{font-size:12px;color:var(--muted2);line-height:1.4;margin-bottom:9px}
+.paso{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border)}
+.paso:last-child{border-bottom:none}
+.pck{width:16px;height:16px;border-radius:5px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:8px;transition:all .15s}
+.pck.done{background:var(--yellow);border-color:var(--yellow);color:#000}
+.ptxt{font-size:12px;flex:1}.ptxt.tach{text-decoration:line-through;color:var(--muted)}
+.pmes{font-size:10px;color:var(--muted2);font-family:'DM Mono',monospace}
+.vbox{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px;margin-bottom:10px}
+.vbox-l{font-size:10px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.rev-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:8px}
+.rch{padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.rc-mes{font-family:'Fraunces',serif;font-size:15px;font-weight:700}
+.rc-body{padding:0 14px 14px;display:none}.rc-body.open{display:block}
+.rcq{margin-bottom:10px}
+.rcq label{display:block;font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;font-family:'DM Mono',monospace}
+.rcq textarea{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;padding:9px;resize:none;height:54px}
+.rcq textarea:focus{outline:none;border-color:var(--yellow)}
+.stars{display:flex;gap:5px;margin-top:3px}
+.star{font-size:20px;cursor:pointer;opacity:.25;transition:opacity .15s}.star.lit{opacity:1}
+
+/* Módulos screen */
+#modulesScreen{padding:0}
+.mod-logo{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--yellow);text-align:center;margin-bottom:4px}
+.mod-sub{font-size:13px;color:var(--muted2);text-align:center;margin-bottom:6px}
+.mod-user-tag{font-size:11px;color:var(--muted);text-align:center;font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:28px}
+.mod-section-t{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.mod-item{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:15px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px}
+.mod-item.active{border-color:var(--yellow);background:rgba(232,197,71,0.05)}
+.mod-item.locked{opacity:.45}
+.mod-icon{font-size:22px;flex-shrink:0;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--card2)}
+.mod-info{flex:1;min-width:0}
+.mod-name{font-size:15px;font-weight:700;margin-bottom:2px}
+.mod-desc{font-size:11px;color:var(--muted2);line-height:1.4}
+.btn-enter{width:100%;background:var(--yellow);color:#000;border:none;border-radius:14px;padding:16px;font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;cursor:pointer;margin-top:22px}
+.btn-enter:active{transform:scale(.98)}
+.mod-note{text-align:center;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;line-height:1.7}
+
+/* Locked nav tab */
+.np.blocked{opacity:.35;cursor:default}
+.np.blocked::after{content:'🔒';font-size:9px;margin-left:3px}
+</style>
+</head>
+<body>
+<div class="screen active" id="loginScreen">
+  <div class="login-logo">ElMétodoSimple</div>
+  <div class="login-tag">Organizá tu vida y controlá tu plata</div>
+  <div id="formLogin">
+    <div class="login-tabs">
+      <div class="lt active" onclick="setTab('login')">Ingresar</div>
+      <div class="lt" onclick="setTab('register')">Registrarse</div>
+    </div>
+    <div class="err" id="errLogin"></div>
+    <div class="fg"><label>Email</label><input type="email" id="loginU" placeholder="tucorreo@email.com" autocomplete="email"></div>
+    <div class="fg"><label>Contraseña</label><input type="password" id="loginP" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <button id="btnLogin" class="btn-main" onclick="doLogin()">Ingresar →</button>
+    <button class="btn-ghost" onclick="setTab('register')">¿No tenés cuenta? Registrarte</button>
+  </div>
+  <div id="formRegister" style="display:none">
+    <div class="login-tabs">
+      <div class="lt" onclick="setTab('login')">Ingresar</div>
+      <div class="lt active" onclick="setTab('register')">Registrarse</div>
+    </div>
+    <div class="err" id="errRegister"></div>
+    <div class="fg"><label>Tu nombre</label><input type="text" id="regN" placeholder="Ej: Axel" maxlength="30"></div>
+    <div class="fg"><label>Email</label><input type="email" id="regU" placeholder="tucorreo@email.com" autocomplete="email"></div>
+    <div class="fg"><label>Contraseña</label><input type="password" id="regP" placeholder="Mínimo 4 caracteres" autocomplete="new-password"></div>
+    <div class="fg"><label>Moneda</label>
+      <select id="regM">
+        <option value="$">$ — Peso argentino (ARS)</option>
+        <option value="USD">USD — Dólar</option>
+        <option value="MXN">$ — Peso mexicano (MXN)</option>
+        <option value="S/.">S/. — Sol peruano (PEN)</option>
+        <option value="CLP">$ — Peso chileno (CLP)</option>
+        <option value="COP">$ — Peso colombiano (COP)</option>
+        <option value="EUR">€ — Euro</option>
+      </select>
+    </div>
+    <button id="btnRegister" class="btn-main" onclick="doRegister()">Crear cuenta →</button>
+    <button class="btn-ghost" onclick="setTab('login')">Ya tengo cuenta</button>
+  </div>
+  <div class="login-foot">TUS DATOS SE GUARDAN EN ESTE DISPOSITIVO<br>Sin suscripciones · Tuyo para siempre</div>
+</div>
+<!-- PANTALLA DE MÓDULOS (solo lectura, controlada por nosotros) -->
+<div class="screen" id="modulesScreen">
+  <div style="padding:40px 24px 36px;display:flex;flex-direction:column;min-height:100vh">
+    <div class="mod-logo">ElMétodoSimple</div>
+    <div class="mod-sub" id="modUserTag">Bienvenido/a</div>
+    <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-align:center;letter-spacing:2px;margin-bottom:28px;text-transform:uppercase">TUS MÓDULOS</div>
+    <div id="modListEl"></div>
+    <button class="btn-enter" onclick="enterApp()">Entrar a la app →</button>
+    <div style="text-align:center;font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:16px;line-height:1.8">
+      ¿Querés agregar más módulos?<br>
+      <span style="color:var(--yellow)">elmetodosimple@gmail.com</span>
+    </div>
+  </div>
+</div>
+
+<div class="screen" id="appScreen">
+  <div class="app-hdr">
+    <div class="hdr-row">
+      <div class="hdr-logo">ElMétodoSimple</div>
+      <div class="hdr-user" onclick="doLogout()">
+        <div class="hdr-av" id="hdrAv">A</div>
+        <div class="hdr-name" id="hdrName">Axel</div>
+      </div>
+    </div>
+    <div class="app-nav">
+      <div class="np active" onclick="goPage('Dash',this)">🏠 Inicio</div>
+      <div class="np" onclick="goPage('Agenda',this)">📅 Agenda</div>
+      <div class="np" onclick="goPage('Finanzas',this)">💰 Finanzas</div>
+      <div class="np" onclick="goPage('Habitos',this)">🔥 Hábitos</div>
+      <div class="np" onclick="goPage('Freelance',this)">💼 Freelance</div>
+      <div class="np" onclick="goPage('Metas',this)">🎯 Metas</div>
+    </div>
+  </div>
+  <div class="app-body" id="appBody">
+    <div class="ap active" id="pageDash">
+      <div class="dash-hero">
+        <div class="dash-g">Buenos días,<br><em id="dashName">Axel</em> 👋</div>
+        <div class="dash-d" id="dashDate"></div>
+      </div>
+      <div class="ds-grid">
+        <div class="ds" onclick="goPage('Finanzas',null)"><div class="ds-icon">💰</div><div class="ds-mod">Finanzas</div><div class="ds-val" style="color:var(--yellow)">$124.500</div><div class="ds-sub">Balance total</div></div>
+        <div class="ds" onclick="goPage('Habitos',null)"><div class="ds-icon">🔥</div><div class="ds-mod">Hábitos</div><div class="ds-val" style="color:var(--orange)">12 días</div><div class="ds-sub">Racha activa</div></div>
+        <div class="ds" onclick="goPage('Freelance',null)"><div class="ds-icon">💼</div><div class="ds-mod">Freelance</div><div class="ds-val" style="color:var(--green)">$890</div><div class="ds-sub">Por cobrar</div></div>
+        <div class="ds" onclick="goPage('Metas',null)"><div class="ds-icon">🎯</div><div class="ds-mod">Metas</div><div class="ds-val" style="color:var(--blue)">59%</div><div class="ds-sub">Progreso 2026</div></div>
+      </div>
+      <div class="sec">
+        <div class="today-card">
+          <div class="today-t">⚡ Tu día de hoy</div>
+          <div class="ti"><div class="ti-dot" style="background:var(--yellow)"></div><div class="ti-text">Completar hábitos del día (3 pendientes)</div><div class="ti-tag">HÁBITOS</div></div>
+          <div class="ti"><div class="ti-dot" style="background:var(--red)"></div><div class="ti-text">Entrega landing — Rodrigo M.</div><div class="ti-tag" style="color:var(--red)">URGENTE</div></div>
+          <div class="ti"><div class="ti-dot" style="background:var(--orange)"></div><div class="ti-text">Registrar gastos de la semana</div><div class="ti-tag">FINANZAS</div></div>
+          <div class="ti"><div class="ti-dot" style="background:var(--blue)"></div><div class="ti-text">Revisar meta: lanzamiento kit</div><div class="ti-tag">METAS</div></div>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-hdr"><div class="sec-t">Resumen del mes</div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <div class="card" style="text-align:center;padding:12px"><div style="font-size:18px;margin-bottom:3px">💰</div><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--green)">+$3.240</div><div style="font-size:10px;color:var(--muted2);margin-top:2px">Ingresos</div></div>
+          <div class="card" style="text-align:center;padding:12px"><div style="font-size:18px;margin-bottom:3px">✅</div><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--yellow)">89%</div><div style="font-size:10px;color:var(--muted2);margin-top:2px">Hábitos</div></div>
+          <div class="card" style="text-align:center;padding:12px"><div style="font-size:18px;margin-bottom:3px">🎯</div><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--blue)">2/4</div><div style="font-size:10px;color:var(--muted2);margin-top:2px">Metas</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="ap" id="pageAgenda">
+      <!-- Header Agenda Pro -->
+      <div style="padding:14px 18px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+          <div>
+            <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--yellow);display:flex;align-items:center;gap:7px">✦ Agenda Pro</div>
+            <div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">2026</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:6px 12px;font-family:'DM Mono',monospace;font-size:11px;color:var(--yellow)">✦ 2026</div>
+        </div>
+        <!-- Progress bar año -->
+        <div style="margin:10px 0 4px;display:flex;align-items:center;gap:10px">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--yellow);width:30px" id="agYearPct">15%</div>
+          <div style="flex:1;height:5px;background:var(--border);border-radius:10px;overflow:hidden"><div id="agYearBar" style="height:100%;background:var(--yellow);border-radius:10px;width:15%"></div></div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)" id="agDaysLeft">311 días</div>
+        </div>
+      </div>
+
+      <!-- Nav pills Agenda -->
+      <div class="pill-row" id="agendaPills" style="padding:10px 18px 0;gap:4px">
+        <div class="pill active" onclick="setAg(this,'agInicio')">◆ Inicio</div>
+        <div class="pill" onclick="setAg(this,'agMetas')">◎ Metas</div>
+        <div class="pill" onclick="setAg(this,'agHabitos')">◑ Hábitos</div>
+        <div class="pill" onclick="setAg(this,'agSemana')">▦ Semana</div>
+        <div class="pill" onclick="setAg(this,'agMes')">▦ Mes</div>
+        <div class="pill" onclick="setAg(this,'agPresup')">$ Presup.</div>
+        <div class="pill" onclick="setAg(this,'agViajes')">✈ Viajes</div>
+        <div class="pill" onclick="setAg(this,'agRutina')">☀ Rutina</div>
+        <div class="pill" onclick="setAg(this,'agWishlist')">♡ Wishlist</div>
+        <div class="pill" onclick="setAg(this,'agDiario')">✎ Diario</div>
+        <div class="pill" onclick="setAg(this,'agVision')">✦ Visión</div>
+        <div class="pill" onclick="setAg(this,'agFocus')">◎ Focus</div>
+        <div class="pill" onclick="setAg(this,'agStats')">◆ Stats</div>
+        <div class="pill" onclick="setAg(this,'agReview')">▦ Review</div>
+      </div>
+
+      <!-- INICIO -->
+      <div id="agInicio">
+        <div style="padding:14px 18px 6px">
+          <div style="font-size:10px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px">RESUMEN GENERAL</div>
+          <div style="font-family:'Fraunces',serif;font-size:26px;font-weight:900;margin-bottom:2px">Agenda Pro ✦</div>
+          <div style="font-size:13px;color:var(--muted2);margin-bottom:16px">Definí tu visión anual en la sección Visión.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+            <div style="background:var(--card);border:1px solid var(--yellow);border-top:3px solid var(--yellow);border-radius:12px;padding:14px">
+              <div style="font-size:9px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">METAS ACTIVAS</div>
+              <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:900">4</div>
+              <div style="font-size:11px;color:var(--muted2);margin-top:2px">en progreso</div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-top:3px solid var(--green);border-radius:12px;padding:14px">
+              <div style="font-size:9px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">HÁBITOS HOY</div>
+              <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:900">0%</div>
+              <div style="font-size:11px;color:var(--muted2);margin-top:2px">completados</div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-top:3px solid var(--red);border-radius:12px;padding:14px">
+              <div style="font-size:9px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">TAREAS PEND.</div>
+              <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:900">3</div>
+              <div style="font-size:11px;color:var(--muted2);margin-top:2px">esta semana</div>
+            </div>
+            <div style="background:var(--card);border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:12px;padding:14px">
+              <div style="font-size:9px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">VIAJES PLAN.</div>
+              <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:900">1</div>
+              <div style="font-size:11px;color:var(--muted2);margin-top:2px">próximos</div>
+            </div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Metas top</div><div class="sec-a" onclick="setAg(document.querySelector('#agendaPills .pill:nth-child(2)'),'agMetas')">Ver todas</div></div>
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--yellow);flex-shrink:0"></div>
+              <div style="flex:1"><div style="font-size:13px;font-weight:600">Lanzar ElMétodoSimple</div><div class="pbar" style="margin-top:5px"><div class="pbar-f" style="width:65%;background:var(--yellow)"></div></div></div>
+              <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--yellow)">65%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
+              <div style="flex:1"><div style="font-size:13px;font-weight:600">Gym 4 veces por semana</div><div class="pbar" style="margin-top:5px"><div class="pbar-f" style="width:78%;background:var(--green)"></div></div></div>
+              <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--green)">78%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0"></div>
+              <div style="flex:1"><div style="font-size:13px;font-weight:600">Leer 24 libros en 2026</div><div class="pbar" style="margin-top:5px"><div class="pbar-f" style="width:25%;background:var(--blue)"></div></div></div>
+              <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--blue)">25%</div>
+            </div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Hábitos de hoy</div><div class="sec-a" onclick="setAg(document.querySelector('#agendaPills .pill:nth-child(3)'),'agHabitos')">Ver todos</div></div>
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)">
+              <div style="width:22px;height:22px;border-radius:7px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:10px" onclick="this.style.background='var(--yellow)';this.style.borderColor='var(--yellow)';this.textContent='✓'">　</div>
+              <div style="flex:1;font-size:13px">💧 Tomar 2L de agua</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Salud</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)">
+              <div style="width:22px;height:22px;border-radius:7px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:10px" onclick="this.style.background='var(--yellow)';this.style.borderColor='var(--yellow)';this.textContent='✓'">　</div>
+              <div style="flex:1;font-size:13px">🏃 Ejercicio 30min</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Salud</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
+              <div style="width:22px;height:22px;border-radius:7px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:10px" onclick="this.style.background='var(--yellow)';this.style.borderColor='var(--yellow)';this.textContent='✓'">　</div>
+              <div style="flex:1;font-size:13px">📚 Leer 20 páginas</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Mente</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- METAS -->
+      <div id="agMetas" style="display:none">
+        <div class="ptitle">Mis <em>Metas</em></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Metas 2026</div><div class="sec-a" onclick="openM('Meta')">+ Nueva</div></div>
+          <div class="card" style="margin-bottom:8px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+              <div><div style="font-size:14px;font-weight:700">🚀 Lanzar ElMétodoSimple</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Trabajo · Mar 2026</div></div>
+              <span class="badge bb">EN PROGRESO</span>
+            </div>
+            <div class="pbar"><div class="pbar-f" style="width:65%;background:var(--yellow)"></div></div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--yellow);margin-top:4px;text-align:right">65%</div>
+          </div>
+          <div class="card" style="margin-bottom:8px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+              <div><div style="font-size:14px;font-weight:700">💪 Gym 4 veces / semana</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Salud · Todo el año</div></div>
+              <span class="badge bg">EN RACHA</span>
+            </div>
+            <div class="pbar"><div class="pbar-f" style="width:78%;background:var(--green)"></div></div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green);margin-top:4px;text-align:right">78%</div>
+          </div>
+          <div class="card" style="margin-bottom:8px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+              <div><div style="font-size:14px;font-weight:700">📚 Leer 24 libros</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Mente · Dic 2026</div></div>
+              <span class="badge bb">EN PROGRESO</span>
+            </div>
+            <div class="pbar"><div class="pbar-f" style="width:25%;background:var(--blue)"></div></div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--blue);margin-top:4px;text-align:right">25% · 6/24 libros</div>
+          </div>
+          <div class="card" style="margin-bottom:8px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+              <div><div style="font-size:14px;font-weight:700">✈ 2 viajes internacionales</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Personal · 2026</div></div>
+              <span class="badge bo">PENDIENTE</span>
+            </div>
+            <div class="pbar"><div class="pbar-f" style="width:0%;background:var(--orange)"></div></div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--orange);margin-top:4px;text-align:right">0% · 0/2 viajes</div>
+          </div>
+          <button class="add-btn" onclick="openM('Meta')">+ Agregar meta</button>
+        </div>
+      </div>
+
+      <!-- HÁBITOS -->
+      <div id="agHabitos" style="display:none">
+        <div class="ptitle">Mis <em>Hábitos</em></div>
+        <div class="week-strip" id="agWeekStrip"></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Hábitos de hoy</div><div class="sec-a" onclick="openM('HabitoAg')">+ Nuevo</div></div>
+          <div id="agHabitList">
+            <div class="habit">
+              <div class="h-top"><div class="h-left"><div class="h-icon">💧</div><div><div class="h-name">Tomar 2L de agua</div><div class="h-sub">Salud · 21/28 días</div></div></div><div class="h-pct">75%</div></div>
+              <div class="wdots"><div class="wd wg"><div class="wd-l">L</div><div class="wd-n">17</div></div><div class="wd wg"><div class="wd-l">M</div><div class="wd-n">18</div></div><div class="wd wg"><div class="wd-l">X</div><div class="wd-n">19</div></div><div class="wd wg"><div class="wd-l">J</div><div class="wd-n">20</div></div><div class="wd wg"><div class="wd-l">V</div><div class="wd-n">21</div></div><div class="wd ms"><div class="wd-l">S</div><div class="wd-n">22</div></div><div class="wd tr"><div class="wd-l">D</div><div class="wd-n">23</div></div></div>
+            </div>
+            <div class="habit">
+              <div class="h-top"><div class="h-left"><div class="h-icon">🏃</div><div><div class="h-name">Ejercicio 30min</div><div class="h-sub">Salud · 15/28 días</div></div></div><div class="h-pct">54%</div></div>
+              <div class="wdots"><div class="wd wg"><div class="wd-l">L</div><div class="wd-n">17</div></div><div class="wd ms"><div class="wd-l">M</div><div class="wd-n">18</div></div><div class="wd wg"><div class="wd-l">X</div><div class="wd-n">19</div></div><div class="wd wg"><div class="wd-l">J</div><div class="wd-n">20</div></div><div class="wd ms"><div class="wd-l">V</div><div class="wd-n">21</div></div><div class="wd ms"><div class="wd-l">S</div><div class="wd-n">22</div></div><div class="wd tr"><div class="wd-l">D</div><div class="wd-n">23</div></div></div>
+            </div>
+            <div class="habit">
+              <div class="h-top"><div class="h-left"><div class="h-icon">📚</div><div><div class="h-name">Leer 20 páginas</div><div class="h-sub">Mente · 18/28 días</div></div></div><div class="h-pct">64%</div></div>
+              <div class="wdots"><div class="wd wp"><div class="wd-l">L</div><div class="wd-n">17</div></div><div class="wd wp"><div class="wd-l">M</div><div class="wd-n">18</div></div><div class="wd ms"><div class="wd-l">X</div><div class="wd-n">19</div></div><div class="wd wp"><div class="wd-l">J</div><div class="wd-n">20</div></div><div class="wd wp"><div class="wd-l">V</div><div class="wd-n">21</div></div><div class="wd ms"><div class="wd-l">S</div><div class="wd-n">22</div></div><div class="wd tr"><div class="wd-l">D</div><div class="wd-n">23</div></div></div>
+            </div>
+            <div class="habit">
+              <div class="h-top"><div class="h-left"><div class="h-icon">✍️</div><div><div class="h-name">Journaling</div><div class="h-sub">Trabajo · 12/28 días</div></div></div><div class="h-pct">43%</div></div>
+              <div class="wdots"><div class="wd wb"><div class="wd-l">L</div><div class="wd-n">17</div></div><div class="wd ms"><div class="wd-l">M</div><div class="wd-n">18</div></div><div class="wd wb"><div class="wd-l">X</div><div class="wd-n">19</div></div><div class="wd ms"><div class="wd-l">J</div><div class="wd-n">20</div></div><div class="wd wb"><div class="wd-l">V</div><div class="wd-n">21</div></div><div class="wd ms"><div class="wd-l">S</div><div class="wd-n">22</div></div><div class="wd tr"><div class="wd-l">D</div><div class="wd-n">23</div></div></div>
+            </div>
+          </div>
+          <button class="add-btn" onclick="openM('HabitoAg')">+ Agregar hábito</button>
+        </div>
+      </div>
+
+      <!-- SEMANA -->
+      <div id="agSemana" style="display:none">
+        <div class="ptitle">Mi <em>Semana</em></div>
+        <div class="week-strip" id="agWeekStrip2"></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t" id="agSemLabel">Lunes 17 feb</div><div class="sec-a" onclick="openM('Evento')">+ Evento</div></div>
+          <div class="card">
+            <div class="slot"><div class="slot-t">07:00</div><div class="slot-bar" style="background:var(--green)"></div><div><div class="slot-title">Gym / ejercicio</div><div class="slot-sub">1 hora · Salud</div></div></div>
+            <div class="slot"><div class="slot-t">09:00</div><div class="slot-bar" style="background:var(--yellow)"></div><div><div class="slot-title">Deep work — ElMétodoSimple</div><div class="slot-sub">2 horas · Trabajo</div></div></div>
+            <div class="slot"><div class="slot-t">11:00</div><div class="slot-bar" style="background:var(--blue)"></div><div><div class="slot-title">Call con Mariana V.</div><div class="slot-sub">Rediseño web · 45 min</div></div></div>
+            <div class="slot"><div class="slot-t">14:00</div><div class="slot-bar" style="background:var(--orange)"></div><div><div class="slot-title">Entrega landing Rodrigo</div><div class="slot-sub">Freelance · Urgente</div></div></div>
+            <div class="slot"><div class="slot-t">20:00</div><div class="slot-bar" style="background:var(--purple)"></div><div><div class="slot-title">Lectura 20 páginas</div><div class="slot-sub">Hábito nocturno</div></div></div>
+            <button class="add-btn" onclick="openM('Evento')">+ Agregar evento</button>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Top 3 del día</div></div>
+          <div class="card">
+            <div class="t3-row"><div class="t3-num" style="background:var(--yellow);color:#000">1</div><input placeholder="Tarea más importante..." value="Terminar landing Rodrigo"></div>
+            <div class="t3-row"><div class="t3-num" style="background:var(--card2);border:1px solid var(--border2);color:var(--muted2)">2</div><input placeholder="Segunda prioridad..." value="Subir archivo a Gumroad"></div>
+            <div class="t3-row"><div class="t3-num" style="background:var(--card2);border:1px solid var(--border2);color:var(--muted2)">3</div><input placeholder="Tercera prioridad..."></div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Notas de la semana</div></div>
+          <div class="card"><textarea style="width:100%;background:transparent;border:none;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;resize:none;height:80px;line-height:1.6" placeholder="Anotá ideas, pendientes, recordatorios..."></textarea></div>
+        </div>
+      </div>
+
+      <!-- MES -->
+      <div id="agMes" style="display:none">
+        <div class="ptitle">Mi <em>Mes</em></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Febrero 2026</div></div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:14px">
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-align:center;padding:4px 0">L</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-align:center;padding:4px 0">M</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-align:center;padding:4px 0">X</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-align:center;padding:4px 0">J</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-align:center;padding:4px 0">V</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-align:center;padding:4px 0">S</div>
+            <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-align:center;padding:4px 0">D</div>
+            <!-- Semana 1 -->
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border)">3</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border)">4</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border);position:relative"><span style="position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--yellow)"></span>5</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border)">6</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border)">7</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border)">8</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border)">9</div>
+            <!-- más días... -->
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">10</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">11</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">12</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">13</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">14</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">15</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">16</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">17</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">18</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">19</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">20</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">21</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border)">22</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;cursor:pointer;border:1px solid var(--yellow);color:#000">23</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border);opacity:.4">24</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border);opacity:.4">25</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border);opacity:.4">26</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border);opacity:.4">27</div>
+            <div style="aspect-ratio:1;border-radius:8px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border);opacity:.4">28</div>
+          </div>
+          <div class="sec-hdr" style="margin-top:14px"><div class="sec-t">Eventos de febrero</div><div class="sec-a" onclick="openM('Evento')">+ Agregar</div></div>
+          <div class="card">
+            <div class="slot"><div class="slot-t">05 feb</div><div class="slot-bar" style="background:var(--yellow)"></div><div><div class="slot-title">Lanzamiento ElMétodoSimple</div><div class="slot-sub">Gumroad · Digital</div></div></div>
+            <div class="slot"><div class="slot-t">10 feb</div><div class="slot-bar" style="background:var(--blue)"></div><div><div class="slot-title">Call mensual Mariana</div><div class="slot-sub">Estrategia web</div></div></div>
+            <div class="slot"><div class="slot-t">28 feb</div><div class="slot-bar" style="background:var(--green)"></div><div><div class="slot-title">Cierre de mes</div><div class="slot-sub">Revisión + proyección</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRESUPUESTO -->
+      <div id="agPresup" style="display:none">
+        <div class="ptitle">Mi <em>Presupuesto</em></div>
+        <div class="sec">
+          <div class="pres-total"><div><div style="font-size:11px;color:var(--muted2);margin-bottom:3px">Total presupuestado</div><div style="font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:var(--yellow)" id="agPresT">$0</div></div><span class="badge bb">FEBRERO</span></div>
+          <div class="sec-hdr" style="margin-top:14px"><div class="sec-t">Categorías</div><div class="sec-a" onclick="openM('PresupuestoCat')">+ Agregar</div></div>
+          <div class="bud-row"><div class="bud-top"><div class="bud-name"><div style="width:10px;height:10px;border-radius:3px;background:#f87171"></div>Vivienda</div><div class="bud-amts">$18.000 / <span>$18.000</span></div></div><div class="pbar"><div class="pbar-f" style="width:100%;background:#f87171"></div></div></div>
+          <div class="bud-row"><div class="bud-top"><div class="bud-name"><div style="width:10px;height:10px;border-radius:3px;background:var(--orange)"></div>Alimentación</div><div class="bud-amts">$6.900 / <span>$8.000</span></div></div><div class="pbar"><div class="pbar-f" style="width:86%;background:var(--orange)"></div></div></div>
+          <div class="bud-row"><div class="bud-top"><div class="bud-name"><div style="width:10px;height:10px;border-radius:3px;background:var(--blue)"></div>Transporte</div><div class="bud-amts">$3.200 / <span>$4.000</span></div></div><div class="pbar"><div class="pbar-f" style="width:80%;background:var(--blue)"></div></div></div>
+          <div class="bud-row"><div class="bud-top"><div class="bud-name"><div style="width:10px;height:10px;border-radius:3px;background:var(--teal)"></div>Salud</div><div class="bud-amts">$1.400 / <span>$3.000</span></div></div><div class="pbar"><div class="pbar-f" style="width:47%;background:var(--teal)"></div></div></div>
+          <div class="bud-row"><div class="bud-top"><div class="bud-name"><div style="width:10px;height:10px;border-radius:3px;background:var(--purple)"></div>Ocio</div><div class="bud-amts">$2.100 / <span>$3.000</span></div></div><div class="pbar"><div class="pbar-f" style="width:70%;background:var(--purple)"></div></div></div>
+          <button class="btn-y" onclick="openM('PresupuestoCat')" style="margin-top:8px">+ Nueva categoría</button>
+        </div>
+      </div>
+
+      <!-- VIAJES -->
+      <div id="agViajes" style="display:none">
+        <div class="ptitle">Mis <em>Viajes</em></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Próximos viajes</div><div class="sec-a" onclick="openM('Viaje')">+ Nuevo</div></div>
+          <div class="card" style="margin-bottom:8px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">
+              <div><div style="font-size:16px;font-weight:700">✈️ Buenos Aires → Ciudad de México</div><div style="font-size:12px;color:var(--muted2);margin-top:3px;font-family:'DM Mono',monospace">15 MAR · 8 días</div></div>
+              <span class="badge bb">PLANIFICADO</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+              <div style="background:var(--card2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--muted2);margin-bottom:3px">Vuelos</div><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--green)">✓</div></div>
+              <div style="background:var(--card2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--muted2);margin-bottom:3px">Hotel</div><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--orange)">⏳</div></div>
+              <div style="background:var(--card2);border-radius:8px;padding:8px;text-align:center"><div style="font-size:10px;color:var(--muted2);margin-bottom:3px">Presup.</div><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--yellow)">$850</div></div>
+            </div>
+          </div>
+          <button class="add-btn" onclick="openM('Viaje')">+ Planificar viaje</button>
+        </div>
+      </div>
+
+      <!-- RUTINA -->
+      <div id="agRutina" style="display:none">
+        <div class="ptitle">Mi <em>Rutina</em></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Rutina matutina</div><div class="sec-a">☀️</div></div>
+          <div class="card">
+            <div class="slot"><div class="slot-t">06:30</div><div class="slot-bar" style="background:var(--orange)"></div><div><div class="slot-title">Despertar + agua fría</div><div class="slot-sub">5 min · Energizar</div></div></div>
+            <div class="slot"><div class="slot-t">06:35</div><div class="slot-bar" style="background:var(--green)"></div><div><div class="slot-title">Ejercicio / gym</div><div class="slot-sub">45 min · Salud</div></div></div>
+            <div class="slot"><div class="slot-t">07:30</div><div class="slot-bar" style="background:var(--blue)"></div><div><div class="slot-title">Ducha + desayuno</div><div class="slot-sub">20 min</div></div></div>
+            <div class="slot"><div class="slot-t">08:00</div><div class="slot-bar" style="background:var(--yellow)"></div><div><div class="slot-title">Revisión agenda + top 3</div><div class="slot-sub">10 min · Planificación</div></div></div>
+            <div class="slot"><div class="slot-t">08:15</div><div class="slot-bar" style="background:var(--purple)"></div><div><div class="slot-title">Deep work bloque 1</div><div class="slot-sub">90 min · Sin interrupciones</div></div></div>
+            <button class="add-btn" onclick="openM('Rutina')">+ Agregar bloque</button>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Rutina nocturna</div><div class="sec-a">🌙</div></div>
+          <div class="card">
+            <div class="slot"><div class="slot-t">21:00</div><div class="slot-bar" style="background:var(--purple)"></div><div><div class="slot-title">Leer 20 páginas</div><div class="slot-sub">30 min · Mente</div></div></div>
+            <div class="slot"><div class="slot-t">21:30</div><div class="slot-bar" style="background:var(--blue)"></div><div><div class="slot-title">Journaling del día</div><div class="slot-sub">15 min · Reflexión</div></div></div>
+            <div class="slot"><div class="slot-t">22:00</div><div class="slot-bar" style="background:var(--muted)"></div><div><div class="slot-title">Sin pantallas</div><div class="slot-sub">Preparar sueño</div></div></div>
+            <button class="add-btn" onclick="openM('Rutina')">+ Agregar bloque</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- WISHLIST -->
+      <div id="agWishlist" style="display:none">
+        <div class="ptitle">Mi <em>Wishlist</em></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Lo que quiero lograr / tener</div><div class="sec-a" onclick="openM('Wish')">+ Nuevo</div></div>
+          <div class="card" style="margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="font-size:22px">💻</div>
+              <div style="flex:1"><div style="font-size:14px;font-weight:700">MacBook Pro M4</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Tecnología · $2.500</div></div>
+              <div style="background:rgba(74,222,128,.12);color:var(--green);font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid rgba(74,222,128,.3)">AHORRANDO</div>
+            </div>
+            <div class="pbar" style="margin-top:10px"><div class="pbar-f" style="width:40%;background:var(--green)"></div></div>
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);margin-top:4px">$1.000 de $2.500 ahorrados</div>
+          </div>
+          <div class="card" style="margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="font-size:22px">✈️</div>
+              <div style="flex:1"><div style="font-size:14px;font-weight:700">Viaje a Japón</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Experiencias · $3.000</div></div>
+              <div style="background:rgba(96,165,250,.12);color:var(--blue);font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid rgba(96,165,250,.3)">2027</div>
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="font-size:22px">🏠</div>
+              <div style="flex:1"><div style="font-size:14px;font-weight:700">Departamento propio</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Vivienda · Largo plazo</div></div>
+              <div style="background:rgba(251,146,60,.12);color:var(--orange);font-family:'DM Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid rgba(251,146,60,.3)">SUEÑO</div>
+            </div>
+          </div>
+          <button class="add-btn" onclick="openM('Wish')">+ Agregar deseo</button>
+        </div>
+      </div>
+
+      <!-- DIARIO -->
+      <div id="agDiario" style="display:none">
+        <div class="ptitle">Mi <em>Diario</em></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t" id="agDiarioFecha">Hoy · 23 feb 2026</div><div class="sec-a" onclick="openM('Diario')">+ Entrada</div></div>
+          <div class="card" style="margin-bottom:14px">
+            <div style="font-size:11px;color:var(--yellow);font-family:'DM Mono',monospace;margin-bottom:8px">¿CÓMO ME SENTÍ HOY?</div>
+            <div style="display:flex;gap:10px;margin-bottom:14px">
+              <div style="flex:1;text-align:center;padding:10px;border-radius:10px;border:1px solid var(--border);cursor:pointer;font-size:22px;transition:border-color .15s" onclick="this.style.borderColor='var(--yellow)'">😊</div>
+              <div style="flex:1;text-align:center;padding:10px;border-radius:10px;border:1px solid var(--border);cursor:pointer;font-size:22px" onclick="this.style.borderColor='var(--yellow)'">😐</div>
+              <div style="flex:1;text-align:center;padding:10px;border-radius:10px;border:1px solid var(--border);cursor:pointer;font-size:22px" onclick="this.style.borderColor='var(--yellow)'">😔</div>
+              <div style="flex:1;text-align:center;padding:10px;border-radius:10px;border:1px solid var(--border);cursor:pointer;font-size:22px" onclick="this.style.borderColor='var(--yellow)'">🤩</div>
+              <div style="flex:1;text-align:center;padding:10px;border-radius:10px;border:1px solid var(--border);cursor:pointer;font-size:22px" onclick="this.style.borderColor='var(--yellow)'">😤</div>
+            </div>
+            <div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace;margin-bottom:6px">ANOTÁ TU DÍA</div>
+            <textarea style="width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:10px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;padding:12px;resize:none;height:120px;line-height:1.6" placeholder="¿Qué pasó hoy? ¿Qué aprendiste? ¿Qué agradecés?..."></textarea>
+            <button class="btn-y" style="margin-top:8px">Guardar entrada</button>
+          </div>
+          <div class="sec-hdr"><div class="sec-t">Entradas anteriores</div></div>
+          <div class="card" style="margin-bottom:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--yellow)">22 FEB</div>
+              <div style="font-size:18px">😊</div>
+            </div>
+            <div style="font-size:13px;color:var(--muted2);line-height:1.5">Buen día de trabajo. Terminé la landing de Rodrigo y subí el primer producto a Gumroad. Mañana hay que seguir con el sistema de pagos...</div>
+          </div>
+          <div class="card" style="margin-bottom:8px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+              <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--yellow)">21 FEB</div>
+              <div style="font-size:18px">🤩</div>
+            </div>
+            <div style="font-size:13px;color:var(--muted2);line-height:1.5">Primer pago recibido por ElMétodoSimple. Fue un día histórico. Hay que seguir iterando y mejorar la propuesta...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISIÓN -->
+      <div id="agVision" style="display:none">
+        <div class="ptitle">Mi <em>Visión</em></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Visión anual 2026</div></div>
+          <div class="card" style="margin-bottom:14px">
+            <div style="font-size:11px;color:var(--yellow);font-family:'DM Mono',monospace;margin-bottom:8px">¿QUIÉN QUIERO SER EN DIC 2026?</div>
+            <textarea style="width:100%;background:transparent;border:none;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;resize:none;height:100px;line-height:1.7" placeholder="Describí tu versión ideal al finalizar el año...">Quiero ser un emprendedor digital que vive de sus productos, con 3 fuentes de ingreso pasivo, en buen estado físico y mental, con tiempo para viajar y aprender constantemente.</textarea>
+          </div>
+          <div class="sec-hdr"><div class="sec-t">Mis áreas de vida</div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+            <div class="card" style="border-top:3px solid var(--yellow)"><div style="font-size:18px;margin-bottom:6px">💰</div><div style="font-size:13px;font-weight:700;margin-bottom:4px">Dinero</div><div class="pbar"><div class="pbar-f" style="width:62%;background:var(--yellow)"></div></div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--yellow);margin-top:3px">62%</div></div>
+            <div class="card" style="border-top:3px solid var(--green)"><div style="font-size:18px;margin-bottom:6px">💪</div><div style="font-size:13px;font-weight:700;margin-bottom:4px">Salud</div><div class="pbar"><div class="pbar-f" style="width:78%;background:var(--green)"></div></div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green);margin-top:3px">78%</div></div>
+            <div class="card" style="border-top:3px solid var(--blue)"><div style="font-size:18px;margin-bottom:6px">🚀</div><div style="font-size:13px;font-weight:700;margin-bottom:4px">Carrera</div><div class="pbar"><div class="pbar-f" style="width:55%;background:var(--blue)"></div></div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--blue);margin-top:3px">55%</div></div>
+            <div class="card" style="border-top:3px solid var(--red)"><div style="font-size:18px;margin-bottom:6px">❤️</div><div style="font-size:13px;font-weight:700;margin-bottom:4px">Familia</div><div class="pbar"><div class="pbar-f" style="width:25%;background:var(--red)"></div></div><div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--red);margin-top:3px">25%</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOCUS -->
+      <div id="agFocus" style="display:none">
+        <div class="ptitle">Modo <em>Focus</em></div>
+        <div class="timer-box" style="margin:16px 18px">
+          <div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:2px;margin-bottom:12px">TIMER POMODORO</div>
+          <select class="timer-sel" id="agTimerMode" onchange="agTimerSet()">
+            <option value="25">25 min — Pomodoro</option>
+            <option value="50">50 min — Deep work</option>
+            <option value="5">5 min — Descanso corto</option>
+            <option value="15">15 min — Descanso largo</option>
+          </select>
+          <div class="timer-d" id="agTimerD">25:00</div>
+          <div class="timer-p" id="agTimerTask">Seleccioná una tarea arriba</div>
+          <div class="timer-btns">
+            <button class="tb tb-s" id="agTimerBtn" onclick="agToggleTimer()">▶ Iniciar</button>
+            <button class="tb tb-r" onclick="agResetTimer()">↺ Reset</button>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Tarea de focus</div></div>
+          <div class="card">
+            <div class="t3-row"><div class="t3-num" style="background:var(--yellow);color:#000">1</div><input placeholder="¿En qué te vas a enfocar?" value="Terminar landing Rodrigo"></div>
+          </div>
+        </div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Sesiones de hoy</div></div>
+          <div class="card">
+            <div class="tlog-item"><div class="av" style="width:30px;height:30px;background:var(--yellow);font-size:12px">25</div><div><div class="tl-task">Deep work — ElMétodoSimple</div><div class="tl-date">09:00 · Completado</div></div><div class="tl-time">25:00</div></div>
+            <div class="tlog-item"><div class="av" style="width:30px;height:30px;background:var(--green);font-size:12px">50</div><div><div class="tl-task">Landing Rodrigo</div><div class="tl-date">11:00 · Completado</div></div><div class="tl-time">50:00</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div id="agStats" style="display:none">
+        <div class="ptitle">Mis <em>Stats</em></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Año 2026</div></div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px">
+            <div class="kpi"><div class="kpi-l">Hábitos completados</div><div class="kpi-v" style="font-size:28px">342</div><div class="kpi-s">de 420 posibles</div></div>
+            <div class="kpi"><div class="kpi-l">Racha más larga</div><div class="kpi-v" style="font-size:28px;color:var(--orange)">21</div><div class="kpi-s">días consecutivos</div></div>
+            <div class="kpi"><div class="kpi-l">Metas completadas</div><div class="kpi-v" style="font-size:28px;color:var(--green)">2</div><div class="kpi-s">de 8 del año</div></div>
+            <div class="kpi"><div class="kpi-l">Horas de focus</div><div class="kpi-v" style="font-size:28px;color:var(--blue)">47h</div><div class="kpi-s">en 2026</div></div>
+          </div>
+          <div class="sec-hdr"><div class="sec-t">Progreso mensual de hábitos</div></div>
+          <div class="card">
+            <div class="bars">
+              <div class="bcg"><div class="bci" style="background:var(--green);height:55px;width:100%"></div><div class="bcl">Ene</div></div>
+              <div class="bcg"><div class="bci" style="background:var(--yellow);height:42px;width:100%"></div><div class="bcl cur">Feb</div></div>
+              <div class="bcg"><div class="bci" style="background:var(--border);height:10px;width:100%;opacity:.3"></div><div class="bcl">Mar</div></div>
+              <div class="bcg"><div class="bci" style="background:var(--border);height:10px;width:100%;opacity:.3"></div><div class="bcl">Abr</div></div>
+              <div class="bcg"><div class="bci" style="background:var(--border);height:10px;width:100%;opacity:.3"></div><div class="bcl">May</div></div>
+              <div class="bcg"><div class="bci" style="background:var(--border);height:10px;width:100%;opacity:.3"></div><div class="bcl">Jun</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVIEW -->
+      <div id="agReview" style="display:none">
+        <div class="ptitle">Mi <em>Review</em></div>
+        <div class="sec">
+          <div class="sec-hdr"><div class="sec-t">Review mensual</div></div>
+          <div class="rev-card">
+            <div class="rch" onclick="toggleRev('Feb26')">
+              <div><div class="rc-mes">Febrero 2026</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Semana 8 de 52</div></div>
+              <span id="rarFeb26" style="color:var(--yellow);font-family:'DM Mono',monospace">›</span>
+            </div>
+            <div class="rc-body" id="rbFeb26">
+              <div class="rcq"><label>¿QUÉ SALIÓ BIEN?</label><textarea placeholder="Logros del mes..."></textarea></div>
+              <div class="rcq"><label>¿QUÉ MEJORAR?</label><textarea placeholder="Áreas de mejora..."></textarea></div>
+              <div class="rcq"><label>APRENDIZAJE CLAVE</label><textarea placeholder="¿Qué aprendiste este mes?"></textarea></div>
+              <div class="rcq"><label>CALIFICÁ TU MES</label><div class="stars" id="sFeb26"><span class="star" onclick="rStar('Feb26',1)">★</span><span class="star" onclick="rStar('Feb26',2)">★</span><span class="star" onclick="rStar('Feb26',3)">★</span><span class="star" onclick="rStar('Feb26',4)">★</span><span class="star" onclick="rStar('Feb26',5)">★</span></div></div>
+              <button class="btn-y" style="margin-top:4px">Guardar review</button>
+            </div>
+          </div>
+          <div class="rev-card">
+            <div class="rch" onclick="toggleRev('Ene26')">
+              <div><div class="rc-mes">Enero 2026</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Semana 1–4</div></div>
+              <span id="rarEne26" style="color:var(--yellow);font-family:'DM Mono',monospace">›</span>
+            </div>
+            <div class="rc-body" id="rbEne26">
+              <div class="rcq"><label>¿QUÉ SALIÓ BIEN?</label><textarea>Lancé los primeros dos módulos. Conseguí 3 clientes nuevos en freelance. Mantuve el gym 4 veces por semana.</textarea></div>
+              <div class="rcq"><label>¿QUÉ MEJORAR?</label><textarea>La constancia del journaling. Gestión del tiempo entre proyectos y desarrollo propio.</textarea></div>
+              <div class="rcq"><label>APRENDIZAJE CLAVE</label><textarea>Que la consistencia gana a la intensidad. Pequeños pasos diarios > grandes esfuerzos esporádicos.</textarea></div>
+              <div class="rcq"><label>CALIFICÁ TU MES</label><div class="stars" id="sEne26"><span class="star lit" onclick="rStar('Ene26',1)">★</span><span class="star lit" onclick="rStar('Ene26',2)">★</span><span class="star lit" onclick="rStar('Ene26',3)">★</span><span class="star lit" onclick="rStar('Ene26',4)">★</span><span class="star" onclick="rStar('Ene26',5)">★</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin pageAgenda -->
+    <div class="ap" id="pageFinanzas">
+      <div class="ptitle">Finanzas</div>
+      <div class="pill-row" id="finPills">
+        <div class="pill active" onclick="setFin(this,'finR')">Resumen</div>
+        <div class="pill" onclick="setFin(this,'finM')">Movimientos</div>
+        <div class="pill" onclick="setFin(this,'finC')">Categorías</div>
+        <div class="pill" onclick="setFin(this,'finP')">Presupuesto</div>
+        <div class="pill" onclick="setFin(this,'finCu')">Cuentas</div>
+      </div>
+      <div id="finR">
+        <div class="bal-hero"><div class="bh-l">Balance total</div><div class="bh-v">$124.500</div><div class="bh-c">↑ $8.200 vs mes anterior</div><div class="bh-row"><div class="bh-i"><div class="bh-il">Ingresos feb</div><div class="bh-iv" style="color:var(--green)">+$43.200</div></div><div class="bh-i"><div class="bh-il">Gastos feb</div><div class="bh-iv" style="color:var(--red)">-$35.000</div></div></div></div>
+        <div class="sec"><div class="sec-hdr"><div class="sec-t">Flujo mensual</div></div>
+          <div class="card"><div class="bars"><div class="bcg"><div class="bc-pair"><div class="bci" style="background:var(--green);height:42px"></div><div class="bci" style="background:var(--red);height:36px"></div></div><div class="bcl">Oct</div></div><div class="bcg"><div class="bc-pair"><div class="bci" style="background:var(--green);height:50px"></div><div class="bci" style="background:var(--red);height:38px"></div></div><div class="bcl">Nov</div></div><div class="bcg"><div class="bc-pair"><div class="bci" style="background:var(--green);height:36px"></div><div class="bci" style="background:var(--red);height:40px"></div></div><div class="bcl">Dic</div></div><div class="bcg"><div class="bc-pair"><div class="bci" style="background:var(--green);height:58px"></div><div class="bci" style="background:var(--red);height:42px"></div></div><div class="bcl">Ene</div></div><div class="bcg"><div class="bc-pair"><div class="bci" style="background:var(--yellow);height:70px"></div><div class="bci" style="background:var(--red);opacity:.7;height:50px"></div></div><div class="bcl cur">Feb</div></div></div><div style="display:flex;gap:14px;margin-top:10px"><div style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2)"><div style="width:8px;height:8px;border-radius:2px;background:var(--green)"></div>Ingresos</div><div style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2)"><div style="width:8px;height:8px;border-radius:2px;background:var(--red)"></div>Gastos</div></div></div>
+        </div>
+        <div class="sec"><div class="sec-hdr"><div class="sec-t">Últimos movimientos</div><div class="sec-a" onclick="setFin(document.querySelector('#finPills .pill:nth-child(2)'),'finM')">Ver todos</div></div>
+          <div class="tx"><div class="tx-icon">💻</div><div><div class="tx-name">Pago — Mariana V.</div><div class="tx-date">Hoy · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$1.200</div></div>
+          <div class="tx"><div class="tx-icon">🛒</div><div><div class="tx-name">Supermercado</div><div class="tx-date">Ayer · Alimentación</div></div><div class="tx-amt" style="color:var(--red)">-$4.800</div></div>
+          <div class="tx"><div class="tx-icon">🏠</div><div><div class="tx-name">Alquiler</div><div class="tx-date">20 feb · Vivienda</div></div><div class="tx-amt" style="color:var(--red)">-$18.000</div></div>
+          <div class="tx"><div class="tx-icon">💰</div><div><div class="tx-name">Pago — Carlos R.</div><div class="tx-date">18 feb · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$380</div></div>
+          <button class="add-btn" onclick="openM('Movimiento')">+ Registrar movimiento</button>
+        </div>
+      </div>
+      <div id="finM" style="display:none">
+        <div class="sec" style="margin-top:14px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
+            <div class="card" style="text-align:center;padding:11px"><div style="font-size:10px;color:var(--muted2);margin-bottom:3px">Ingresos</div><div style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--green)">+$43.200</div></div>
+            <div class="card" style="text-align:center;padding:11px"><div style="font-size:10px;color:var(--muted2);margin-bottom:3px">Gastos</div><div style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--red)">-$35.000</div></div>
+            <div class="card" style="text-align:center;padding:11px"><div style="font-size:10px;color:var(--muted2);margin-bottom:3px">Neto</div><div style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--yellow)">+$8.200</div></div>
+          </div>
+          <div class="tx"><div class="tx-icon">💻</div><div><div class="tx-name">Pago — Mariana V.</div><div class="tx-date">22 feb · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$1.200</div></div>
+          <div class="tx"><div class="tx-icon">🛒</div><div><div class="tx-name">Supermercado</div><div class="tx-date">21 feb · Alimentación</div></div><div class="tx-amt" style="color:var(--red)">-$4.800</div></div>
+          <div class="tx"><div class="tx-icon">🏠</div><div><div class="tx-name">Alquiler</div><div class="tx-date">20 feb · Vivienda</div></div><div class="tx-amt" style="color:var(--red)">-$18.000</div></div>
+          <div class="tx"><div class="tx-icon">💰</div><div><div class="tx-name">Pago Carlos R.</div><div class="tx-date">18 feb · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$380</div></div>
+          <div class="tx"><div class="tx-icon">🚗</div><div><div class="tx-name">Nafta</div><div class="tx-date">17 feb · Transporte</div></div><div class="tx-amt" style="color:var(--red)">-$3.200</div></div>
+          <div class="tx"><div class="tx-icon">🍔</div><div><div class="tx-name">Delivery</div><div class="tx-date">16 feb · Alimentación</div></div><div class="tx-amt" style="color:var(--red)">-$2.100</div></div>
+          <div class="tx"><div class="tx-icon">📱</div><div><div class="tx-name">Celular / internet</div><div class="tx-date">15 feb · Servicios</div></div><div class="tx-amt" style="color:var(--red)">-$1.800</div></div>
+          <div class="tx"><div class="tx-icon">💰</div><div><div class="tx-name">Nuevo cliente freelance</div><div class="tx-date">14 feb · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$8.000</div></div>
+          <button class="btn-y" onclick="openM('Movimiento')">+ Registrar movimiento</button>
+        </div>
+      </div>
+      <div id="finC" style="display:none">
+        <div class="sec" style="margin-top:14px">
+          <div class="sec-hdr"><div class="sec-t">Gastos febrero</div><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--red)">$35.000</div></div>
+          <div class="cat-row"><div class="cat-color" style="background:#f87171"></div><div class="cat-name">Vivienda<div class="pbar"><div class="pbar-f" style="width:51%;background:#f87171"></div></div></div><div class="cat-right"><div class="cat-amt" style="color:var(--red)">$18.000</div><div class="cat-pct">51%</div></div></div>
+          <div class="cat-row"><div class="cat-color" style="background:var(--orange)"></div><div class="cat-name">Alimentación<div class="pbar"><div class="pbar-f" style="width:20%;background:var(--orange)"></div></div></div><div class="cat-right"><div class="cat-amt" style="color:var(--orange)">$6.900</div><div class="cat-pct">20%</div></div></div>
+          <div class="cat-row"><div class="cat-color" style="background:var(--blue)"></div><div class="cat-name">Transporte<div class="pbar"><div class="pbar-f" style="width:9%;background:var(--blue)"></div></div></div><div class="cat-right"><div class="cat-amt" style="color:var(--blue)">$3.200</div><div class="cat-pct">9%</div></div></div>
+          <div class="cat-row"><div class="cat-color" style="background:var(--purple)"></div><div class="cat-name">Servicios<div class="pbar"><div class="pbar-f" style="width:5%;background:var(--purple)"></div></div></div><div class="cat-right"><div class="cat-amt" style="color:var(--purple)">$1.800</div><div class="cat-pct">5%</div></div></div>
+          <div class="cat-row"><div class="cat-color" style="background:var(--teal)"></div><div class="cat-name">Salud<div class="pbar"><div class="pbar-f" style="width:4%;background:var(--teal)"></div></div></div><div class="cat-right"><div class="cat-amt" style="color:var(--teal)">$1.400</div><div class="cat-pct">4%</div></div></div>
+          <div class="cat-row"><div class="cat-color" style="background:var(--muted2)"></div><div class="cat-name">Otros<div class="pbar"><div class="pbar-f" style="width:11%;background:var(--muted2)"></div></div></div><div class="cat-right"><div class="cat-amt">$3.700</div><div class="cat-pct">11%</div></div></div>
+        </div>
+      </div>
+      <div id="finP" style="display:none">
+        <div class="sec" style="margin-top:14px">
+          <div class="sec-hdr"><div class="sec-t">Presupuesto mensual</div></div>
+          <div class="bud-row"><div class="bud-top"><div class="bud-name"><div style="width:10px;height:10px;border-radius:3px;background:#f87171"></div>Vivienda</div><div class="bud-amts">$18.000 / <span>$18.000</span></div></div><div class="pbar"><div class="pbar-f" style="width:100%;background:#f87171"></div></div></div>
+          <div class="bud-row"><div class="bud-top"><div class="bud-name"><div style="width:10px;height:10px;border-radius:3px;background:var(--orange)"></div>Alimentación</div><div class="bud-amts">$6.900 / <span>$8.000</span></div></div><div class="pbar"><div class="pbar-f" style="width:86%;background:var(--orange)"></div></div></div>
+          <div class="bud-row"><div class="bud-top"><div class="bud-name"><div style="width:10px;height:10px;border-radius:3px;background:var(--blue)"></div>Transporte</div><div class="bud-amts">$3.200 / <span>$4.000</span></div></div><div class="pbar"><div class="pbar-f" style="width:80%;background:var(--blue)"></div></div></div>
+          <div class="bud-row"><div class="bud-top"><div class="bud-name"><div style="width:10px;height:10px;border-radius:3px;background:var(--purple)"></div>Servicios</div><div class="bud-amts">$1.800 / <span>$2.000</span></div></div><div class="pbar"><div class="pbar-f" style="width:90%;background:var(--purple)"></div></div></div>
+          <div class="bud-row"><div class="bud-top"><div class="bud-name"><div style="width:10px;height:10px;border-radius:3px;background:var(--teal)"></div>Salud</div><div class="bud-amts">$1.400 / <span>$3.000</span></div></div><div class="pbar"><div class="pbar-f" style="width:47%;background:var(--teal)"></div></div></div>
+          <button class="btn-y" onclick="openM('PresupuestoCat')">+ Agregar categoría</button>
+        </div>
+      </div>
+      <div id="finCu" style="display:none">
+        <div class="sec" style="margin-top:14px">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;margin-bottom:14px"><div style="font-size:10px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:2px;margin-bottom:6px">PATRIMONIO TOTAL</div><div style="font-family:'Fraunces',serif;font-size:38px;font-weight:900;color:var(--yellow)">$124.500</div><div style="font-size:12px;color:var(--green);font-family:'DM Mono',monospace;margin-top:4px">↑ $8.200 este mes</div></div>
+          <div class="cuenta"><div class="cuenta-icon" style="background:rgba(232,197,71,.15)">🏦</div><div><div class="cuenta-name">Cuenta corriente</div><div class="cuenta-type">Banco Nación</div></div><div class="cuenta-bal">$87.300</div></div>
+          <div class="cuenta"><div class="cuenta-icon" style="background:rgba(74,222,128,.15)">💵</div><div><div class="cuenta-name">Caja ahorro USD</div><div class="cuenta-type">Banco Galicia</div></div><div class="cuenta-bal" style="color:var(--green)">$890</div></div>
+          <div class="cuenta"><div class="cuenta-icon" style="background:rgba(96,165,250,.15)">📱</div><div><div class="cuenta-name">Mercado Pago</div><div class="cuenta-type">Billetera virtual</div></div><div class="cuenta-bal" style="color:var(--blue)">$18.200</div></div>
+          <div class="cuenta"><div class="cuenta-icon" style="background:rgba(192,132,252,.15)">💎</div><div><div class="cuenta-name">Inversiones</div><div class="cuenta-type">FCI / CEDEARS</div></div><div class="cuenta-bal" style="color:var(--purple)">$19.000</div></div>
+          <button class="btn-y" onclick="openM('Cuenta')">+ Agregar cuenta</button>
+        </div>
+      </div>
+    </div>
+    <div class="ap" id="pageHabitos">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px 0;margin-bottom:12px">
+        <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:900">Hábitos <em style="color:var(--yellow)">Pro</em></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:5px 11px;font-family:'DM Mono',monospace;font-size:12px;color:var(--yellow)">🔥 12 días</div>
+      </div>
+      <div class="kpi4">
+        <div class="kpi"><div class="kpi-l">Consistencia</div><div class="kpi-v">89%</div><div class="kpi-s">Este mes</div></div>
+        <div class="kpi"><div class="kpi-l">Completados</div><div class="kpi-v">47</div><div class="kpi-s">Febrero</div></div>
+        <div class="kpi"><div class="kpi-l">Sin fallar</div><div class="kpi-v">4</div><div class="kpi-s">Perfectos</div></div>
+        <div class="kpi"><div class="kpi-l">Activos</div><div class="kpi-v">6</div><div class="kpi-s">Hábitos</div></div>
+      </div>
+      <div class="sec"><div class="sec-hdr"><div class="sec-t">Por área</div></div>
+        <div class="card"><div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;align-items:center;gap:9px"><span style="font-size:14px;width:20px">💚</span><div class="pbar" style="flex:1;margin:0"><div class="pbar-f" style="width:92%;background:var(--green)"></div></div><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);width:32px;text-align:right">92%</span></div>
+          <div style="display:flex;align-items:center;gap:9px"><span style="font-size:14px;width:20px">💙</span><div class="pbar" style="flex:1;margin:0"><div class="pbar-f" style="width:78%;background:var(--blue)"></div></div><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);width:32px;text-align:right">78%</span></div>
+          <div style="display:flex;align-items:center;gap:9px"><span style="font-size:14px;width:20px">💜</span><div class="pbar" style="flex:1;margin:0"><div class="pbar-f" style="width:85%;background:var(--purple)"></div></div><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);width:32px;text-align:right">85%</span></div>
+          <div style="display:flex;align-items:center;gap:9px"><span style="font-size:14px;width:20px">🟠</span><div class="pbar" style="flex:1;margin:0"><div class="pbar-f" style="width:100%;background:var(--orange)"></div></div><span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);width:32px;text-align:right">100%</span></div>
+        </div></div>
+      </div>
+      <div class="sec"><div class="sec-hdr"><div class="sec-t">Mis hábitos</div><div style="display:flex;gap:6px"><button class="pill active" id="hvw" onclick="setHV('week')">Sem</button><button class="pill" id="hvm" onclick="setHV('month')">Mes</button></div></div>
+        <div id="habitList"></div>
+        <button class="add-btn" onclick="openM('Habito')">+ Nuevo hábito</button>
+      </div>
+      <div class="sec"><div class="sec-hdr"><div class="sec-t">Reflexión semanal</div></div>
+        <div class="card">
+          <div style="font-size:12px;font-weight:700;color:var(--yellow);margin-bottom:11px">✍️ Semana 8 — Feb 2026</div>
+          <div style="margin-bottom:10px"><div style="font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:5px">¿QUÉ SALIÓ BIEN?</div><textarea style="width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;padding:9px;resize:none;height:52px" placeholder="Algo positivo de esta semana..."></textarea></div>
+          <div style="margin-bottom:10px"><div style="font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:5px">¿QUÉ MEJORAR?</div><textarea style="width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;padding:9px;resize:none;height:52px" placeholder="¿Qué te costó?"></textarea></div>
+          <div><div style="font-size:9px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:5px">COMPROMISO</div><textarea style="width:100%;background:var(--card2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;padding:9px;resize:none;height:52px" placeholder="Una acción concreta..."></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="ap" id="pageFreelance">
+      <div class="ptitle">Freelance <em>Pro</em></div>
+      <div class="pill-row" id="freePills">
+        <div class="pill active" onclick="setFree(this,'frR')">Resumen</div>
+        <div class="pill" onclick="setFree(this,'frP');renderProj('all')">Proyectos</div>
+        <div class="pill" onclick="setFree(this,'frF')">Facturas</div>
+        <div class="pill" onclick="setFree(this,'frH')">Horas</div>
+        <div class="pill" onclick="setFree(this,'frPres')">Presupuesto</div>
+        <div class="pill" onclick="setFree(this,'frCl')">Clientes</div>
+      </div>
+      <div id="frR">
+        <div class="kpi4" style="margin-top:14px">
+          <div class="kpi"><div class="kpi-l">Ingresos feb</div><div class="kpi-v">$3.240</div><div class="kpi-s" style="color:var(--green)">↑ 18%</div></div>
+          <div class="kpi"><div class="kpi-l">Por cobrar</div><div class="kpi-v" style="color:var(--orange)">$890</div><div class="kpi-s" style="color:var(--red)">1 vencida ⚠</div></div>
+          <div class="kpi"><div class="kpi-l">Horas mes</div><div class="kpi-v">47h</div><div class="kpi-s">$68/h prom.</div></div>
+          <div class="kpi"><div class="kpi-l">Proyectos</div><div class="kpi-v">7</div><div class="kpi-s">5 clientes</div></div>
+        </div>
+        <div class="sec"><div class="sec-hdr"><div class="sec-t">Meta de ingresos</div></div>
+          <div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><div style="font-size:13px;font-weight:700">🎯 Meta feb — $4.000</div><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--yellow)">81%</div></div><div class="pbar" style="height:8px"><div class="pbar-f" style="width:81%;background:var(--yellow)"></div></div><div style="display:flex;justify-content:space-between;margin-top:5px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2)"><span>$3.240 cobrados</span><span>Faltan $760</span></div></div>
+        </div>
+        <div class="sec"><div class="sec-hdr"><div class="sec-t">Por cobrar</div></div>
+          <div style="background:var(--card);border:1px solid rgba(248,113,113,.3);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:6px"><div class="av" style="width:34px;height:34px;background:#f87171;font-size:13px">R</div><div><div style="font-size:13px;font-weight:700">Rodrigo M.</div><div style="font-size:11px;color:var(--red);font-family:'DM Mono',monospace">⚠ Vencida</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--red)">$600</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:6px"><div class="av" style="width:34px;height:34px;background:#34d399;font-size:13px">C</div><div><div style="font-size:13px;font-weight:700">Carlos R.</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Vence 28 feb</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--orange)">$380</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px"><div class="av" style="width:34px;height:34px;background:#a78bfa;font-size:13px">P</div><div><div style="font-size:13px;font-weight:700">Paula T.</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Vence 04 mar</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--orange)">$350</div></div>
+        </div>
+      </div>
+      <div id="frP" style="display:none">
+        <div class="pill-row" style="padding-top:12px"><div class="pill active" onclick="setPill2(this);renderProj('all')">Todos</div><div class="pill" onclick="setPill2(this);renderProj('todo')">Por hacer</div><div class="pill" onclick="setPill2(this);renderProj('proceso')">En proceso</div><div class="pill" onclick="setPill2(this);renderProj('done')">Listo</div></div>
+        <div style="padding:10px 18px 0" id="projListEl"></div>
+        <div class="sec"><button class="add-btn" onclick="openM('Proyecto')">+ Nuevo proyecto</button></div>
+      </div>
+      <div id="frF" style="display:none">
+        <div class="sec" style="margin-top:14px">
+          <div class="fac" style="border-color:rgba(248,113,113,.3)"><div class="fac-t"><div class="fac-num">#F-026</div><span class="badge br">VENCIDA</span></div><div class="fac-name">Rodrigo M.</div><div class="fac-srv">Landing page</div><div class="fac-bot"><div class="fac-date" style="color:var(--red)">Venció 22/02</div><div class="fac-amt" style="color:var(--red)">$600</div></div></div>
+          <div class="fac"><div class="fac-t"><div class="fac-num">#F-025</div><span class="badge bo">PENDIENTE</span></div><div class="fac-name">Carlos R.</div><div class="fac-srv">Redes sociales feb</div><div class="fac-bot"><div class="fac-date">Vence 28/02</div><div class="fac-amt" style="color:var(--orange)">$380</div></div></div>
+          <div class="fac"><div class="fac-t"><div class="fac-num">#F-028</div><span class="badge bo">PENDIENTE</span></div><div class="fac-name">Paula T.</div><div class="fac-srv">Fotografía producto</div><div class="fac-bot"><div class="fac-date">Vence 04/03</div><div class="fac-amt" style="color:var(--orange)">$350</div></div></div>
+          <div class="fac"><div class="fac-t"><div class="fac-num">#F-024</div><span class="badge bg">PAGADO</span></div><div class="fac-name">Mariana V.</div><div class="fac-srv">Rediseño web</div><div class="fac-bot"><div class="fac-date">Pagado 15/02</div><div class="fac-amt" style="color:var(--green)">$1.200</div></div></div>
+          <div class="fac"><div class="fac-t"><div class="fac-num">#F-027</div><span class="badge bm">BORRADOR</span></div><div class="fac-name">Lautaro S.</div><div class="fac-srv">Newsletter enero</div><div class="fac-bot"><div class="fac-date">Vence 01/03</div><div class="fac-amt" style="color:var(--muted2)">$180</div></div></div>
+          <button class="btn-y" onclick="openM('Factura')">+ Nueva factura</button>
+        </div>
+      </div>
+      <div id="frH" style="display:none">
+        <div class="timer-box"><select class="timer-sel" id="timerSel"><option value="">Seleccioná un proyecto...</option><option>Mariana V. — Rediseño web</option><option>Carlos R. — Redes sociales</option><option>Rodrigo M. — Landing page</option><option>Lautaro S. — Estrategia Q1</option></select><div class="timer-d" id="timerD">00:00:00</div><div class="timer-p" id="timerP">Seleccioná un proyecto arriba</div><div class="timer-btns"><button class="tb tb-s" id="timerBtn" onclick="toggleTimer()">&#9654; Iniciar</button><button class="tb tb-r" onclick="resetTimer()">&#9632; Reset</button></div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 18px;margin-bottom:14px"><div class="card" style="text-align:center;padding:11px"><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:700;color:var(--yellow)">47h</div><div style="font-size:10px;color:var(--muted2);margin-top:3px">Este mes</div></div><div class="card" style="text-align:center;padding:11px"><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:700;color:var(--yellow)">$68</div><div style="font-size:10px;color:var(--muted2);margin-top:3px">Por hora</div></div><div class="card" style="text-align:center;padding:11px"><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:700;color:var(--yellow)">12h</div><div style="font-size:10px;color:var(--muted2);margin-top:3px">Prom/sem</div></div></div>
+        <div class="sec"><div class="sec-hdr"><div class="sec-t">Registro de horas</div></div>
+          <div class="card"><div class="tlog-item"><div class="av" style="width:28px;height:28px;background:#E8C547;font-size:11px">M</div><div><div class="tl-task">Rediseño — wireframes</div><div class="tl-date">Hoy 09:00–11:30</div></div><div class="tl-time">2:30h</div></div><div class="tlog-item"><div class="av" style="width:28px;height:28px;background:#34d399;font-size:11px">C</div><div><div class="tl-task">Redes — contenido</div><div class="tl-date">Ayer 14:00–16:00</div></div><div class="tl-time">2:00h</div></div><div class="tlog-item"><div class="av" style="width:28px;height:28px;background:#f87171;font-size:11px">R</div><div><div class="tl-task">Landing — desarrollo</div><div class="tl-date">20 feb 10:00–13:45</div></div><div class="tl-time">3:45h</div></div><div class="tlog-item"><div class="av" style="width:28px;height:28px;background:#a78bfa;font-size:11px">P</div><div><div class="tl-task">Logo — exploración</div><div class="tl-date">19 feb 08:30–10:00</div></div><div class="tl-time">1:30h</div></div></div>
+        </div>
+      </div>
+      <div id="frPres" style="display:none">
+        <div style="padding:12px 18px 8px;font-size:13px;color:var(--muted2)">Generá un presupuesto profesional.</div>
+        <div style="padding:0 18px">
+          <div class="mfg"><label>Para (cliente)</label><input type="text" id="pC" value="Rodrigo M."></div>
+          <div class="mfg"><label>Descripción</label><textarea id="pD">Landing page para lanzamiento de producto</textarea></div>
+          <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Items</div>
+          <div id="presItems"><div class="item-row"><input type="text" value="Diseño y maquetado"><input type="number" value="8"><input type="number" value="400"><button class="rm-b" onclick="rmItem(this)">x</button></div><div class="item-row"><input type="text" value="Desarrollo frontend"><input type="number" value="10"><input type="number" value="500"><button class="rm-b" onclick="rmItem(this)">x</button></div><div class="item-row"><input type="text" value="Revisiones"><input type="number" value="3"><input type="number" value="150"><button class="rm-b" onclick="rmItem(this)">x</button></div></div>
+          <button class="add-btn" style="margin-bottom:12px" onclick="addPI()">+ Item</button>
+          <div class="pres-total"><div style="font-size:14px;font-weight:700">Total</div><div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--yellow)" id="presT">$1.050</div></div>
+          <div class="pp"><div class="pp-hdr"><div><div class="pp-logo">ELMETODOSIMPLE</div><div style="font-size:10px;color:var(--muted2);margin-top:2px">Presupuesto profesional</div></div><div><div class="pp-num">#P-031</div><div style="font-size:9px;color:var(--muted2);font-family:'DM Mono',monospace;margin-top:2px">22/02/2026</div></div></div><div style="font-size:12px;color:var(--muted2);margin-bottom:4px">Para: <strong id="ppC" style="color:var(--text)">Rodrigo M.</strong></div><div style="font-size:12px;color:var(--muted2);margin-bottom:11px" id="ppD">Landing page para lanzamiento de producto</div><table class="pp-table"><thead><tr><th>Servicio</th><th>Hs</th><th>Total</th></tr></thead><tbody id="ppItems"><tr><td>Diseno</td><td>8</td><td>$400</td></tr><tr><td>Desarrollo</td><td>10</td><td>$500</td></tr><tr><td>Revisiones</td><td>3</td><td>$150</td></tr></tbody></table><div class="pp-total"><span>Total</span><span id="ppT">$1.050</span></div><div style="font-size:10px;color:var(--muted2);margin-top:9px;padding-top:8px;border-top:1px solid var(--border)">Valido 15 dias. 50% adelanto / 50% al entregar</div></div>
+          <button class="btn-y" onclick="alert('Presupuesto listo para enviar!')">Copiar presupuesto</button>
+        </div>
+      </div>
+      <div id="frCl" style="display:none">
+        <div class="sec" style="margin-top:14px">
+          <div class="cli"><div class="cli-top"><div class="cli-av" style="background:#E8C547">M</div><div><div class="cli-name">Mariana V.</div><div class="cli-since">Desde ene 2025</div></div><div class="cli-dot" style="background:var(--green)"></div></div><div class="cli-stats"><div class="cs"><div class="cs-n">$4.800</div><div class="cs-l">Cobrado</div></div><div class="cs"><div class="cs-n">3</div><div class="cs-l">Proyectos</div></div><div class="cs"><div class="cs-n">100%</div><div class="cs-l">Cobro</div></div></div><div class="cli-notes"><label>Notas</label><textarea>Prefiere entregas jueves. Paga puntual.</textarea></div></div>
+          <div class="cli"><div class="cli-top"><div class="cli-av" style="background:#f87171">R</div><div><div class="cli-name">Rodrigo M.</div><div class="cli-since">Desde jul 2025</div></div><div class="cli-dot" style="background:var(--red)"></div></div><div class="cli-stats"><div class="cs"><div class="cs-n">$1.800</div><div class="cs-l">Cobrado</div></div><div class="cs"><div class="cs-n">2</div><div class="cs-l">Proyectos</div></div><div class="cs"><div class="cs-n" style="color:var(--red)">60%</div><div class="cs-l">Cobro</div></div></div><div class="cli-notes"><label>Notas</label><textarea>Exigir 50% adelanto. Factura vencida $600.</textarea></div></div>
+          <div class="cli"><div class="cli-top"><div class="cli-av" style="background:#34d399">C</div><div><div class="cli-name">Carlos R.</div><div class="cli-since">Desde mar 2025</div></div><div class="cli-dot" style="background:var(--orange)"></div></div><div class="cli-stats"><div class="cs"><div class="cs-n">$2.400</div><div class="cs-l">Cobrado</div></div><div class="cs"><div class="cs-n">5</div><div class="cs-l">Proyectos</div></div><div class="cs"><div class="cs-n">90%</div><div class="cs-l">Cobro</div></div></div><div class="cli-notes"><label>Notas</label><textarea>Retainer $380/mes. Buen cliente.</textarea></div></div>
+          <button class="btn-y" onclick="openM('Cliente')">+ Nuevo cliente</button>
+        </div>
+      </div>
+    </div>
+    <div class="ap" id="pageMetas">
+      <div class="ptitle">Metas <em>2026</em></div>
+      <div class="pill-row" id="metasPills"><div class="pill active" onclick="setMetas(this,'mA')">Areas</div><div class="pill" onclick="setMetas(this,'mV')">Vision</div><div class="pill" onclick="setMetas(this,'mR')">Revision</div></div>
+      <div id="mA">
+        <div class="sec" style="margin-top:14px">
+          <div class="card" style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><div style="font-size:12px;color:var(--muted2)">Progreso 2026</div><div style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:var(--yellow)">14%</div></div><div class="pbar" style="height:8px"><div class="pbar-f" style="background:linear-gradient(90deg,var(--yellow),var(--orange));width:14%"></div></div></div>
+          <div id="areasEl"></div>
+          <button class="add-btn" onclick="openM('Area')">+ Nueva area de vida</button>
+        </div>
+      </div>
+      <div id="mV" style="display:none">
+        <div class="sec" style="margin-top:14px">
+          <div class="vbox"><div class="vbox-l">Mi yo en diciembre 2026</div><div style="font-family:'Fraunces',serif;font-size:12px;color:var(--muted2);font-style:italic;margin-bottom:8px">"Al final del anio, sere alguien que..."</div><textarea style="width:100%;background:transparent;border:none;color:var(--text);font-family:'Fraunces',serif;font-size:15px;font-style:italic;resize:none;height:70px;line-height:1.5">...vive con intencion, construyo un negocio y tiene tiempo para su familia.</textarea></div>
+          <div class="card" style="text-align:center;margin-bottom:12px"><div style="font-size:10px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:2px;margin-bottom:7px">MI PALABRA DEL ANIO</div><input style="background:transparent;border:none;color:var(--yellow);font-family:'Fraunces',serif;font-size:28px;font-weight:900;text-align:center;width:100%" value="CONSTRUCCION"></div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:9px">MIS VALORES</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px">
+            <div class="pill active" style="border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="this.classList.toggle('active')">Enfoque</div>
+            <div class="pill active" style="border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="this.classList.toggle('active')">Disciplina</div>
+            <div class="pill" style="border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="this.classList.toggle('active')">Familia</div>
+            <div class="pill active" style="border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="this.classList.toggle('active')">Abundancia</div>
+            <div class="pill" style="border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="this.classList.toggle('active')">Salud</div>
+            <div class="pill active" style="border-radius:10px;padding:10px;text-align:center;cursor:pointer" onclick="this.classList.toggle('active')">Crecimiento</div>
+          </div>
+          <div class="card"><div style="font-size:10px;color:var(--muted2);font-family:'DM Mono',monospace;margin-bottom:7px">22 de febrero de 2026</div><textarea style="width:100%;background:transparent;border:none;color:var(--text);font-family:'Fraunces',serif;font-size:14px;font-style:italic;resize:none;height:110px;line-height:1.6">Querido yo de diciembre: cuando leas esto ya habras construido algo real.</textarea></div>
+        </div>
+      </div>
+      <div id="mR" style="display:none">
+        <div class="sec" style="margin-top:14px">
+          <div class="rev-card"><div class="rch" onclick="toggleRev('Feb')"><div><div class="rc-mes">Febrero 2026</div><div style="font-size:11px;color:var(--orange);margin-top:1px">En curso</div></div><div id="rarFeb">v</div></div><div class="rc-body open" id="rbFeb"><div class="rcq"><label>Calificacion</label><div class="stars" id="sFeb"><span class="star" onclick="rStar('Feb',1)">*</span><span class="star" onclick="rStar('Feb',2)">*</span><span class="star" onclick="rStar('Feb',3)">*</span><span class="star" onclick="rStar('Feb',4)">*</span><span class="star" onclick="rStar('Feb',5)">*</span></div></div><div class="rcq"><label>Que logre</label><textarea placeholder="Victorias del mes..."></textarea></div><div class="rcq"><label>Que no hice</label><textarea placeholder="Con honestidad..."></textarea></div><div class="rcq"><label>Que ajusto</label><textarea placeholder="Un cambio concreto..."></textarea></div></div></div>
+          <div class="rev-card"><div class="rch" onclick="toggleRev('Ene')"><div><div class="rc-mes">Enero 2026</div><div style="font-size:11px;color:var(--green);margin-top:1px">Completado ****</div></div><div id="rarEne">&gt;</div></div><div class="rc-body" id="rbEne"><div class="rcq"><label>Que logre</label><textarea>Empece el gym, arme el sistema de finanzas, cerre 2 clientes nuevos.</textarea></div><div class="rcq"><label>Que no hice</label><textarea>No lei todos los dias.</textarea></div><div class="rcq"><label>Que ajusto</label><textarea>Leer antes de dormir.</textarea></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mov" id="mEvento"><div class="modal"><div class="mh"></div><div class="mt">Nuevo evento</div><div class="mfg"><label>Titulo</label><input type="text" placeholder="Ej: Call con cliente"></div><div class="mfg"><label>Hora</label><input type="time" value="09:00"></div><div class="mfg"><label>Categoria</label><select><option>Trabajo</option><option>Personal</option><option>Salud</option><option>Freelance</option></select></div><button class="btn-y" onclick="closeM('Evento')">Guardar</button></div></div>
+<div class="mov" id="mMovimiento"><div class="modal"><div class="mh"></div><div class="mt">Nuevo movimiento</div><div class="mfg"><label>Tipo</label><select><option>Gasto</option><option>Ingreso</option></select></div><div class="mfg"><label>Descripcion</label><input type="text" placeholder="Ej: Supermercado"></div><div class="mfg"><label>Monto</label><input type="number" placeholder="0"></div><div class="mfg"><label>Categoria</label><select><option>Vivienda</option><option>Alimentacion</option><option>Transporte</option><option>Servicios</option><option>Salud</option><option>Freelance</option><option>Ahorro</option><option>Otros</option></select></div><div class="mfg"><label>Fecha</label><input type="date"></div><button class="btn-y" onclick="closeM('Movimiento')">Guardar</button></div></div>
+<div class="mov" id="mPresupuestoCat"><div class="modal"><div class="mh"></div><div class="mt">Nueva categoria</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Entretenimiento"></div><div class="mfg"><label>Presupuesto mensual</label><input type="number" placeholder="0"></div><button class="btn-y" onclick="closeM('PresupuestoCat')">Guardar</button></div></div>
+<div class="mov" id="mCuenta"><div class="modal"><div class="mh"></div><div class="mt">Nueva cuenta</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Banco Galicia"></div><div class="mfg"><label>Tipo</label><select><option>Cuenta corriente</option><option>Caja de ahorro</option><option>Billetera virtual</option><option>Inversion</option><option>Efectivo</option></select></div><div class="mfg"><label>Saldo inicial</label><input type="number" placeholder="0"></div><button class="btn-y" onclick="closeM('Cuenta')">Guardar</button></div></div>
+<div class="mov" id="mHabito"><div class="modal"><div class="mh"></div><div class="mt">Nuevo habito</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Tomar 2L de agua"></div><div class="mfg"><label>Icono</label><input type="text" placeholder="?" maxlength="2" value="?"></div><div class="mfg"><label>Categoria</label><select><option>Salud</option><option>Trabajo</option><option>Mente</option><option>Dinero</option></select></div><button class="btn-y" onclick="closeM('Habito')">Guardar</button></div></div>
+<div class="mov" id="mProyecto"><div class="modal"><div class="mh"></div><div class="mt">Nuevo proyecto</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Rediseno web"></div><div class="mfg"><label>Cliente</label><select><option>Mariana V.</option><option>Carlos R.</option><option>Lautaro S.</option><option>Paula T.</option><option>Rodrigo M.</option></select></div><div class="mfg"><label>Monto</label><input type="number" placeholder="0"></div><div class="mfg"><label>Fecha entrega</label><input type="date"></div><button class="btn-y" onclick="closeM('Proyecto')">Guardar</button></div></div>
+<div class="mov" id="mFactura"><div class="modal"><div class="mh"></div><div class="mt">Nueva factura</div><div class="mfg"><label>Cliente</label><select><option>Mariana V.</option><option>Carlos R.</option><option>Lautaro S.</option><option>Paula T.</option><option>Rodrigo M.</option></select></div><div class="mfg"><label>Servicio</label><input type="text" placeholder="Descripcion del servicio"></div><div class="mfg"><label>Monto</label><input type="number" placeholder="0"></div><div class="mfg"><label>Vencimiento</label><input type="date"></div><button class="btn-y" onclick="closeM('Factura')">Guardar</button></div></div>
+<div class="mov" id="mCliente"><div class="modal"><div class="mh"></div><div class="mt">Nuevo cliente</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Nombre del cliente"></div><div class="mfg"><label>Email</label><input type="email" placeholder="email@ejemplo.com"></div><div class="mfg"><label>Notas</label><textarea placeholder="Preferencias, acuerdos..."></textarea></div><button class="btn-y" onclick="closeM('Cliente')">Guardar</button></div></div>
+<div class="mov" id="mArea"><div class="modal"><div class="mh"></div><div class="mt">Nueva area de vida</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Espiritualidad"></div><div class="mfg"><label>Icono</label><input type="text" placeholder="?" maxlength="2"></div><button class="btn-y" onclick="closeM('Area')">Guardar</button></div></div>
+<script>
+/* ═══════════════════════════════════════════════════
+   SUPABASE CONFIG
+═══════════════════════════════════════════════════ */
+const SB_URL = 'https://ilhlcwesmkaycekbnamm.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsaGxjd2VzbWtheWNla2JuYW1tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2OTYxOTMsImV4cCI6MjA4NzI3MjE5M30.N7TAeoiAIEg-KBTjKeBpFmSUQz58XiZdlF-cdnSnTyE';
+
+async function sbFetch(path, opts={}) {
+  const res = await fetch(SB_URL + '/rest/v1/' + path, {
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': 'Bearer ' + SB_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': opts.prefer || 'return=representation'
+    },
+    ...opts
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(err);
+  }
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+/* ═══════════════════════════════════════════════════
+   AUTH STATE
+═══════════════════════════════════════════════════ */
+let cUser = null;
+
+function setTab(t){
+  document.getElementById("formLogin").style.display = t==="login" ? "block" : "none";
+  document.getElementById("formRegister").style.display = t==="register" ? "block" : "none";
+}
+function showErr(id, msg){ const e=document.getElementById(id); e.textContent=msg; e.classList.add("show"); }
+function hideErr(id){ document.getElementById(id).classList.remove("show"); }
+function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+function setLoading(btnId, loading){
+  const b = document.getElementById(btnId);
+  if(!b) return;
+  b.disabled = loading;
+  b.textContent = loading ? 'Cargando...' : (btnId==='btnLogin' ? 'Ingresar →' : 'Crear cuenta →');
+}
+
+/* ═══════════════════════════════════════════════════
+   LOGIN
+═══════════════════════════════════════════════════ */
+async function doLogin(){
+  const u = document.getElementById("loginU").value.trim().toLowerCase();
+  const p = document.getElementById("loginP").value;
+  if(!u||!p){ showErr("errLogin","Completá todos los campos."); return; }
+  if(!validEmail(u)){ showErr("errLogin","Ingresá un email válido."); return; }
+  setLoading('btnLogin', true);
+  try {
+    const rows = await sbFetch('usuarios?email=eq.' + encodeURIComponent(u) + '&select=*');
+    if(!rows || rows.length === 0){ showErr("errLogin","Email o contraseña incorrectos."); return; }
+    const user = rows[0];
+    if(user.password !== p){ showErr("errLogin","Email o contraseña incorrectos."); return; }
+    hideErr("errLogin");
+    cUser = user;
+    localStorage.setItem("ems_session", u);
+    await launchApp();
+  } catch(e) {
+    showErr("errLogin","Error de conexión. Intentá de nuevo.");
+    console.error(e);
+  } finally {
+    setLoading('btnLogin', false);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   REGISTER
+═══════════════════════════════════════════════════ */
+async function doRegister(){
+  const n = document.getElementById("regN").value.trim();
+  const u = document.getElementById("regU").value.trim().toLowerCase();
+  const p = document.getElementById("regP").value;
+  const m = document.getElementById("regM").value;
+  if(!n||!u||!p){ showErr("errRegister","Completá todos los campos."); return; }
+  if(!validEmail(u)){ showErr("errRegister","Ingresá un email válido."); return; }
+  if(p.length<4){ showErr("errRegister","La contraseña debe tener mínimo 4 caracteres."); return; }
+  setLoading('btnRegister', true);
+  try {
+    // Check if email exists
+    const existing = await sbFetch('usuarios?email=eq.' + encodeURIComponent(u) + '&select=email');
+    if(existing && existing.length > 0){ showErr("errRegister","Ya existe una cuenta con ese email."); return; }
+    // Create user — sin licencia activa, esperando activación
+    const newUser = {
+      email: u,
+      password: p,
+      nombre: n,
+      moneda: m,
+      modulos: [],
+      activo: false,
+      expiry: null,
+      plan: null
+    };
+    const created = await sbFetch('usuarios', {
+      method: 'POST',
+      prefer: 'return=representation',
+      body: JSON.stringify(newUser)
+    });
+    hideErr("errRegister");
+    cUser = created[0] || newUser;
+    cUser.email = u;
+    cUser.nombre = n;
+    cUser.moneda = m;
+    localStorage.setItem("ems_session", u);
+    await launchApp();
+  } catch(e) {
+    showErr("errRegister","Error al crear la cuenta. Intentá de nuevo.");
+    console.error(e);
+  } finally {
+    setLoading('btnRegister', false);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   LOGOUT
+═══════════════════════════════════════════════════ */
+function doLogout(){
+  if(!confirm("¿Cerrar sesión?")) return;
+  cUser = null;
+  localStorage.removeItem("ems_session");
+  document.getElementById("appScreen").classList.remove("active");
+  document.getElementById("modulesScreen").classList.remove("active");
+  document.getElementById("loginScreen").classList.add("active");
+  document.getElementById("loginU").value="";
+  document.getElementById("loginP").value="";
+  document.getElementById("regN").value="";
+  document.getElementById("regU").value="";
+  document.getElementById("regP").value="";
+  document.getElementById("errLogin").classList.remove("show");
+  document.getElementById("errRegister").classList.remove("show");
+  setTab("login");
+}
+
+/* ═══════════════════════════════════════════════════
+   LICENCIA — verifica si está activa y no vencida
+═══════════════════════════════════════════════════ */
+function licenciaActiva(){
+  if(!cUser) return false;
+  if(!cUser.activo) return false;
+  if(!cUser.expiry) return false;
+  return new Date(cUser.expiry) > new Date();
+}
+
+function diasRestantes(){
+  if(!cUser || !cUser.expiry) return 0;
+  const diff = new Date(cUser.expiry) - new Date();
+  return Math.max(0, Math.ceil(diff / 86400000));
+}
+
+/* ═══════════════════════════════════════════════════
+   LAUNCH APP
+═══════════════════════════════════════════════════ */
+async function launchApp(){
+  document.getElementById("loginScreen").classList.remove("active");
+  document.getElementById("hdrAv").textContent = cUser.nombre.charAt(0).toUpperCase();
+  document.getElementById("hdrName").textContent = cUser.nombre;
+  document.getElementById("dashName").textContent = cUser.nombre;
+  const now = new Date();
+  const DS=["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+  const MS=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  document.getElementById("dashDate").textContent = DS[now.getDay()]+" "+now.getDate()+" de "+MS[now.getMonth()]+", "+now.getFullYear();
+
+  // Ocultar pantalla de licencia si existe
+  const lsc = document.getElementById("licenseScreen");
+  if(lsc){ lsc.classList.remove("active"); lsc.style.display="none"; }
+
+  // Si la licencia no está activa o venció → pantalla de activación
+  if(!licenciaActiva()){
+    showLicenseScreen();
+    return;
+  }
+
+  // Aviso si quedan menos de 15 días
+  const dias = diasRestantes();
+  if(dias <= 15 && dias > 0){
+    setTimeout(()=>{
+      showToast('⚠️ Tu licencia vence en '+dias+' días. Renovar en elmetodosimple@gmail.com', 6000);
+    }, 2000);
+  }
+
+  renderWeek(); renderHabits(); renderProj("all"); renderAreas(); calcPres(); updateAgendaYear();
+  const pC=document.getElementById("pC"); const pD=document.getElementById("pD");
+  document.querySelectorAll("#presItems input").forEach(i=>i.addEventListener("input",calcPres));
+  if(pC) pC.addEventListener("input",calcPres);
+  if(pD) pD.addEventListener("input",calcPres);
+  loadModules();
+  renderModuleScreen();
+  document.getElementById("modulesScreen").classList.add("active");
+}
+
+/* ═══════════════════════════════════════════════════
+   PANTALLA LICENCIA VENCIDA / NO ACTIVA
+═══════════════════════════════════════════════════ */
+function showLicenseScreen(){
+  let sc = document.getElementById("licenseScreen");
+  if(!sc){
+    sc = document.createElement("div");
+    sc.id = "licenseScreen";
+    sc.className = "screen active";
+    const vencida = cUser.activo && cUser.expiry && new Date(cUser.expiry) <= new Date();
+    sc.innerHTML = `
+      <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center">
+        <div style="font-size:48px;margin-bottom:20px">${vencida ? '⏰' : '🔒'}</div>
+        <div style="font-family:'Fraunces',serif;font-size:26px;font-weight:900;color:var(--yellow);margin-bottom:12px">
+          ${vencida ? 'Tu licencia venció' : 'Cuenta pendiente de activación'}
+        </div>
+        <div style="font-size:15px;color:var(--muted2);line-height:1.65;max-width:340px;margin-bottom:32px">
+          ${vencida
+            ? 'Tu acceso de 12 meses venció. Renovás por el mismo precio y seguís usando todos tus datos.'
+            : 'Tu cuenta fue creada. Una vez que completés tu compra, tu acceso se activa automáticamente en minutos.'
+          }
+        </div>
+        <a href="https://elmetodosimple.gumroad.com" target="_blank"
+          style="background:var(--yellow);color:#000;font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;padding:16px 32px;border-radius:14px;text-decoration:none;margin-bottom:16px;display:block;width:100%;max-width:300px">
+          ${vencida ? 'Renovar ahora →' : 'Ir a comprar →'}
+        </a>
+        <button onclick="doLogout()"
+          style="background:transparent;border:1px solid var(--border2);color:var(--muted2);font-size:14px;padding:12px 24px;border-radius:12px;cursor:pointer;width:100%;max-width:300px">
+          Cerrar sesión
+        </button>
+        <div style="margin-top:24px;font-size:12px;color:var(--muted);font-family:'DM Mono',monospace">
+          ¿Ya compraste? Escribinos a elmetodosimple@gmail.com
+        </div>
+      </div>`;
+    document.body.appendChild(sc);
+  } else {
+    sc.classList.add("active");
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   TOAST HELPER
+═══════════════════════════════════════════════════ */
+function showToast(msg, duration=3000){
+  let t = document.getElementById("globalToast");
+  if(!t){
+    t = document.createElement("div");
+    t.id = "globalToast";
+    t.style.cssText = "position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1e1e22;border:1px solid var(--border2);color:var(--text);padding:11px 18px;border-radius:12px;font-size:13px;z-index:9999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.5);transition:opacity .3s;max-width:90vw;white-space:normal;text-align:center";
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = "1";
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=>{ t.style.opacity="0"; }, duration);
+}
+
+/* ═══════════════════════════════════════════════════
+   AUTO-LOGIN — va directo a la app si hay sesión guardada
+═══════════════════════════════════════════════════ */
+(async function(){
+  const savedEmail = localStorage.getItem("ems_session");
+  if(!savedEmail) return;
+  try {
+    const rows = await sbFetch('usuarios?email=eq.' + encodeURIComponent(savedEmail) + '&select=*');
+    if(rows && rows.length > 0){
+      cUser = rows[0];
+      await launchApp();
+    } else {
+      localStorage.removeItem("ems_session");
+    }
+  } catch(e) {
+    console.error("Auto-login error:", e);
+  }
+})();
+
+/* AGENDA PRO NAV */
+function setAg(el,tab){
+  document.querySelectorAll("#agendaPills .pill").forEach(function(p){p.classList.remove("active");});
+  if(el) el.classList.add("active");
+  var tabs=["agInicio","agMetas","agHabitos","agSemana","agMes","agPresup","agViajes","agRutina","agWishlist","agDiario","agVision","agFocus","agStats","agReview"];
+  tabs.forEach(function(t){var e=document.getElementById(t);if(e)e.style.display="none";});
+  var target=document.getElementById(tab);if(target)target.style.display="block";
+}
+
+/* FOCUS TIMER */
+var agTimerInterval=null,agTimerSecs=0,agTimerRunning=false,agTimerTotal=25*60;
+function agTimerSet(){
+  agResetTimer();
+  var mins=parseInt(document.getElementById("agTimerMode").value)||25;
+  agTimerTotal=mins*60;
+  var mm=String(Math.floor(agTimerTotal/60)).padStart(2,"0");
+  document.getElementById("agTimerD").textContent=mm+":00";
+}
+function agToggleTimer(){
+  var btn=document.getElementById("agTimerBtn");
+  if(!agTimerRunning){
+    agTimerRunning=true;btn.textContent="⏸ Pausar";btn.style.background="var(--green)";
+    agTimerInterval=setInterval(function(){
+      agTimerSecs++;
+      var remaining=agTimerTotal-agTimerSecs;
+      if(remaining<=0){clearInterval(agTimerInterval);agTimerRunning=false;btn.textContent="✓ Completado";btn.style.background="var(--purple)";return;}
+      var m=Math.floor(remaining/60),s=remaining%60;
+      document.getElementById("agTimerD").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    },1000);
+  } else {
+    agTimerRunning=false;clearInterval(agTimerInterval);
+    btn.textContent="▶ Continuar";btn.style.background="var(--yellow)";
+  }
+}
+function agResetTimer(){
+  clearInterval(agTimerInterval);agTimerRunning=false;agTimerSecs=0;
+  var mins=parseInt((document.getElementById("agTimerMode")||{value:"25"}).value)||25;
+  agTimerTotal=mins*60;
+  var mm=String(mins).padStart(2,"0");
+  var d=document.getElementById("agTimerD");if(d)d.textContent=mm+":00";
+  var btn=document.getElementById("agTimerBtn");if(btn){btn.textContent="▶ Iniciar";btn.style.background="var(--yellow)";}
+}
+
+/* AGENDA PRO year progress */
+function updateAgendaYear(){
+  var now=new Date();
+  var start=new Date(now.getFullYear(),0,1);
+  var end=new Date(now.getFullYear()+1,0,1);
+  var pct=Math.round((now-start)/(end-start)*100);
+  var daysLeft=Math.ceil((end-now)/86400000);
+  var bar=document.getElementById("agYearBar");var pctEl=document.getElementById("agYearPct");var dlEl=document.getElementById("agDaysLeft");
+  if(bar)bar.style.width=pct+"%";if(pctEl)pctEl.textContent=pct+"%";if(dlEl)dlEl.textContent=daysLeft+" días";
+}
+
+/* NAV */
+function goPage(p,el){
+  document.querySelectorAll(".ap").forEach(a=>a.classList.remove("active"));
+  document.getElementById("page"+p).classList.add("active");
+  document.getElementById("appBody").scrollTop=0;
+  if(el){document.querySelectorAll(".np").forEach(n=>n.classList.remove("active"));el.classList.add("active");}
+  else{document.querySelectorAll(".np").forEach(n=>{const t=n.textContent;n.classList.toggle("active",(p==="Dash"&&t.includes("Inicio"))||(p==="Agenda"&&t.includes("Agenda"))||(p==="Finanzas"&&t.includes("Finanz"))||(p==="Habitos"&&t.includes("bitos"))||(p==="Freelance"&&t.includes("Freelance"))||(p==="Metas"&&t.includes("Metas")));});}
+}
+
+/* SUBTABS */
+function setFin(el,tab){
+  document.querySelectorAll("#finPills .pill").forEach(p=>p.classList.remove("active"));el.classList.add("active");
+  ["finR","finM","finC","finP","finCu"].forEach(t=>{const e=document.getElementById(t);if(e)e.style.display="none";});
+  document.getElementById(tab).style.display="block";
+}
+function setFree(el,tab){
+  document.querySelectorAll("#freePills .pill").forEach(p=>p.classList.remove("active"));el.classList.add("active");
+  ["frR","frP","frF","frH","frPres","frCl"].forEach(t=>{const e=document.getElementById(t);if(e)e.style.display="none";});
+  document.getElementById(tab).style.display="block";
+}
+function setMetas(el,tab){
+  document.querySelectorAll("#metasPills .pill").forEach(p=>p.classList.remove("active"));el.classList.add("active");
+  ["mA","mV","mR"].forEach(t=>{const e=document.getElementById(t);if(e)e.style.display="none";});
+  document.getElementById(tab).style.display="block";
+}
+function setPill2(el){el.closest(".pill-row").querySelectorAll(".pill").forEach(p=>p.classList.remove("active"));el.classList.add("active");}
+
+/* AGENDA */
+var DS2=["Dom","Lun","Mar","Mie","Jue","Vie","Sab"];
+function renderWeekInto(stripId, labelId) {
+  var strip=document.getElementById(stripId);if(!strip)return;
+  strip.innerHTML="";
+  var today=new Date();
+  for(var i=-3;i<=6;i++){
+    var d=new Date(today);d.setDate(today.getDate()+i);
+    var btn=document.createElement("div");
+    btn.className="db"+(i===0?" today":"")+(i!==0?" has":"");
+    var dot=Math.abs(i)<=2?'<div class="db-dot"></div>':"";
+    btn.innerHTML='<div class="db-n">'+DS2[d.getDay()]+'</div><div class="db-d">'+d.getDate()+'</div>'+dot;
+    (function(day,b,lbl){btn.onclick=function(){document.querySelectorAll(".db").forEach(function(x){x.classList.remove("today");});b.classList.add("today");var el=document.getElementById(lbl);if(el)el.textContent=DS2[day.getDay()]+" "+day.getDate();};})(new Date(d),btn,labelId||"agSemLabel");
+    strip.appendChild(btn);
+  }
+}
+function renderWeek(){renderWeekInto("agWeekStrip","agSemLabel");renderWeekInto("agWeekStrip2","agSemLabel");}
+
+/* HABITOS */
+var hData=[
+  {icon:"?",name:"Tomar 2L de agua",sub:"Salud",cls:"wg",days:{0:1,1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1}},
+  {icon:"?",name:"Ejercicio 30min",sub:"Salud",cls:"wg",days:{0:1,1:1,3:1,4:1,6:1,7:1,9:1,10:1,12:1,13:1,15:1,16:1,18:1,19:1,20:1}},
+  {icon:"?",name:"Leer 20 paginas",sub:"Mente",cls:"wp",days:{0:1,1:1,2:1,4:1,5:1,7:1,8:1,10:1,11:1,13:1,14:1,16:1,17:1,19:1,20:1}},
+  {icon:"?",name:"Deep work 2hs",sub:"Trabajo",cls:"wb",days:{0:1,1:1,2:1,3:1,4:1,7:1,8:1,9:1,10:1,11:1,14:1,15:1,16:1,17:1,18:1}},
+  {icon:"?",name:"Registrar gastos",sub:"Dinero",cls:"wy",days:{0:1,1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1}},
+  {icon:"?",name:"Journaling",sub:"Trabajo",cls:"wb",days:{0:1,1:1,3:1,4:1,6:1,8:1,10:1,12:1,14:1,16:1,18:1,20:1}},
+];
+// Restore emoji icons after JSON
+hData[0].icon="\ud83d\udca7";hData[1].icon="\ud83c\udfc3";hData[2].icon="\ud83d\udcda";
+hData[3].icon="\ud83d\udcbb";hData[4].icon="\ud83d\udcb0";hData[5].icon="\u270d\ufe0f";
+var WDL=["D","L","M","X","J","V","S"];
+let hView="week";
+function setHV(v){hView=v;document.getElementById("hvw").classList.toggle("active",v==="week");document.getElementById("hvm").classList.toggle("active",v==="month");renderHabits();}
+function renderHabits(){
+  const c=document.getElementById("habitList");if(!c)return;c.innerHTML="";
+  const today=new Date();const todayD=today.getDate();
+  hData.forEach(function(h,hi){
+    const done=Object.values(h.days).filter(Boolean).length;
+    const pct=Math.round(done/Math.max(todayD,1)*100);
+    let dots="";
+    if(hView==="week"){
+      const start=Math.max(1,todayD-6);
+      for(let i=start;i<=todayD;i++){
+        const d=i-1;const isDone=h.days[d];const isToday=i===todayD;
+        const dt=new Date(2026,1,i);const dn=WDL[dt.getDay()];
+        let cls="wd";if(isDone)cls+=" "+h.cls;else if(isToday)cls+=" tr";else cls+=" ms";
+        dots+='<div class="'+cls+'" onclick="toggleH('+hi+','+d+')"><div class="wd-l">'+dn+'</div><div class="wd-n">'+i+'</div></div>';
+      }
+    } else {
+      for(let i=1;i<=28;i++){
+        const d=i-1;if(i>todayD){dots+='<div class="md fut">'+i+'</div>';continue;}
+        let cls="md";if(h.days[d])cls+=" "+h.cls;else if(i===todayD)cls+=" tr";else cls+=" ms";
+        dots+='<div class="'+cls+'" onclick="toggleH('+hi+','+d+')">'+i+'</div>';
+      }
+    }
+    const card=document.createElement("div");
+    card.className="habit";
+    const wCls=hView==="month"?"mdots":"wdots";
+    card.innerHTML='<div class="h-top"><div class="h-left"><div class="h-icon">'+h.icon+'</div><div><div class="h-name">'+h.name+'</div><div class="h-sub">'+h.sub+'</div></div></div><div class="h-pct">'+pct+'%</div></div><div class="'+wCls+'">'+dots+'</div>';
+    c.appendChild(card);
+  });
+}
+function toggleH(hi,day){hData[hi].days[day]=hData[hi].days[day]?0:1;renderHabits();}
+
+/* PROYECTOS */
+var projsData={
+  todo:[
+    {av:"P",col:"#a78bfa",name:"Paula T.",desc:"Diseno logo + manual de marca",badge:"bb",blbl:"Por hacer",due:"28 feb",amt:"$450"},
+    {av:"L",col:"#60a5fa",name:"Lautaro S.",desc:"Estrategia de contenido Q1",badge:"bb",blbl:"Por hacer",due:"5 mar",amt:"$320"},
+    {av:"R",col:"#f87171",name:"Rodrigo M.",desc:"Landing page producto nuevo",badge:"br",blbl:"Urgente",due:"Hoy",amt:"$600"},
+  ],
+  proceso:[
+    {av:"M",col:"#E8C547",name:"Mariana V.",desc:"Rediseno completo sitio web",badge:"bb",blbl:"En proceso",due:"10 mar",amt:"$1.200"},
+    {av:"C",col:"#34d399",name:"Carlos R.",desc:"Gestion redes sociales feb",badge:"bb",blbl:"En proceso",due:"28 feb",amt:"$380"},
+  ],
+  done:[
+    {av:"C",col:"#34d399",name:"Carlos R.",desc:"Informe mensual enero",badge:"bg",blbl:"Listo",due:"Facturado",amt:"$220"},
+    {av:"L",col:"#60a5fa",name:"Lautaro S.",desc:"Newsletter enero",badge:"bg",blbl:"Listo",due:"Facturado",amt:"$180"},
+    {av:"P",col:"#a78bfa",name:"Paula T.",desc:"Fotografia producto",badge:"bg",blbl:"Listo",due:"Cobrado",amt:"$350"},
+  ]
+};
+function renderProj(filter){
+  const list=document.getElementById("projListEl");if(!list)return;list.innerHTML="";
+  const data=filter==="all"?[].concat(projsData.todo,projsData.proceso,projsData.done):projsData[filter]||[];
+  data.forEach(function(p){
+    const el=document.createElement("div");el.className="proj";
+    el.innerHTML='<div class="av" style="width:34px;height:34px;background:'+p.col+';font-size:13px">'+p.av+'</div><div class="p-body"><div class="p-name">'+p.name+'</div><div class="p-desc">'+p.desc+'</div><div class="p-foot"><span class="badge '+p.badge+'">'+p.blbl+'</span><span class="p-due">'+p.due+'</span><span class="p-amt">'+p.amt+'</span></div></div>';
+    list.appendChild(el);
+  });
+}
+
+/* AREAS / METAS */
+var areasData=[
+  {icon:"?",name:"Dinero",color:"#E8C547",pct:62,metas:[
+    {title:"Ganar $50.000 en el anio",desc:"Freelance + productos digitales.",pct:62,pasos:[{t:"Lanzar ElMetodoSimple",done:true,m:"Mar"},{t:"3 clientes retainer",done:true,m:"Feb"},{t:"$4.000/mes estable",done:false,m:"Jun"},{t:"Primer mes de $5.000",done:false,m:"Sep"}]},
+    {title:"Ahorrar 20% de cada ingreso",desc:"Fondo + inversiones.",pct:45,pasos:[{t:"Abrir cuenta ahorro",done:true,m:"Ene"},{t:"Automatizar transferencia",done:false,m:"Mar"},{t:"Primer inversion ETF",done:false,m:"Jun"}]}
+  ]},
+  {icon:"?",name:"Salud",color:"#4ade80",pct:78,metas:[{title:"Gym 4 veces por semana",desc:"Consistencia 12 meses.",pct:78,pasos:[{t:"Inscribirse al gym",done:true,m:"Ene"},{t:"3 meses seguidos",done:false,m:"Abr"},{t:"Completar 12 meses",done:false,m:"Dic"}]}]},
+  {icon:"?",name:"Carrera",color:"#60a5fa",pct:55,metas:[{title:"Lanzar kit ElMetodoSimple",desc:"5 plantillas + bundle.",pct:55,pasos:[{t:"Agenda + Finanzas",done:true,m:"Ene"},{t:"Habitos + Freelance",done:true,m:"Feb"},{t:"Metas Anuales",done:false,m:"Mar"},{t:"Lanzamiento oficial",done:false,m:"Mar"}]}]},
+  {icon:"?",name:"Familia",color:"#f87171",pct:25,metas:[{title:"1 viaje familiar por trimestre",desc:"Con tiempo y presupuesto.",pct:25,pasos:[{t:"Planificar viaje Q1",done:true,m:"Feb"},{t:"Viaje Q1 realizado",done:false,m:"Mar"},{t:"Planificar Q2",done:false,m:"May"}]}]},
+];
+areasData[0].icon="\ud83d\udcb0";areasData[1].icon="\ud83d\udcaa";areasData[2].icon="\ud83d\ude80";areasData[3].icon="\u2764\ufe0f";
+
+function renderAreas(){
+  const list=document.getElementById("areasEl");if(!list)return;list.innerHTML="";
+  areasData.forEach(function(a,ai){
+    const card=document.createElement("div");card.className="area-card";
+    card.innerHTML='<div class="area-top"><div class="area-icon">'+a.icon+'</div><div class="area-pct" style="color:'+a.color+'">'+a.pct+'%</div></div><div class="area-name">'+a.name+'</div><div class="area-sub">'+a.metas.length+' meta(s) - '+a.metas.reduce(function(s,m){return s+m.pasos.filter(function(p){return p.done;}).length;},0)+' pasos completados</div><div class="pbar"><div class="pbar-f" style="width:'+a.pct+'%;background:'+a.color+'"></div></div>';
+    card.onclick=function(){showMetas(ai);};
+    list.appendChild(card);
+  });
+}
+function showMetas(ai){
+  const a=areasData[ai];const list=document.getElementById("areasEl");
+  list.innerHTML='<div style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:12px" onclick="renderAreas()"><span style="color:var(--yellow)">&#8592;</span><span style="font-size:13px;color:var(--muted2)">Todas las areas</span></div><div style="font-family:Fraunces,serif;font-size:20px;font-weight:900;margin-bottom:12px">'+a.icon+' '+a.name+'</div>';
+  a.metas.forEach(function(m,mi){
+    const mc=document.createElement("div");mc.className="meta-c";
+    const pasosHtml=m.pasos.map(function(p,pi){return '<div class="paso"><div class="pck '+(p.done?"done":"") + '" onclick="toggleP('+ai+','+mi+','+pi+')">'+(p.done?"v":"")+'</div><div class="ptxt '+(p.done?"tach":"")+'">'+p.t+'</div><div class="pmes">'+p.m+'</div></div>';}).join("");
+    mc.innerHTML="<div class=\"mc-top\"><div class=\"mc-title\">"+m.title+"</div><div class=\"mc-ck "+(m.pct===100?"done":"")+"\">"+( m.pct===100?"v":"")+"</div></div><div class=\"mc-desc\">"+m.desc+"</div>"+pasosHtml+"<div style=\"margin-top:10px;display:flex;align-items:center;gap:8px\"><div class=\"pbar\" style=\"flex:1;margin:0\"><div class=\"pbar-f\" style=\"width:"+m.pct+"%;background:"+a.color+"\"></div></div><div style=\"font-family:monospace;font-size:11px;color:var(--muted2);width:30px;text-align:right\">"+m.pct+"%</div></div>";
+    list.appendChild(mc);
+  });
+  const addEl=document.createElement("div");
+  addEl.innerHTML='<button class="add-btn" onclick="openM(\'Area\')">+ Nueva meta en '+a.name+'</button>';
+  list.appendChild(addEl);
+}
+function toggleP(ai,mi,pi){
+  areasData[ai].metas[mi].pasos[pi].done=!areasData[ai].metas[mi].pasos[pi].done;
+  const m=areasData[ai].metas[mi];
+  m.pct=Math.round(m.pasos.filter(function(p){return p.done;}).length/m.pasos.length*100);
+  areasData[ai].pct=Math.round(areasData[ai].metas.reduce(function(s,m){return s+m.pct;},0)/areasData[ai].metas.length);
+  showMetas(ai);
+}
+
+/* TIMER */
+let timerInterval=null,timerSecs=0,timerRunning=false;
+function toggleTimer(){
+  const btn=document.getElementById("timerBtn");const sel=document.getElementById("timerSel");
+  if(!timerRunning){
+    timerRunning=true;btn.textContent="|| Pausar";btn.style.background="var(--green)";
+    document.getElementById("timerP").textContent=sel.value||"Sin proyecto";
+    document.getElementById("timerD").style.color="var(--green)";
+    timerInterval=setInterval(function(){
+      timerSecs++;
+      const h=Math.floor(timerSecs/3600).toString().padStart(2,"0");
+      const m=Math.floor((timerSecs%3600)/60).toString().padStart(2,"0");
+      const s=(timerSecs%60).toString().padStart(2,"0");
+      document.getElementById("timerD").textContent=h+":"+m+":"+s;
+    },1000);
+  } else {
+    timerRunning=false;clearInterval(timerInterval);
+    btn.textContent="Continuar";btn.style.background="var(--yellow)";
+    document.getElementById("timerD").style.color="var(--yellow)";
+  }
+}
+function resetTimer(){
+  clearInterval(timerInterval);timerRunning=false;timerSecs=0;
+  document.getElementById("timerD").textContent="00:00:00";
+  document.getElementById("timerD").style.color="var(--yellow)";
+  document.getElementById("timerBtn").textContent="Iniciar";
+  document.getElementById("timerBtn").style.background="var(--yellow)";
+  document.getElementById("timerP").textContent="Selecciona un proyecto arriba";
+}
+
+/* PRESUPUESTO */
+function calcPres(){
+  const rows=document.querySelectorAll("#presItems .item-row");let total=0;
+  const tbody=document.getElementById("ppItems");if(tbody)tbody.innerHTML="";
+  rows.forEach(function(r){
+    const inputs=r.querySelectorAll("input");
+    const desc=inputs[0]?inputs[0].value:"";const hs=inputs[1]?inputs[1].value:"";const price=parseFloat(inputs[2]?inputs[2].value:0)||0;
+    total+=price;
+    if(tbody)tbody.innerHTML+="<tr><td>"+desc+"</td><td>"+hs+"</td><td>$"+price+"</td></tr>";
+  });
+  const t="$"+total.toLocaleString();
+  const e1=document.getElementById("presT"),e2=document.getElementById("ppT");
+  if(e1)e1.textContent=t;if(e2)e2.textContent=t;
+  const ec=document.getElementById("ppC"),ed=document.getElementById("ppD");
+  const pc=document.getElementById("pC"),pd=document.getElementById("pD");
+  if(ec&&pc)ec.textContent=pc.value||"—";if(ed&&pd)ed.textContent=pd.value||"—";
+}
+function addPI(){
+  const row=document.createElement("div");row.className="item-row";
+  row.innerHTML='<input type="text" placeholder="Descripcion"><input type="number" placeholder="Hs"><input type="number" placeholder="$"><button class="rm-b" onclick="rmItem(this)">x</button>';
+  document.getElementById("presItems").appendChild(row);
+  row.querySelectorAll("input").forEach(function(i){i.addEventListener("input",calcPres);});
+}
+function rmItem(btn){btn.closest(".item-row").remove();calcPres();}
+
+/* REVISION */
+function toggleRev(mes){
+  const body=document.getElementById("rb"+mes);const arrow=document.getElementById("rar"+mes);
+  body.classList.toggle("open");if(arrow)arrow.textContent=body.classList.contains("open")?"v":">";
+}
+function rStar(mes,n){document.querySelectorAll("#s"+mes+" .star").forEach(function(s,i){s.classList.toggle("lit",i<n);});}
+
+/* MODALS */
+function openM(id){const el=document.getElementById("m"+id.charAt(0).toUpperCase()+id.slice(1));if(el)el.classList.add("open");}
+function closeM(id){const el=document.getElementById("m"+id.charAt(0).toUpperCase()+id.slice(1));if(el)el.classList.remove("open");}
+document.querySelectorAll(".mov").forEach(function(m){m.addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});});
+
+/* MODULES - definidos por nosotros, no editables por el usuario */
+var MODULE_LIST = ['Agenda','Finanzas','Habitos','Freelance','Metas'];
+
+var MODULE_INFO = {
+  'Agenda':   { icon:'📅', desc:'Agenda, eventos y top 3 del día' },
+  'Finanzas': { icon:'💰', desc:'Ingresos, gastos y presupuestos' },
+  'Habitos':  { icon:'🔥', desc:'Hábitos diarios y racha activa' },
+  'Freelance':{ icon:'💼', desc:'Proyectos, clientes y timer' },
+  'Metas':    { icon:'🎯', desc:'Áreas de vida y metas anuales' }
+};
+
+// ═══════════════════════════════════════════
+// MÓDULOS — vienen de Supabase (campo modulos[])
+// ═══════════════════════════════════════════
+function getActiveModules(username) {
+  if(!cUser || !cUser.modulos) return [];
+  // modulos viene como array de Supabase (jsonb)
+  if(Array.isArray(cUser.modulos)) return cUser.modulos;
+  if(typeof cUser.modulos === 'string') return JSON.parse(cUser.modulos);
+  return [];
+}
+
+var activeModules = {};
+
+function loadModules() {
+  activeModules = {};
+  var active = getActiveModules(cUser.user);
+  MODULE_LIST.forEach(function(m) {
+    activeModules[m] = active.indexOf(m) !== -1;
+  });
+}
+
+function renderModuleScreen() {
+  document.getElementById('modUserTag').textContent = 'Hola, ' + cUser.nombre + ' 👋';
+  var list = document.getElementById('modListEl');
+  list.innerHTML = '';
+  MODULE_LIST.forEach(function(m) {
+    var on = !!activeModules[m];
+    var info = MODULE_INFO[m];
+    var item = document.createElement('div');
+    item.className = 'mod-item' + (on ? ' active' : '');
+    item.style.cursor = 'default';
+    item.innerHTML =
+      '<div class="mod-icon">' + info.icon + '</div>' +
+      '<div class="mod-info">' +
+        '<div class="mod-name">' + m + '</div>' +
+        '<div class="mod-desc">' + info.desc + '</div>' +
+      '</div>' +
+      '<div style="flex-shrink:0;text-align:right">' +
+        (on
+          ? '<div style="background:rgba(74,222,128,.15);color:#4ade80;font-family:DM Mono,monospace;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid rgba(74,222,128,.3)">ACTIVO</div>'
+          : '<div style="background:rgba(82,82,91,.12);color:var(--muted);font-family:DM Mono,monospace;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid var(--border)">NO INCLUIDO</div>'
+        ) +
+      '</div>';
+    list.appendChild(item);
+  });
+}
+
+function enterApp() {
+  applyModuleRestrictions();
+  document.getElementById('modulesScreen').classList.remove('active');
+  document.getElementById('appScreen').classList.add('active');
+  goPage('Dash', document.querySelector('.np'));
+}
+
+function applyModuleRestrictions() {
+  var navMap = {
+    'Agenda':'Agenda','Finanzas':'Finanz','Habitos':'bitos','Freelance':'Freelance','Metas':'Metas'
+  };
+  document.querySelectorAll('.np').forEach(function(np) {
+    var txt = np.textContent;
+    MODULE_LIST.forEach(function(m) {
+      if (txt.includes(navMap[m])) {
+        if (activeModules[m]) {
+          np.classList.remove('blocked');
+          np.onclick = (function(mod){ return function(){ goPage(mod, np); }; })(m);
+        } else {
+          np.classList.add('blocked');
+          np.onclick = function(e) {
+            e.stopPropagation();
+            showLockedToast(m);
+          };
+        }
+      }
+    });
+  });
+}
+
+function showLockedToast(name) {
+  var t = document.getElementById('lockToast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'lockToast';
+    t.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1e1e22;border:1px solid var(--border2);color:var(--text);padding:11px 18px;border-radius:12px;font-size:13px;z-index:999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.5);transition:opacity .3s';
+    document.body.appendChild(t);
+  }
+  t.textContent = '🔒 ' + name + ' no incluido en tu plan. Escribinos a elmetodosimple@gmail.com';
+  t.style.opacity = '1';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function(){ t.style.opacity = '0'; }, 3000);
+}
+
+/* fin script */
+
+</script>
+</body>
+</html>
