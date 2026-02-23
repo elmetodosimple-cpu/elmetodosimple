@@ -1254,6 +1254,10 @@ async function launchApp(){
   const MS=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
   document.getElementById("dashDate").textContent = DS[now.getDay()]+" "+now.getDate()+" de "+MS[now.getMonth()]+", "+now.getFullYear();
 
+  // Ocultar pantalla de licencia si existe
+  const lsc = document.getElementById("licenseScreen");
+  if(lsc){ lsc.classList.remove("active"); lsc.style.display="none"; }
+
   // Si la licencia no está activa o venció → pantalla de activación
   if(!licenciaActiva()){
     showLicenseScreen();
