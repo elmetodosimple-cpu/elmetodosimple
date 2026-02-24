@@ -363,8 +363,8 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
         <div class="today-card">
           <div class="today-t">⚡ Tu día de hoy</div>
           <div class="ti"><div class="ti-dot" style="background:var(--yellow)"></div><div class="ti-text">Completar hábitos del día (3 pendientes)</div><div class="ti-tag">HÁBITOS</div></div>
-          <div class="ti"><div class="ti-dot" style="background:var(--red)"></div><div class="ti-text">Entrega landing — Rodrigo M.</div><div class="ti-tag" style="color:var(--red)">URGENTE</div></div>
-          <div class="ti"><div class="ti-dot" style="background:var(--orange)"></div><div class="ti-text">Registrar gastos de la semana</div><div class="ti-tag">FINANZAS</div></div>
+          <div class="ti"><div class="ti-dot" style="background:var(--red)"></div><div class="ti-text">Entrega landing — —</div><div class="ti-tag" style="color:var(--red)">URGENTE</div></div>
+          <div class="ti"><div class="ti-dot" style="background:var(--orange)"></div><div class="ti-text">— de la semana</div><div class="ti-tag">FINANZAS</div></div>
           <div class="ti"><div class="ti-dot" style="background:var(--blue)"></div><div class="ti-text">Revisar meta: lanzamiento kit</div><div class="ti-tag">METAS</div></div>
         </div>
       </div>
@@ -452,7 +452,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
             </div>
             <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
               <div style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0"></div>
-              <div style="flex:1"><div style="font-size:13px;font-weight:600">Gym 4 veces por semana</div><div class="pbar" style="margin-top:5px"><div class="pbar-f" style="width:78%;background:var(--green)"></div></div></div>
+              <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--muted)">Sin metas cargadas</div></div></div>
               <div style="font-family:'DM Mono',monospace;font-size:12px;color:var(--green)">78%</div>
             </div>
             <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
@@ -467,11 +467,11 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
           <div class="card">
             <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)">
               <div style="width:22px;height:22px;border-radius:7px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:10px" onclick="this.style.background='var(--yellow)';this.style.borderColor='var(--yellow)';this.textContent='✓'">　</div>
-              <div style="flex:1;font-size:13px">💧 Tomar 2L de agua</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Salud</div>
+              <div style="flex:1;font-size:13px" id="dashHab1">—</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Salud</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)">
               <div style="width:22px;height:22px;border-radius:7px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:10px" onclick="this.style.background='var(--yellow)';this.style.borderColor='var(--yellow)';this.textContent='✓'">　</div>
-              <div style="flex:1;font-size:13px">🏃 Ejercicio 30min</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Salud</div>
+              <div style="flex:1;font-size:13px">🏃 —</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Salud</div>
             </div>
             <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
               <div style="width:22px;height:22px;border-radius:7px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:10px" onclick="this.style.background='var(--yellow)';this.style.borderColor='var(--yellow)';this.textContent='✓'">　</div>
@@ -496,7 +496,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
           </div>
           <div class="card" style="margin-bottom:8px">
             <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
-              <div><div style="font-size:14px;font-weight:700">💪 Gym 4 veces / semana</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Salud · Todo el año</div></div>
+              <div><div style="font-size:14px;font-weight:700">—</div><div style="font-size:11px;color:var(--muted2);margin-top:2px">Salud · Todo el año</div></div>
               <span class="badge bg">EN RACHA</span>
             </div>
             <div class="pbar"><div class="pbar-f" style="width:78%;background:var(--green)"></div></div>
@@ -530,11 +530,11 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
           <div class="sec-hdr"><div class="sec-t">Hábitos de hoy</div><div class="sec-a" onclick="openM('HabitoAg')">+ Nuevo</div></div>
           <div id="agHabitList">
             <div class="habit">
-              <div class="h-top"><div class="h-left"><div class="h-icon">💧</div><div><div class="h-name">Tomar 2L de agua</div><div class="h-sub">Salud · 21/28 días</div></div></div><div class="h-pct">75%</div></div>
+              <div class="h-top"><div class="h-left"><div class="h-icon">💧</div><div><div class="h-name">—</div><div class="h-sub">Salud · 21/28 días</div></div></div><div class="h-pct">75%</div></div>
               <div class="wdots"><div class="wd wg"><div class="wd-l">L</div><div class="wd-n">17</div></div><div class="wd wg"><div class="wd-l">M</div><div class="wd-n">18</div></div><div class="wd wg"><div class="wd-l">X</div><div class="wd-n">19</div></div><div class="wd wg"><div class="wd-l">J</div><div class="wd-n">20</div></div><div class="wd wg"><div class="wd-l">V</div><div class="wd-n">21</div></div><div class="wd ms"><div class="wd-l">S</div><div class="wd-n">22</div></div><div class="wd tr"><div class="wd-l">D</div><div class="wd-n">23</div></div></div>
             </div>
             <div class="habit">
-              <div class="h-top"><div class="h-left"><div class="h-icon">🏃</div><div><div class="h-name">Ejercicio 30min</div><div class="h-sub">Salud · 15/28 días</div></div></div><div class="h-pct">54%</div></div>
+              <div class="h-top"><div class="h-left"><div class="h-icon">🏃</div><div><div class="h-name">—</div><div class="h-sub">Salud · 15/28 días</div></div></div><div class="h-pct">54%</div></div>
               <div class="wdots"><div class="wd wg"><div class="wd-l">L</div><div class="wd-n">17</div></div><div class="wd ms"><div class="wd-l">M</div><div class="wd-n">18</div></div><div class="wd wg"><div class="wd-l">X</div><div class="wd-n">19</div></div><div class="wd wg"><div class="wd-l">J</div><div class="wd-n">20</div></div><div class="wd ms"><div class="wd-l">V</div><div class="wd-n">21</div></div><div class="wd ms"><div class="wd-l">S</div><div class="wd-n">22</div></div><div class="wd tr"><div class="wd-l">D</div><div class="wd-n">23</div></div></div>
             </div>
             <div class="habit">
@@ -542,7 +542,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
               <div class="wdots"><div class="wd wp"><div class="wd-l">L</div><div class="wd-n">17</div></div><div class="wd wp"><div class="wd-l">M</div><div class="wd-n">18</div></div><div class="wd ms"><div class="wd-l">X</div><div class="wd-n">19</div></div><div class="wd wp"><div class="wd-l">J</div><div class="wd-n">20</div></div><div class="wd wp"><div class="wd-l">V</div><div class="wd-n">21</div></div><div class="wd ms"><div class="wd-l">S</div><div class="wd-n">22</div></div><div class="wd tr"><div class="wd-l">D</div><div class="wd-n">23</div></div></div>
             </div>
             <div class="habit">
-              <div class="h-top"><div class="h-left"><div class="h-icon">✍️</div><div><div class="h-name">Journaling</div><div class="h-sub">Trabajo · 12/28 días</div></div></div><div class="h-pct">43%</div></div>
+              <div class="h-top"><div class="h-left"><div class="h-icon">✍️</div><div><div class="h-name">—</div><div class="h-sub">Trabajo · 12/28 días</div></div></div><div class="h-pct">43%</div></div>
               <div class="wdots"><div class="wd wb"><div class="wd-l">L</div><div class="wd-n">17</div></div><div class="wd ms"><div class="wd-l">M</div><div class="wd-n">18</div></div><div class="wd wb"><div class="wd-l">X</div><div class="wd-n">19</div></div><div class="wd ms"><div class="wd-l">J</div><div class="wd-n">20</div></div><div class="wd wb"><div class="wd-l">V</div><div class="wd-n">21</div></div><div class="wd ms"><div class="wd-l">S</div><div class="wd-n">22</div></div><div class="wd tr"><div class="wd-l">D</div><div class="wd-n">23</div></div></div>
             </div>
           </div>
@@ -558,8 +558,8 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
           <div class="sec-hdr"><div class="sec-t" id="agSemLabel">Lunes 17 feb</div><div class="sec-a" onclick="openM('Evento')">+ Evento</div></div>
           <div class="card">
             <div class="slot"><div class="slot-t">07:00</div><div class="slot-bar" style="background:var(--green)"></div><div><div class="slot-title">Gym / ejercicio</div><div class="slot-sub">1 hora · Salud</div></div></div>
-            <div class="slot"><div class="slot-t">09:00</div><div class="slot-bar" style="background:var(--yellow)"></div><div><div class="slot-title">Deep work — ElMétodoSimple</div><div class="slot-sub">2 horas · Trabajo</div></div></div>
-            <div class="slot"><div class="slot-t">11:00</div><div class="slot-bar" style="background:var(--blue)"></div><div><div class="slot-title">Call con Mariana V.</div><div class="slot-sub">Rediseño web · 45 min</div></div></div>
+            <div class="slot"><div class="slot-t">09:00</div><div class="slot-bar" style="background:var(--yellow)"></div><div><div class="slot-title">— — ElMétodoSimple</div><div class="slot-sub">2 horas · Trabajo</div></div></div>
+            <div class="slot"><div class="slot-t">11:00</div><div class="slot-bar" style="background:var(--blue)"></div><div></div>
             <div class="slot"><div class="slot-t">14:00</div><div class="slot-bar" style="background:var(--orange)"></div><div><div class="slot-title">Entrega landing Rodrigo</div><div class="slot-sub">Freelance · Urgente</div></div></div>
             <div class="slot"><div class="slot-t">20:00</div><div class="slot-bar" style="background:var(--purple)"></div><div><div class="slot-title">Lectura 20 páginas</div><div class="slot-sub">Hábito nocturno</div></div></div>
             <button class="add-btn" onclick="openM('Evento')">+ Agregar evento</button>
@@ -675,7 +675,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
             <div class="slot"><div class="slot-t">06:35</div><div class="slot-bar" style="background:var(--green)"></div><div><div class="slot-title">Ejercicio / gym</div><div class="slot-sub">45 min · Salud</div></div></div>
             <div class="slot"><div class="slot-t">07:30</div><div class="slot-bar" style="background:var(--blue)"></div><div><div class="slot-title">Ducha + desayuno</div><div class="slot-sub">20 min</div></div></div>
             <div class="slot"><div class="slot-t">08:00</div><div class="slot-bar" style="background:var(--yellow)"></div><div><div class="slot-title">Revisión agenda + top 3</div><div class="slot-sub">10 min · Planificación</div></div></div>
-            <div class="slot"><div class="slot-t">08:15</div><div class="slot-bar" style="background:var(--purple)"></div><div><div class="slot-title">Deep work bloque 1</div><div class="slot-sub">90 min · Sin interrupciones</div></div></div>
+            <div class="slot"><div class="slot-t">08:15</div><div class="slot-bar" style="background:var(--purple)"></div><div><div class="slot-title">— bloque 1</div><div class="slot-sub">90 min · Sin interrupciones</div></div></div>
             <button class="add-btn" onclick="openM('Rutina')">+ Agregar bloque</button>
           </div>
         </div>
@@ -683,7 +683,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
           <div class="sec-hdr"><div class="sec-t">Rutina nocturna</div><div class="sec-a">🌙</div></div>
           <div class="card">
             <div class="slot"><div class="slot-t">21:00</div><div class="slot-bar" style="background:var(--purple)"></div><div><div class="slot-title">Leer 20 páginas</div><div class="slot-sub">30 min · Mente</div></div></div>
-            <div class="slot"><div class="slot-t">21:30</div><div class="slot-bar" style="background:var(--blue)"></div><div><div class="slot-title">Journaling del día</div><div class="slot-sub">15 min · Reflexión</div></div></div>
+            <div class="slot"><div class="slot-t">21:30</div><div class="slot-bar" style="background:var(--blue)"></div><div><div class="slot-title">— del día</div><div class="slot-sub">15 min · Reflexión</div></div></div>
             <div class="slot"><div class="slot-t">22:00</div><div class="slot-bar" style="background:var(--muted)"></div><div><div class="slot-title">Sin pantallas</div><div class="slot-sub">Preparar sueño</div></div></div>
             <button class="add-btn" onclick="openM('Rutina')">+ Agregar bloque</button>
           </div>
@@ -784,7 +784,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
           <div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace;letter-spacing:2px;margin-bottom:12px">TIMER POMODORO</div>
           <select class="timer-sel" id="agTimerMode" onchange="agTimerSet()">
             <option value="25">25 min — Pomodoro</option>
-            <option value="50">50 min — Deep work</option>
+            <option value="50">50 min — —</option>
             <option value="5">5 min — Descanso corto</option>
             <option value="15">15 min — Descanso largo</option>
           </select>
@@ -804,7 +804,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
         <div class="sec">
           <div class="sec-hdr"><div class="sec-t">Sesiones de hoy</div></div>
           <div class="card">
-            <div class="tlog-item"><div class="av" style="width:30px;height:30px;background:var(--yellow);font-size:12px">25</div><div><div class="tl-task">Deep work — ElMétodoSimple</div><div class="tl-date">09:00 · Completado</div></div><div class="tl-time">25:00</div></div>
+            <div class="tlog-item"><div class="av" style="width:30px;height:30px;background:var(--yellow);font-size:12px">25</div><div><div class="tl-task">— — ElMétodoSimple</div><div class="tl-date">09:00 · Completado</div></div><div class="tl-time">25:00</div></div>
             <div class="tlog-item"><div class="av" style="width:30px;height:30px;background:var(--green);font-size:12px">50</div><div><div class="tl-task">Landing Rodrigo</div><div class="tl-date">11:00 · Completado</div></div><div class="tl-time">50:00</div></div>
           </div>
         </div>
@@ -884,10 +884,10 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
           <div class="card"><div class="bars"><div class="bcg"><div class="bc-pair"><div class="bci" style="background:var(--green);height:42px"></div><div class="bci" style="background:var(--red);height:36px"></div></div><div class="bcl">Oct</div></div><div class="bcg"><div class="bc-pair"><div class="bci" style="background:var(--green);height:50px"></div><div class="bci" style="background:var(--red);height:38px"></div></div><div class="bcl">Nov</div></div><div class="bcg"><div class="bc-pair"><div class="bci" style="background:var(--green);height:36px"></div><div class="bci" style="background:var(--red);height:40px"></div></div><div class="bcl">Dic</div></div><div class="bcg"><div class="bc-pair"><div class="bci" style="background:var(--green);height:58px"></div><div class="bci" style="background:var(--red);height:42px"></div></div><div class="bcl">Ene</div></div><div class="bcg"><div class="bc-pair"><div class="bci" style="background:var(--yellow);height:70px"></div><div class="bci" style="background:var(--red);opacity:.7;height:50px"></div></div><div class="bcl cur">Feb</div></div></div><div style="display:flex;gap:14px;margin-top:10px"><div style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2)"><div style="width:8px;height:8px;border-radius:2px;background:var(--green)"></div>Ingresos</div><div style="display:flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2)"><div style="width:8px;height:8px;border-radius:2px;background:var(--red)"></div>Gastos</div></div></div>
         </div>
         <div class="sec"><div class="sec-hdr"><div class="sec-t">Últimos movimientos</div><div class="sec-a" onclick="setFin(document.querySelector('#finPills .pill:nth-child(2)'),'finM')">Ver todos</div></div>
-          <div class="tx"><div class="tx-icon">💻</div><div><div class="tx-name">Pago — Mariana V.</div><div class="tx-date">Hoy · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$1.200</div></div>
+          <div class="tx"><div class="tx-icon">💻</div><div><div class="tx-name">Pago — —</div><div class="tx-date">Hoy · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$1.200</div></div>
           <div class="tx"><div class="tx-icon">🛒</div><div><div class="tx-name">Supermercado</div><div class="tx-date">Ayer · Alimentación</div></div><div class="tx-amt" style="color:var(--red)">-$4.800</div></div>
           <div class="tx"><div class="tx-icon">🏠</div><div><div class="tx-name">Alquiler</div><div class="tx-date">20 feb · Vivienda</div></div><div class="tx-amt" style="color:var(--red)">-$18.000</div></div>
-          <div class="tx"><div class="tx-icon">💰</div><div><div class="tx-name">Pago — Carlos R.</div><div class="tx-date">18 feb · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$380</div></div>
+          <div class="tx"><div class="tx-icon">💰</div><div><div class="tx-name">Pago — —</div><div class="tx-date">18 feb · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$380</div></div>
           <button class="add-btn" onclick="openM('Movimiento')">+ Registrar movimiento</button>
         </div>
       </div>
@@ -898,10 +898,10 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
             <div class="card" style="text-align:center;padding:11px"><div style="font-size:10px;color:var(--muted2);margin-bottom:3px">Gastos</div><div style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--red)">-$35.000</div></div>
             <div class="card" style="text-align:center;padding:11px"><div style="font-size:10px;color:var(--muted2);margin-bottom:3px">Neto</div><div style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--yellow)">+$8.200</div></div>
           </div>
-          <div class="tx"><div class="tx-icon">💻</div><div><div class="tx-name">Pago — Mariana V.</div><div class="tx-date">22 feb · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$1.200</div></div>
+          <div class="tx"><div class="tx-icon">💻</div><div><div class="tx-name">Pago — —</div><div class="tx-date">22 feb · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$1.200</div></div>
           <div class="tx"><div class="tx-icon">🛒</div><div><div class="tx-name">Supermercado</div><div class="tx-date">21 feb · Alimentación</div></div><div class="tx-amt" style="color:var(--red)">-$4.800</div></div>
           <div class="tx"><div class="tx-icon">🏠</div><div><div class="tx-name">Alquiler</div><div class="tx-date">20 feb · Vivienda</div></div><div class="tx-amt" style="color:var(--red)">-$18.000</div></div>
-          <div class="tx"><div class="tx-icon">💰</div><div><div class="tx-name">Pago Carlos R.</div><div class="tx-date">18 feb · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$380</div></div>
+          <div class="tx"><div class="tx-icon">💰</div><div><div class="tx-name">Pago —</div><div class="tx-date">18 feb · Freelance</div></div><div class="tx-amt" style="color:var(--green)">+$380</div></div>
           <div class="tx"><div class="tx-icon">🚗</div><div><div class="tx-name">Nafta</div><div class="tx-date">17 feb · Transporte</div></div><div class="tx-amt" style="color:var(--red)">-$3.200</div></div>
           <div class="tx"><div class="tx-icon">🍔</div><div><div class="tx-name">Delivery</div><div class="tx-date">16 feb · Alimentación</div></div><div class="tx-amt" style="color:var(--red)">-$2.100</div></div>
           <div class="tx"><div class="tx-icon">📱</div><div><div class="tx-name">Celular / internet</div><div class="tx-date">15 feb · Servicios</div></div><div class="tx-amt" style="color:var(--red)">-$1.800</div></div>
@@ -995,9 +995,9 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
           <div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><div style="font-size:13px;font-weight:700">🎯 Meta feb — $4.000</div><div style="font-family:'DM Mono',monospace;font-size:13px;font-weight:700;color:var(--yellow)">81%</div></div><div class="pbar" style="height:8px"><div class="pbar-f" style="width:81%;background:var(--yellow)"></div></div><div style="display:flex;justify-content:space-between;margin-top:5px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2)"><span>$3.240 cobrados</span><span>Faltan $760</span></div></div>
         </div>
         <div class="sec"><div class="sec-hdr"><div class="sec-t">Por cobrar</div></div>
-          <div style="background:var(--card);border:1px solid rgba(248,113,113,.3);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:6px"><div class="av" style="width:34px;height:34px;background:#f87171;font-size:13px">R</div><div><div style="font-size:13px;font-weight:700">Rodrigo M.</div><div style="font-size:11px;color:var(--red);font-family:'DM Mono',monospace">⚠ Vencida</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--red)">$600</div></div>
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:6px"><div class="av" style="width:34px;height:34px;background:#34d399;font-size:13px">C</div><div><div style="font-size:13px;font-weight:700">Carlos R.</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Vence 28 feb</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--orange)">$380</div></div>
-          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px"><div class="av" style="width:34px;height:34px;background:#a78bfa;font-size:13px">P</div><div><div style="font-size:13px;font-weight:700">Paula T.</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Vence 04 mar</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--orange)">$350</div></div>
+          <div style="background:var(--card);border:1px solid rgba(248,113,113,.3);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:6px"><div class="av" style="width:34px;height:34px;background:#f87171;font-size:13px">R</div><div><div style="font-size:13px;font-weight:700">—</div><div style="font-size:11px;color:var(--red);font-family:'DM Mono',monospace">⚠ Vencida</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--red)">$600</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px;margin-bottom:6px"><div class="av" style="width:34px;height:34px;background:#34d399;font-size:13px">C</div><div><div style="font-size:13px;font-weight:700">—</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Vence 28 feb</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--orange)">$380</div></div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:11px"><div class="av" style="width:34px;height:34px;background:#a78bfa;font-size:13px">P</div><div><div style="font-size:13px;font-weight:700">—</div><div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">Vence 04 mar</div></div><div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--orange)">$350</div></div>
         </div>
       </div>
       <div id="frP" style="display:none">
@@ -1007,16 +1007,16 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
       </div>
       <div id="frF" style="display:none">
         <div class="sec" style="margin-top:14px">
-          <div class="fac" style="border-color:rgba(248,113,113,.3)"><div class="fac-t"><div class="fac-num">#F-026</div><span class="badge br">VENCIDA</span></div><div class="fac-name">Rodrigo M.</div><div class="fac-srv">Landing page</div><div class="fac-bot"><div class="fac-date" style="color:var(--red)">Venció 22/02</div><div class="fac-amt" style="color:var(--red)">$600</div></div></div>
-          <div class="fac"><div class="fac-t"><div class="fac-num">#F-025</div><span class="badge bo">PENDIENTE</span></div><div class="fac-name">Carlos R.</div><div class="fac-srv">Redes sociales feb</div><div class="fac-bot"><div class="fac-date">Vence 28/02</div><div class="fac-amt" style="color:var(--orange)">$380</div></div></div>
-          <div class="fac"><div class="fac-t"><div class="fac-num">#F-028</div><span class="badge bo">PENDIENTE</span></div><div class="fac-name">Paula T.</div><div class="fac-srv">Fotografía producto</div><div class="fac-bot"><div class="fac-date">Vence 04/03</div><div class="fac-amt" style="color:var(--orange)">$350</div></div></div>
-          <div class="fac"><div class="fac-t"><div class="fac-num">#F-024</div><span class="badge bg">PAGADO</span></div><div class="fac-name">Mariana V.</div><div class="fac-srv">Rediseño web</div><div class="fac-bot"><div class="fac-date">Pagado 15/02</div><div class="fac-amt" style="color:var(--green)">$1.200</div></div></div>
-          <div class="fac"><div class="fac-t"><div class="fac-num">#F-027</div><span class="badge bm">BORRADOR</span></div><div class="fac-name">Lautaro S.</div><div class="fac-srv">Newsletter enero</div><div class="fac-bot"><div class="fac-date">Vence 01/03</div><div class="fac-amt" style="color:var(--muted2)">$180</div></div></div>
+          <div class="fac" style="border-color:rgba(248,113,113,.3)"><div class="fac-t"><div class="fac-num">#F-026</div><span class="badge br">VENCIDA</span></div><div class="fac-name">—</div><div class="fac-srv">Landing page</div><div class="fac-bot"><div class="fac-date" style="color:var(--red)">Venció 22/02</div><div class="fac-amt" style="color:var(--red)">$600</div></div></div>
+          <div class="fac"><div class="fac-t"><div class="fac-num">#F-025</div><span class="badge bo">PENDIENTE</span></div><div class="fac-name">—</div><div class="fac-srv">Redes sociales feb</div><div class="fac-bot"><div class="fac-date">Vence 28/02</div><div class="fac-amt" style="color:var(--orange)">$380</div></div></div>
+          <div class="fac"><div class="fac-t"><div class="fac-num">#F-028</div><span class="badge bo">PENDIENTE</span></div><div class="fac-name">—</div><div class="fac-srv">Fotografía producto</div><div class="fac-bot"><div class="fac-date">Vence 04/03</div><div class="fac-amt" style="color:var(--orange)">$350</div></div></div>
+          <div class="fac"><div class="fac-t"><div class="fac-num">#F-024</div><span class="badge bg">PAGADO</span></div><div class="fac-name">—</div><div class="fac-srv">Rediseño web</div><div class="fac-bot"><div class="fac-date">Pagado 15/02</div><div class="fac-amt" style="color:var(--green)">$1.200</div></div></div>
+          <div class="fac"><div class="fac-t"><div class="fac-num">#F-027</div><span class="badge bm">BORRADOR</span></div><div class="fac-name">—</div><div class="fac-srv">Newsletter enero</div><div class="fac-bot"><div class="fac-date">Vence 01/03</div><div class="fac-amt" style="color:var(--muted2)">$180</div></div></div>
           <button class="btn-y" onclick="openM('Factura')">+ Nueva factura</button>
         </div>
       </div>
       <div id="frH" style="display:none">
-        <div class="timer-box"><select class="timer-sel" id="timerSel"><option value="">Seleccioná un proyecto...</option><option>Mariana V. — Rediseño web</option><option>Carlos R. — Redes sociales</option><option>Rodrigo M. — Landing page</option><option>Lautaro S. — Estrategia Q1</option></select><div class="timer-d" id="timerD">00:00:00</div><div class="timer-p" id="timerP">Seleccioná un proyecto arriba</div><div class="timer-btns"><button class="tb tb-s" id="timerBtn" onclick="toggleTimer()">&#9654; Iniciar</button><button class="tb tb-r" onclick="resetTimer()">&#9632; Reset</button></div></div>
+        <div class="timer-box"><select class="timer-sel" id="timerSel"><option value="">Seleccioná un proyecto...</option><option>— — Rediseño web</option><option>— — Redes sociales</option><option>— — Landing page</option><option>— — Estrategia Q1</option></select><div class="timer-d" id="timerD">00:00:00</div><div class="timer-p" id="timerP">Seleccioná un proyecto arriba</div><div class="timer-btns"><button class="tb tb-s" id="timerBtn" onclick="toggleTimer()">&#9654; Iniciar</button><button class="tb tb-r" onclick="resetTimer()">&#9632; Reset</button></div></div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 18px;margin-bottom:14px"><div class="card" style="text-align:center;padding:11px"><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:700;color:var(--yellow)">47h</div><div style="font-size:10px;color:var(--muted2);margin-top:3px">Este mes</div></div><div class="card" style="text-align:center;padding:11px"><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:700;color:var(--yellow)">$68</div><div style="font-size:10px;color:var(--muted2);margin-top:3px">Por hora</div></div><div class="card" style="text-align:center;padding:11px"><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:700;color:var(--yellow)">12h</div><div style="font-size:10px;color:var(--muted2);margin-top:3px">Prom/sem</div></div></div>
         <div class="sec"><div class="sec-hdr"><div class="sec-t">Registro de horas</div></div>
           <div class="card"><div class="tlog-item"><div class="av" style="width:28px;height:28px;background:#E8C547;font-size:11px">M</div><div><div class="tl-task">Rediseño — wireframes</div><div class="tl-date">Hoy 09:00–11:30</div></div><div class="tl-time">2:30h</div></div><div class="tlog-item"><div class="av" style="width:28px;height:28px;background:#34d399;font-size:11px">C</div><div><div class="tl-task">Redes — contenido</div><div class="tl-date">Ayer 14:00–16:00</div></div><div class="tl-time">2:00h</div></div><div class="tlog-item"><div class="av" style="width:28px;height:28px;background:#f87171;font-size:11px">R</div><div><div class="tl-task">Landing — desarrollo</div><div class="tl-date">20 feb 10:00–13:45</div></div><div class="tl-time">3:45h</div></div><div class="tlog-item"><div class="av" style="width:28px;height:28px;background:#a78bfa;font-size:11px">P</div><div><div class="tl-task">Logo — exploración</div><div class="tl-date">19 feb 08:30–10:00</div></div><div class="tl-time">1:30h</div></div></div>
@@ -1025,21 +1025,21 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
       <div id="frPres" style="display:none">
         <div style="padding:12px 18px 8px;font-size:13px;color:var(--muted2)">Generá un presupuesto profesional.</div>
         <div style="padding:0 18px">
-          <div class="mfg"><label>Para (cliente)</label><input type="text" id="pC" value="Rodrigo M."></div>
+          <div class="mfg"><label>Para (cliente)</label><input type="text" id="pC" value="—"></div>
           <div class="mfg"><label>Descripción</label><textarea id="pD">Landing page para lanzamiento de producto</textarea></div>
           <div style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Items</div>
           <div id="presItems"><div class="item-row"><input type="text" value="Diseño y maquetado"><input type="number" value="8"><input type="number" value="400"><button class="rm-b" onclick="rmItem(this)">x</button></div><div class="item-row"><input type="text" value="Desarrollo frontend"><input type="number" value="10"><input type="number" value="500"><button class="rm-b" onclick="rmItem(this)">x</button></div><div class="item-row"><input type="text" value="Revisiones"><input type="number" value="3"><input type="number" value="150"><button class="rm-b" onclick="rmItem(this)">x</button></div></div>
           <button class="add-btn" style="margin-bottom:12px" onclick="addPI()">+ Item</button>
           <div class="pres-total"><div style="font-size:14px;font-weight:700">Total</div><div style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--yellow)" id="presT">$1.050</div></div>
-          <div class="pp"><div class="pp-hdr"><div><div class="pp-logo">ELMETODOSIMPLE</div><div style="font-size:10px;color:var(--muted2);margin-top:2px">Presupuesto profesional</div></div><div><div class="pp-num">#P-031</div><div style="font-size:9px;color:var(--muted2);font-family:'DM Mono',monospace;margin-top:2px">22/02/2026</div></div></div><div style="font-size:12px;color:var(--muted2);margin-bottom:4px">Para: <strong id="ppC" style="color:var(--text)">Rodrigo M.</strong></div><div style="font-size:12px;color:var(--muted2);margin-bottom:11px" id="ppD">Landing page para lanzamiento de producto</div><table class="pp-table"><thead><tr><th>Servicio</th><th>Hs</th><th>Total</th></tr></thead><tbody id="ppItems"><tr><td>Diseno</td><td>8</td><td>$400</td></tr><tr><td>Desarrollo</td><td>10</td><td>$500</td></tr><tr><td>Revisiones</td><td>3</td><td>$150</td></tr></tbody></table><div class="pp-total"><span>Total</span><span id="ppT">$1.050</span></div><div style="font-size:10px;color:var(--muted2);margin-top:9px;padding-top:8px;border-top:1px solid var(--border)">Valido 15 dias. 50% adelanto / 50% al entregar</div></div>
+          <div class="pp"><div class="pp-hdr"><div><div class="pp-logo">ELMETODOSIMPLE</div><div style="font-size:10px;color:var(--muted2);margin-top:2px">Presupuesto profesional</div></div><div><div class="pp-num">#P-031</div><div style="font-size:9px;color:var(--muted2);font-family:'DM Mono',monospace;margin-top:2px">22/02/2026</div></div></div><div style="font-size:12px;color:var(--muted2);margin-bottom:4px">Para: <strong id="ppC" style="color:var(--text)">—</strong></div><div style="font-size:12px;color:var(--muted2);margin-bottom:11px" id="ppD">Landing page para lanzamiento de producto</div><table class="pp-table"><thead><tr><th>Servicio</th><th>Hs</th><th>Total</th></tr></thead><tbody id="ppItems"><tr><td>Diseno</td><td>8</td><td>$400</td></tr><tr><td>Desarrollo</td><td>10</td><td>$500</td></tr><tr><td>Revisiones</td><td>3</td><td>$150</td></tr></tbody></table><div class="pp-total"><span>Total</span><span id="ppT">$1.050</span></div><div style="font-size:10px;color:var(--muted2);margin-top:9px;padding-top:8px;border-top:1px solid var(--border)">Valido 15 dias. 50% adelanto / 50% al entregar</div></div>
           <button class="btn-y" onclick="alert('Presupuesto listo para enviar!')">Copiar presupuesto</button>
         </div>
       </div>
       <div id="frCl" style="display:none">
         <div class="sec" style="margin-top:14px">
-          <div class="cli"><div class="cli-top"><div class="cli-av" style="background:#E8C547">M</div><div><div class="cli-name">Mariana V.</div><div class="cli-since">Desde ene 2025</div></div><div class="cli-dot" style="background:var(--green)"></div></div><div class="cli-stats"><div class="cs"><div class="cs-n">$4.800</div><div class="cs-l">Cobrado</div></div><div class="cs"><div class="cs-n">3</div><div class="cs-l">Proyectos</div></div><div class="cs"><div class="cs-n">100%</div><div class="cs-l">Cobro</div></div></div><div class="cli-notes"><label>Notas</label><textarea>Prefiere entregas jueves. Paga puntual.</textarea></div></div>
-          <div class="cli"><div class="cli-top"><div class="cli-av" style="background:#f87171">R</div><div><div class="cli-name">Rodrigo M.</div><div class="cli-since">Desde jul 2025</div></div><div class="cli-dot" style="background:var(--red)"></div></div><div class="cli-stats"><div class="cs"><div class="cs-n">$1.800</div><div class="cs-l">Cobrado</div></div><div class="cs"><div class="cs-n">2</div><div class="cs-l">Proyectos</div></div><div class="cs"><div class="cs-n" style="color:var(--red)">60%</div><div class="cs-l">Cobro</div></div></div><div class="cli-notes"><label>Notas</label><textarea>Exigir 50% adelanto. Factura vencida $600.</textarea></div></div>
-          <div class="cli"><div class="cli-top"><div class="cli-av" style="background:#34d399">C</div><div><div class="cli-name">Carlos R.</div><div class="cli-since">Desde mar 2025</div></div><div class="cli-dot" style="background:var(--orange)"></div></div><div class="cli-stats"><div class="cs"><div class="cs-n">$2.400</div><div class="cs-l">Cobrado</div></div><div class="cs"><div class="cs-n">5</div><div class="cs-l">Proyectos</div></div><div class="cs"><div class="cs-n">90%</div><div class="cs-l">Cobro</div></div></div><div class="cli-notes"><label>Notas</label><textarea>Retainer $380/mes. Buen cliente.</textarea></div></div>
+          <div class="cli"><div class="cli-top"><div class="cli-av" style="background:#E8C547">M</div><div><div class="cli-name">—</div><div class="cli-since">Desde ene 2025</div></div><div class="cli-dot" style="background:var(--green)"></div></div><div class="cli-stats"><div class="cs"><div class="cs-n">$4.800</div><div class="cs-l">Cobrado</div></div><div class="cs"><div class="cs-n">3</div><div class="cs-l">Proyectos</div></div><div class="cs"><div class="cs-n">100%</div><div class="cs-l">Cobro</div></div></div><div class="cli-notes"><label>Notas</label><textarea>Prefiere entregas jueves. Paga puntual.</textarea></div></div>
+          <div class="cli"><div class="cli-top"><div class="cli-av" style="background:#f87171">R</div><div><div class="cli-name">—</div><div class="cli-since">Desde jul 2025</div></div><div class="cli-dot" style="background:var(--red)"></div></div><div class="cli-stats"><div class="cs"><div class="cs-n">$1.800</div><div class="cs-l">Cobrado</div></div><div class="cs"><div class="cs-n">2</div><div class="cs-l">Proyectos</div></div><div class="cs"><div class="cs-n" style="color:var(--red)">60%</div><div class="cs-l">Cobro</div></div></div><div class="cli-notes"><label>Notas</label><textarea>Exigir 50% adelanto. Factura vencida $600.</textarea></div></div>
+          <div class="cli"><div class="cli-top"><div class="cli-av" style="background:#34d399">C</div><div><div class="cli-name">—</div><div class="cli-since">Desde mar 2025</div></div><div class="cli-dot" style="background:var(--orange)"></div></div><div class="cli-stats"><div class="cs"><div class="cs-n">$2.400</div><div class="cs-l">Cobrado</div></div><div class="cs"><div class="cs-n">5</div><div class="cs-l">Proyectos</div></div><div class="cs"><div class="cs-n">90%</div><div class="cs-l">Cobro</div></div></div><div class="cli-notes"><label>Notas</label><textarea>Retainer $380/mes. Buen cliente.</textarea></div></div>
           <button class="btn-y" onclick="openM('Cliente')">+ Nuevo cliente</button>
         </div>
       </div>
@@ -1083,11 +1083,15 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
 <div class="mov" id="mMovimiento"><div class="modal"><div class="mh"></div><div class="mt">Nuevo movimiento</div><div class="mfg"><label>Tipo</label><select><option>Gasto</option><option>Ingreso</option></select></div><div class="mfg"><label>Descripcion</label><input type="text" placeholder="Ej: Supermercado"></div><div class="mfg"><label>Monto</label><input type="number" placeholder="0"></div><div class="mfg"><label>Categoria</label><select><option>Vivienda</option><option>Alimentacion</option><option>Transporte</option><option>Servicios</option><option>Salud</option><option>Freelance</option><option>Ahorro</option><option>Otros</option></select></div><div class="mfg"><label>Fecha</label><input type="date"></div><button class="btn-y" onclick="closeM('Movimiento')">Guardar</button></div></div>
 <div class="mov" id="mPresupuestoCat"><div class="modal"><div class="mh"></div><div class="mt">Nueva categoria</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Entretenimiento"></div><div class="mfg"><label>Presupuesto mensual</label><input type="number" placeholder="0"></div><button class="btn-y" onclick="closeM('PresupuestoCat')">Guardar</button></div></div>
 <div class="mov" id="mCuenta"><div class="modal"><div class="mh"></div><div class="mt">Nueva cuenta</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Banco Galicia"></div><div class="mfg"><label>Tipo</label><select><option>Cuenta corriente</option><option>Caja de ahorro</option><option>Billetera virtual</option><option>Inversion</option><option>Efectivo</option></select></div><div class="mfg"><label>Saldo inicial</label><input type="number" placeholder="0"></div><button class="btn-y" onclick="closeM('Cuenta')">Guardar</button></div></div>
-<div class="mov" id="mHabito"><div class="modal"><div class="mh"></div><div class="mt">Nuevo habito</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Tomar 2L de agua"></div><div class="mfg"><label>Icono</label><input type="text" placeholder="?" maxlength="2" value="?"></div><div class="mfg"><label>Categoria</label><select><option>Salud</option><option>Trabajo</option><option>Mente</option><option>Dinero</option></select></div><button class="btn-y" onclick="closeM('Habito')">Guardar</button></div></div>
-<div class="mov" id="mProyecto"><div class="modal"><div class="mh"></div><div class="mt">Nuevo proyecto</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Rediseno web"></div><div class="mfg"><label>Cliente</label><select><option>Mariana V.</option><option>Carlos R.</option><option>Lautaro S.</option><option>Paula T.</option><option>Rodrigo M.</option></select></div><div class="mfg"><label>Monto</label><input type="number" placeholder="0"></div><div class="mfg"><label>Fecha entrega</label><input type="date"></div><button class="btn-y" onclick="closeM('Proyecto')">Guardar</button></div></div>
-<div class="mov" id="mFactura"><div class="modal"><div class="mh"></div><div class="mt">Nueva factura</div><div class="mfg"><label>Cliente</label><select><option>Mariana V.</option><option>Carlos R.</option><option>Lautaro S.</option><option>Paula T.</option><option>Rodrigo M.</option></select></div><div class="mfg"><label>Servicio</label><input type="text" placeholder="Descripcion del servicio"></div><div class="mfg"><label>Monto</label><input type="number" placeholder="0"></div><div class="mfg"><label>Vencimiento</label><input type="date"></div><button class="btn-y" onclick="closeM('Factura')">Guardar</button></div></div>
+<div class="mov" id="mHabito"><div class="modal"><div class="mh"></div><div class="mt">Nuevo habito</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: —"></div><div class="mfg"><label>Icono</label><input type="text" placeholder="?" maxlength="2" value="?"></div><div class="mfg"><label>Categoria</label><select><option>Salud</option><option>Trabajo</option><option>Mente</option><option>Dinero</option></select></div><button class="btn-y" onclick="closeM('Habito')">Guardar</button></div></div>
+<div class="mov" id="mProyecto"><div class="modal"><div class="mh"></div><div class="mt">Nuevo proyecto</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Rediseno web"></div><div class="mfg"><label>Cliente</label><select><option>—</option><option>—</option><option>—</option><option>—</option><option>—</option></select></div><div class="mfg"><label>Monto</label><input type="number" placeholder="0"></div><div class="mfg"><label>Fecha entrega</label><input type="date"></div><button class="btn-y" onclick="closeM('Proyecto')">Guardar</button></div></div>
+<div class="mov" id="mFactura"><div class="modal"><div class="mh"></div><div class="mt">Nueva factura</div><div class="mfg"><label>Cliente</label><select><option>—</option><option>—</option><option>—</option><option>—</option><option>—</option></select></div><div class="mfg"><label>Servicio</label><input type="text" placeholder="Descripcion del servicio"></div><div class="mfg"><label>Monto</label><input type="number" placeholder="0"></div><div class="mfg"><label>Vencimiento</label><input type="date"></div><button class="btn-y" onclick="closeM('Factura')">Guardar</button></div></div>
 <div class="mov" id="mCliente"><div class="modal"><div class="mh"></div><div class="mt">Nuevo cliente</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Nombre del cliente"></div><div class="mfg"><label>Email</label><input type="email" placeholder="email@ejemplo.com"></div><div class="mfg"><label>Notas</label><textarea placeholder="Preferencias, acuerdos..."></textarea></div><button class="btn-y" onclick="closeM('Cliente')">Guardar</button></div></div>
-<div class="mov" id="mArea"><div class="modal"><div class="mh"></div><div class="mt">Nueva area de vida</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Espiritualidad"></div><div class="mfg"><label>Icono</label><input type="text" placeholder="?" maxlength="2"></div><button class="btn-y" onclick="closeM('Area')">Guardar</button></div></div>
+<div class="mov" id="mArea"><div class="modal"><div class="mh"></div><div class="mt">Nueva area de vida</div><div class="mfg"><label>Nombre</label><input type="text" placeholder="Ej: Espiritualidad"></div><div class="mfg"><label>Icono</label><input type="text" placeholder="⭐" maxlength="2"></div><button class="btn-y" onclick="closeM('Area')">Guardar</button></div></div>
+<div class="mov" id="mMeta"><div class="modal"><div class="mh"></div><div class="mt">Nueva meta</div><div class="mfg"><label>Título</label><input type="text" placeholder="Ej: Ganar $50k este año"></div><div class="mfg"><label>Descripción</label><input type="text" placeholder="Detalles de la meta"></div><button class="btn-y" onclick="closeM('Meta')">Guardar</button></div></div>
+<div class="mov" id="mViaje"><div class="modal"><div class="mh"></div><div class="mt">Nuevo viaje</div><div class="mfg"><label>Destino</label><input type="text" placeholder="Ej: Mendoza"></div><div class="mfg"><label>Fecha</label><input type="date"></div><div class="mfg"><label>Notas</label><input type="text" placeholder="Detalles, presupuesto..."></div><button class="btn-y" onclick="closeM('Viaje')">Guardar</button></div></div>
+<div class="mov" id="mRutinaBloque"><div class="modal"><div class="mh"></div><div class="mt">Nuevo bloque de rutina</div><div class="mfg"><label>Actividad</label><input type="text" placeholder="Ej: Meditar 10 minutos"></div><button class="btn-y" onclick="closeM('RutinaBloque')">Guardar</button></div></div>
+<div class="mov" id="mWish"><div class="modal"><div class="mh"></div><div class="mt">Nuevo deseo</div><div class="mfg"><label>Qué querés</label><input type="text" placeholder="Ej: Auriculares Sony"></div><div class="mfg"><label>Precio estimado</label><input type="number" placeholder="0"></div><button class="btn-y" onclick="closeM('Wish')">Guardar</button></div></div>
 <script>
 /* ═══════════════════════════════════════════════════
    SUPABASE CONFIG
@@ -1280,6 +1284,7 @@ async function launchApp(){
   loadModules();
   renderModuleScreen();
   document.getElementById("modulesScreen").classList.add("active");
+  setTimeout(initUserData, 100);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -1458,17 +1463,7 @@ function renderWeekInto(stripId, labelId) {
 function renderWeek(){renderWeekInto("agWeekStrip","agSemLabel");renderWeekInto("agWeekStrip2","agSemLabel");}
 
 /* HABITOS */
-var hData=[
-  {icon:"?",name:"Tomar 2L de agua",sub:"Salud",cls:"wg",days:{0:1,1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1}},
-  {icon:"?",name:"Ejercicio 30min",sub:"Salud",cls:"wg",days:{0:1,1:1,3:1,4:1,6:1,7:1,9:1,10:1,12:1,13:1,15:1,16:1,18:1,19:1,20:1}},
-  {icon:"?",name:"Leer 20 paginas",sub:"Mente",cls:"wp",days:{0:1,1:1,2:1,4:1,5:1,7:1,8:1,10:1,11:1,13:1,14:1,16:1,17:1,19:1,20:1}},
-  {icon:"?",name:"Deep work 2hs",sub:"Trabajo",cls:"wb",days:{0:1,1:1,2:1,3:1,4:1,7:1,8:1,9:1,10:1,11:1,14:1,15:1,16:1,17:1,18:1}},
-  {icon:"?",name:"Registrar gastos",sub:"Dinero",cls:"wy",days:{0:1,1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1}},
-  {icon:"?",name:"Journaling",sub:"Trabajo",cls:"wb",days:{0:1,1:1,3:1,4:1,6:1,8:1,10:1,12:1,14:1,16:1,18:1,20:1}},
-];
-// Restore emoji icons after JSON
-hData[0].icon="\ud83d\udca7";hData[1].icon="\ud83c\udfc3";hData[2].icon="\ud83d\udcda";
-hData[3].icon="\ud83d\udcbb";hData[4].icon="\ud83d\udcb0";hData[5].icon="\u270d\ufe0f";
+var hData=[];
 var WDL=["D","L","M","X","J","V","S"];
 let hView="week";
 function setHV(v){hView=v;document.getElementById("hvw").classList.toggle("active",v==="week");document.getElementById("hvm").classList.toggle("active",v==="month");renderHabits();}
@@ -1504,22 +1499,7 @@ function renderHabits(){
 function toggleH(hi,day){hData[hi].days[day]=hData[hi].days[day]?0:1;renderHabits();}
 
 /* PROYECTOS */
-var projsData={
-  todo:[
-    {av:"P",col:"#a78bfa",name:"Paula T.",desc:"Diseno logo + manual de marca",badge:"bb",blbl:"Por hacer",due:"28 feb",amt:"$450"},
-    {av:"L",col:"#60a5fa",name:"Lautaro S.",desc:"Estrategia de contenido Q1",badge:"bb",blbl:"Por hacer",due:"5 mar",amt:"$320"},
-    {av:"R",col:"#f87171",name:"Rodrigo M.",desc:"Landing page producto nuevo",badge:"br",blbl:"Urgente",due:"Hoy",amt:"$600"},
-  ],
-  proceso:[
-    {av:"M",col:"#E8C547",name:"Mariana V.",desc:"Rediseno completo sitio web",badge:"bb",blbl:"En proceso",due:"10 mar",amt:"$1.200"},
-    {av:"C",col:"#34d399",name:"Carlos R.",desc:"Gestion redes sociales feb",badge:"bb",blbl:"En proceso",due:"28 feb",amt:"$380"},
-  ],
-  done:[
-    {av:"C",col:"#34d399",name:"Carlos R.",desc:"Informe mensual enero",badge:"bg",blbl:"Listo",due:"Facturado",amt:"$220"},
-    {av:"L",col:"#60a5fa",name:"Lautaro S.",desc:"Newsletter enero",badge:"bg",blbl:"Listo",due:"Facturado",amt:"$180"},
-    {av:"P",col:"#a78bfa",name:"Paula T.",desc:"Fotografia producto",badge:"bg",blbl:"Listo",due:"Cobrado",amt:"$350"},
-  ]
-};
+var projsData={todo:[],proceso:[],done:[],clientes:[]};
 function renderProj(filter){
   const list=document.getElementById("projListEl");if(!list)return;list.innerHTML="";
   const data=filter==="all"?[].concat(projsData.todo,projsData.proceso,projsData.done):projsData[filter]||[];
@@ -1531,16 +1511,8 @@ function renderProj(filter){
 }
 
 /* AREAS / METAS */
-var areasData=[
-  {icon:"?",name:"Dinero",color:"#E8C547",pct:62,metas:[
-    {title:"Ganar $50.000 en el anio",desc:"Freelance + productos digitales.",pct:62,pasos:[{t:"Lanzar ElMetodoSimple",done:true,m:"Mar"},{t:"3 clientes retainer",done:true,m:"Feb"},{t:"$4.000/mes estable",done:false,m:"Jun"},{t:"Primer mes de $5.000",done:false,m:"Sep"}]},
-    {title:"Ahorrar 20% de cada ingreso",desc:"Fondo + inversiones.",pct:45,pasos:[{t:"Abrir cuenta ahorro",done:true,m:"Ene"},{t:"Automatizar transferencia",done:false,m:"Mar"},{t:"Primer inversion ETF",done:false,m:"Jun"}]}
-  ]},
-  {icon:"?",name:"Salud",color:"#4ade80",pct:78,metas:[{title:"Gym 4 veces por semana",desc:"Consistencia 12 meses.",pct:78,pasos:[{t:"Inscribirse al gym",done:true,m:"Ene"},{t:"3 meses seguidos",done:false,m:"Abr"},{t:"Completar 12 meses",done:false,m:"Dic"}]}]},
-  {icon:"?",name:"Carrera",color:"#60a5fa",pct:55,metas:[{title:"Lanzar kit ElMetodoSimple",desc:"5 plantillas + bundle.",pct:55,pasos:[{t:"Agenda + Finanzas",done:true,m:"Ene"},{t:"Habitos + Freelance",done:true,m:"Feb"},{t:"Metas Anuales",done:false,m:"Mar"},{t:"Lanzamiento oficial",done:false,m:"Mar"}]}]},
-  {icon:"?",name:"Familia",color:"#f87171",pct:25,metas:[{title:"1 viaje familiar por trimestre",desc:"Con tiempo y presupuesto.",pct:25,pasos:[{t:"Planificar viaje Q1",done:true,m:"Feb"},{t:"Viaje Q1 realizado",done:false,m:"Mar"},{t:"Planificar Q2",done:false,m:"May"}]}]},
-];
-areasData[0].icon="\ud83d\udcb0";areasData[1].icon="\ud83d\udcaa";areasData[2].icon="\ud83d\ude80";areasData[3].icon="\u2764\ufe0f";
+var areasData=[];
+[0].icon="\ud83d\udcb0";areasData[1].icon="\ud83d\udcaa";areasData[2].icon="\ud83d\ude80";areasData[3].icon="\u2764\ufe0f";
 
 function renderAreas(){
   const list=document.getElementById("areasEl");if(!list)return;list.innerHTML="";
@@ -1634,10 +1606,416 @@ function toggleRev(mes){
 }
 function rStar(mes,n){document.querySelectorAll("#s"+mes+" .star").forEach(function(s,i){s.classList.toggle("lit",i<n);});}
 
-/* MODALS */
-function openM(id){const el=document.getElementById("m"+id.charAt(0).toUpperCase()+id.slice(1));if(el)el.classList.add("open");}
-function closeM(id){const el=document.getElementById("m"+id.charAt(0).toUpperCase()+id.slice(1));if(el)el.classList.remove("open");}
+/* ═══════════════════════════════════════════
+   PERSISTENCIA LOCAL — todos los datos del usuario
+═══════════════════════════════════════════ */
+function dataKey(k){ return 'ems_' + (cUser ? cUser.email : 'guest') + '_' + k; }
+function saveData(k, v){ localStorage.setItem(dataKey(k), JSON.stringify(v)); }
+function loadData(k, def){ const r = localStorage.getItem(dataKey(k)); return r ? JSON.parse(r) : def; }
+
+function initUserData(){
+  hData = loadData('habitos', hData);
+  areasData = loadData('areas', areasData);
+  projsData = loadData('proyectos', projsData);
+  movData = loadData('movimientos', []);
+  catsData = loadData('categorias', [{name:'Vivienda',bud:0},{name:'Alimentacion',bud:0},{name:'Transporte',bud:0},{name:'Servicios',bud:0},{name:'Salud',bud:0},{name:'Ahorro',bud:0},{name:'Otros',bud:0}]);
+  cuentasData = loadData('cuentas', []);
+  eventosData = loadData('eventos', {});
+  viajesData = loadData('viajes', []);
+  rutinaData = loadData('rutina', {manana:[], noche:[]});
+  wishData = loadData('wishlist', []);
+  diarioData = loadData('diario', []);
+  focusLog = loadData('focuslog', []);
+  reviewData = loadData('reviews', {});
+  renderHabits();
+  renderAreas();
+  renderProj('all');
+  renderMovimientos();
+  renderCategorias();
+  renderCuentas();
+  renderViajes();
+  renderRutina();
+  renderWishlist();
+  renderDiario();
+  renderFocusLog();
+  renderReviews();
+  renderEventosSemana();
+}
+
+/* ═══════════════════════════════════════════
+   MODALS — abrir y cerrar con guardado
+═══════════════════════════════════════════ */
+function openM(id){
+  const el=document.getElementById("m"+id.charAt(0).toUpperCase()+id.slice(1));
+  if(el){ el.classList.add("open"); }
+}
+function closeM(id){
+  const el=document.getElementById("m"+id.charAt(0).toUpperCase()+id.slice(1));
+  if(!el) return;
+  // Guardar según el tipo de modal
+  const inputs = el.querySelectorAll('input, select, textarea');
+  const get = (i) => inputs[i] ? inputs[i].value.trim() : '';
+  const getS = (i) => inputs[i] ? inputs[i].value : '';
+  if(id==='Habito'){
+    const icon = get(1)||'⭐'; const name = get(0); const cat = getS(2);
+    if(name){ hData.push({icon,name,sub:cat,cls:'wy',days:{}}); saveData('habitos',hData); renderHabits(); showToast('Hábito agregado'); }
+  } else if(id==='Area'){
+    const icon = get(1)||'⭐'; const name = get(0);
+    if(name){ areasData.push({icon,name,color:'#E8C547',pct:0,metas:[]}); saveData('areas',areasData); renderAreas(); showToast('Área agregada'); }
+  } else if(id==='Meta'){
+    const title = get(0); const desc = get(1);
+    if(title && currentAreaIdx !== null){ areasData[currentAreaIdx].metas.push({title,desc:desc||'',pct:0,pasos:[]}); saveData('areas',areasData); showMetas(currentAreaIdx); showToast('Meta agregada'); }
+  } else if(id==='Movimiento'){
+    const tipo = getS(0); const desc = get(1); const monto = parseFloat(get(2))||0; const cat = getS(3); const fecha = get(4)||new Date().toISOString().split('T')[0];
+    if(desc && monto){ movData.unshift({tipo,desc,monto,cat,fecha}); saveData('movimientos',movData); renderMovimientos(); showToast('Movimiento guardado'); }
+  } else if(id==='PresupuestoCat'){
+    const name = get(0); const bud = parseFloat(get(1))||0;
+    if(name){ catsData.push({name,bud}); saveData('categorias',catsData); renderCategorias(); showToast('Categoría agregada'); }
+  } else if(id==='Cuenta'){
+    const name = get(0); const tipo = getS(1); const saldo = parseFloat(get(2))||0;
+    if(name){ cuentasData.push({name,tipo,saldo}); saveData('cuentas',cuentasData); renderCuentas(); showToast('Cuenta agregada'); }
+  } else if(id==='Evento'){
+    const titulo = get(0); const hora = getS(1); const cat = getS(2);
+    if(titulo){ const fecha = currentEventDate || new Date().toISOString().split('T')[0]; if(!eventosData[fecha]) eventosData[fecha]=[]; eventosData[fecha].push({titulo,hora,cat}); saveData('eventos',eventosData); renderEventosSemana(); showToast('Evento guardado'); }
+  } else if(id==='Proyecto'){
+    const name = get(0); const cliente = get(1); const monto = get(2); const due = get(3);
+    if(name){ projsData.todo.unshift({av:name.charAt(0).toUpperCase(),col:'#E8C547',name:cliente||name,desc:name,badge:'bb',blbl:'Por hacer',due:due||'—',amt:monto?'$'+monto:'—'}); saveData('proyectos',projsData); renderProj('all'); showToast('Proyecto agregado'); }
+  } else if(id==='Cliente'){
+    const name = get(0); const email = get(1); const notas = get(2);
+    if(name){ if(!projsData.clientes) projsData.clientes=[]; projsData.clientes.push({name,email,notas}); saveData('proyectos',projsData); renderClientes(); showToast('Cliente agregado'); }
+  } else if(id==='Viaje'){
+    const dest = get(0); const fecha = get(1); const notas = get(2);
+    if(dest){ viajesData.push({dest,fecha,notas}); saveData('viajes',viajesData); renderViajes(); showToast('Viaje agregado'); }
+  } else if(id==='RutinaBloque'){
+    const tipo = currentRutinaTipo||'manana'; const texto = get(0);
+    if(texto){ rutinaData[tipo].push({texto,done:false}); saveData('rutina',rutinaData); renderRutina(); showToast('Bloque agregado'); }
+  } else if(id==='Wish'){
+    const item = get(0); const monto = get(1);
+    if(item){ wishData.push({item,monto,done:false}); saveData('wishlist',wishData); renderWishlist(); showToast('Wishlist actualizada'); }
+  }
+  // Limpiar campos y cerrar
+  inputs.forEach(function(i){ if(i.tagName==='SELECT') i.selectedIndex=0; else i.value=''; });
+  el.classList.remove('open');
+}
 document.querySelectorAll(".mov").forEach(function(m){m.addEventListener("click",function(e){if(e.target===this)this.classList.remove("open");});});
+
+/* Variables auxiliares para contexto de modales */
+var currentAreaIdx = null;
+var currentEventDate = null;
+var currentRutinaTipo = 'manana';
+
+/* ═══════════════════════════════════════════
+   RENDER MOVIMIENTOS (Finanzas)
+═══════════════════════════════════════════ */
+var movData = [];
+var catsData = [];
+var cuentasData = [];
+function renderMovimientos(){
+  const el = document.getElementById('finMovList'); if(!el) return;
+  if(!movData.length){ el.innerHTML='<div style="text-align:center;color:var(--muted);padding:32px;font-size:14px">No hay movimientos aún.<br>Tocá + para agregar.</div>'; return; }
+  el.innerHTML = movData.slice(0,30).map(function(m,i){
+    const color = m.tipo==='Ingreso' ? 'var(--green)' : 'var(--red)';
+    const sign = m.tipo==='Ingreso' ? '+' : '-';
+    return '<div class="mov-row" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--card);border-radius:12px;margin-bottom:6px;border-left:3px solid '+color+'">'+
+      '<div><div style="font-size:14px;font-weight:600">'+m.desc+'</div><div style="font-size:12px;color:var(--muted2);font-family:monospace">'+m.fecha+' · '+m.cat+'</div></div>'+
+      '<div style="display:flex;align-items:center;gap:10px"><div style="font-family:Fraunces,serif;font-size:18px;font-weight:900;color:'+color+'">'+sign+'$'+m.monto.toLocaleString()+'</div>'+
+      '<button onclick="delMov('+i+')" style="background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px">×</button></div></div>';
+  }).join('');
+  // Update balance
+  const ing = movData.filter(m=>m.tipo==='Ingreso').reduce((s,m)=>s+m.monto,0);
+  const gas = movData.filter(m=>m.tipo==='Gasto').reduce((s,m)=>s+m.monto,0);
+  const bal = ing - gas;
+  const bEl = document.getElementById('finBalance'); if(bEl) bEl.textContent = '$'+bal.toLocaleString();
+  const iEl = document.getElementById('finIngresos'); if(iEl) iEl.textContent = '$'+ing.toLocaleString();
+  const gEl = document.getElementById('finGastos'); if(gEl) gEl.textContent = '$'+gas.toLocaleString();
+}
+function delMov(i){ movData.splice(i,1); saveData('movimientos',movData); renderMovimientos(); showToast('Eliminado'); }
+
+function renderCategorias(){
+  const el = document.getElementById('finCatList'); if(!el) return;
+  el.innerHTML = catsData.map(function(c,i){
+    const gasto = movData.filter(m=>m.cat===c.name && m.tipo==='Gasto').reduce((s,m)=>s+m.monto,0);
+    const pct = c.bud > 0 ? Math.min(100, Math.round(gasto/c.bud*100)) : 0;
+    return '<div style="background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:8px">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'+
+      '<div style="font-size:14px;font-weight:600">'+c.name+'</div>'+
+      '<div style="display:flex;align-items:center;gap:10px"><div style="font-size:13px;color:var(--muted2)">$'+gasto.toLocaleString()+' / $'+c.bud.toLocaleString()+'</div>'+
+      '<button onclick="delCat('+i+')" style="background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button></div></div>'+
+      '<div style="background:var(--border);border-radius:4px;height:6px"><div style="background:var(--yellow);height:100%;border-radius:4px;width:'+pct+'%"></div></div></div>';
+  }).join('');
+}
+function delCat(i){ catsData.splice(i,1); saveData('categorias',catsData); renderCategorias(); showToast('Categoría eliminada'); }
+
+function renderCuentas(){
+  const el = document.getElementById('finCuentaList'); if(!el) return;
+  el.innerHTML = cuentasData.map(function(c,i){
+    return '<div style="background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">'+
+      '<div><div style="font-size:14px;font-weight:600">'+c.name+'</div><div style="font-size:12px;color:var(--muted2)">'+c.tipo+'</div></div>'+
+      '<div style="display:flex;align-items:center;gap:10px"><div style="font-family:Fraunces,serif;font-size:18px;font-weight:900;color:var(--yellow)">$'+c.saldo.toLocaleString()+'</div>'+
+      '<button onclick="delCuenta('+i+')" style="background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button></div></div>';
+  }).join('') || '<div style="text-align:center;color:var(--muted);padding:32px;font-size:14px">No hay cuentas. Tocá + para agregar.</div>';
+}
+function delCuenta(i){ cuentasData.splice(i,1); saveData('cuentas',cuentasData); renderCuentas(); showToast('Cuenta eliminada'); }
+
+/* ═══════════════════════════════════════════
+   RENDER EVENTOS (Agenda Semana)
+═══════════════════════════════════════════ */
+var eventosData = {};
+function renderEventosSemana(){
+  const el = document.getElementById('agEventList'); if(!el) return;
+  const today = new Date().toISOString().split('T')[0];
+  const evs = eventosData[today] || [];
+  el.innerHTML = evs.length ? evs.map(function(e,i){
+    return '<div style="background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;border-left:3px solid var(--yellow)">'+
+      '<div><div style="font-size:14px;font-weight:600">'+e.titulo+'</div><div style="font-size:12px;color:var(--muted2);font-family:monospace">'+e.hora+' · '+e.cat+'</div></div>'+
+      '<button onclick="delEvento(\''+today+'\','+i+')" style="background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button></div>';
+  }).join('') : '<div style="text-align:center;color:var(--muted);padding:24px;font-size:13px">No hay eventos hoy.</div>';
+}
+function delEvento(fecha, i){ if(eventosData[fecha]) eventosData[fecha].splice(i,1); saveData('eventos',eventosData); renderEventosSemana(); showToast('Evento eliminado'); }
+function openEventoHoy(){ currentEventDate = new Date().toISOString().split('T')[0]; openM('Evento'); }
+
+/* ═══════════════════════════════════════════
+   RENDER VIAJES
+═══════════════════════════════════════════ */
+var viajesData = [];
+function renderViajes(){
+  const el = document.getElementById('viajesList'); if(!el) return;
+  el.innerHTML = viajesData.map(function(v,i){
+    return '<div style="background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">'+
+      '<div><div style="font-size:15px;font-weight:700">✈️ '+v.dest+'</div><div style="font-size:12px;color:var(--muted2)">'+v.fecha+(v.notas?' · '+v.notas:'')+'</div></div>'+
+      '<button onclick="delViaje('+i+')" style="background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button></div>';
+  }).join('') || '<div style="text-align:center;color:var(--muted);padding:32px;font-size:14px">No hay viajes. Tocá + para agregar.</div>';
+}
+function delViaje(i){ viajesData.splice(i,1); saveData('viajes',viajesData); renderViajes(); showToast('Viaje eliminado'); }
+
+/* ═══════════════════════════════════════════
+   RENDER RUTINA
+═══════════════════════════════════════════ */
+var rutinaData = {manana:[], noche:[]};
+function renderRutina(){
+  ['manana','noche'].forEach(function(t){
+    const el = document.getElementById('rutina_'+t); if(!el) return;
+    el.innerHTML = rutinaData[t].map(function(b,i){
+      return '<div style="background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px">'+
+        '<div onclick="toggleRutinaBloque(\''+t+'\','+i+')" style="width:20px;height:20px;border-radius:6px;border:2px solid var(--border2);background:'+(b.done?'var(--yellow)':'transparent')+';cursor:pointer;flex-shrink:0"></div>'+
+        '<div style="flex:1;font-size:14px;'+(b.done?'text-decoration:line-through;color:var(--muted)':'')+'">'+b.texto+'</div>'+
+        '<button onclick="delRutinaBloque(\''+t+'\','+i+')" style="background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button></div>';
+    }).join('') || '<div style="text-align:center;color:var(--muted);padding:16px;font-size:13px">Sin bloques. Tocá + para agregar.</div>';
+  });
+}
+function toggleRutinaBloque(t,i){ rutinaData[t][i].done=!rutinaData[t][i].done; saveData('rutina',rutinaData); renderRutina(); }
+function delRutinaBloque(t,i){ rutinaData[t].splice(i,1); saveData('rutina',rutinaData); renderRutina(); showToast('Eliminado'); }
+function openRutina(t){ currentRutinaTipo=t; openM('RutinaBloque'); }
+
+/* ═══════════════════════════════════════════
+   RENDER WISHLIST
+═══════════════════════════════════════════ */
+var wishData = [];
+function renderWishlist(){
+  const el = document.getElementById('wishList'); if(!el) return;
+  el.innerHTML = wishData.map(function(w,i){
+    return '<div style="background:var(--card);border-radius:12px;padding:12px 16px;margin-bottom:6px;display:flex;align-items:center;gap:10px">'+
+      '<div onclick="toggleWish('+i+')" style="width:20px;height:20px;border-radius:6px;border:2px solid var(--border2);background:'+(w.done?'var(--yellow)':'transparent')+';cursor:pointer;flex-shrink:0"></div>'+
+      '<div style="flex:1"><div style="font-size:14px;'+(w.done?'text-decoration:line-through;color:var(--muted)':'font-weight:600')+'">'+w.item+'</div>'+
+      (w.monto?'<div style="font-size:12px;color:var(--yellow);font-family:monospace">$'+w.monto+'</div>':'')+
+      '</div><button onclick="delWish('+i+')" style="background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button></div>';
+  }).join('') || '<div style="text-align:center;color:var(--muted);padding:32px;font-size:14px">Wishlist vacía. Tocá + para agregar.</div>';
+}
+function toggleWish(i){ wishData[i].done=!wishData[i].done; saveData('wishlist',wishData); renderWishlist(); }
+function delWish(i){ wishData.splice(i,1); saveData('wishlist',wishData); renderWishlist(); showToast('Eliminado'); }
+
+/* ═══════════════════════════════════════════
+   RENDER DIARIO
+═══════════════════════════════════════════ */
+var diarioData = [];
+var diarioEmoji = '';
+function setDiarioEmoji(em, el){
+  diarioEmoji = em;
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+function saveDiario(){
+  const txt = document.getElementById('diarioTxt'); if(!txt) return;
+  const texto = txt.value.trim();
+  if(!texto){ showToast('Escribí algo primero'); return; }
+  const fecha = new Date().toLocaleDateString('es-AR');
+  diarioData.unshift({fecha, texto, emoji: diarioEmoji || '📝'});
+  saveData('diario', diarioData);
+  txt.value = '';
+  diarioEmoji = '';
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('active'));
+  renderDiario();
+  showToast('Entrada guardada');
+}
+function renderDiario(){
+  const el = document.getElementById('diarioList'); if(!el) return;
+  el.innerHTML = diarioData.map(function(e,i){
+    return '<div style="background:var(--card);border-radius:12px;padding:16px;margin-bottom:10px">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'+
+      '<div style="font-size:18px">'+e.emoji+' <span style="font-size:13px;color:var(--muted2);font-family:monospace">'+e.fecha+'</span></div>'+
+      '<button onclick="delDiario('+i+')" style="background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button></div>'+
+      '<div style="font-size:14px;color:var(--muted2);line-height:1.6">'+e.texto+'</div></div>';
+  }).join('') || '<div style="text-align:center;color:var(--muted);padding:32px;font-size:14px">Sin entradas. Escribí tu primera entrada arriba.</div>';
+}
+function delDiario(i){ diarioData.splice(i,1); saveData('diario',diarioData); renderDiario(); showToast('Entrada eliminada'); }
+
+/* ═══════════════════════════════════════════
+   RENDER FOCUS LOG
+═══════════════════════════════════════════ */
+var focusLog = [];
+function logFocusSession(tipo, mins){
+  const fecha = new Date().toLocaleDateString('es-AR');
+  focusLog.unshift({tipo, mins, fecha});
+  saveData('focuslog', focusLog);
+  renderFocusLog();
+}
+function renderFocusLog(){
+  const el = document.getElementById('focusLogList'); if(!el) return;
+  el.innerHTML = focusLog.slice(0,10).map(function(f,i){
+    return '<div style="background:var(--card);border-radius:10px;padding:10px 14px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center">'+
+      '<div style="font-size:14px">⏱️ '+f.tipo+' <span style="color:var(--yellow);font-weight:700">'+f.mins+'min</span></div>'+
+      '<div style="display:flex;align-items:center;gap:8px"><div style="font-size:12px;color:var(--muted2);font-family:monospace">'+f.fecha+'</div>'+
+      '<button onclick="delFocus('+i+')" style="background:transparent;border:none;color:var(--muted);font-size:16px;cursor:pointer">×</button></div></div>';
+  }).join('') || '<div style="text-align:center;color:var(--muted);padding:24px;font-size:13px">Sin sesiones registradas.</div>';
+}
+function delFocus(i){ focusLog.splice(i,1); saveData('focuslog',focusLog); renderFocusLog(); showToast('Eliminado'); }
+
+/* ═══════════════════════════════════════════
+   RENDER REVIEWS
+═══════════════════════════════════════════ */
+var reviewData = {};
+function saveReview(mes){
+  const notas = document.getElementById('rev_notas_'+mes); 
+  const stars = document.querySelectorAll('#s'+mes+' .star.lit').length;
+  reviewData[mes] = {notas: notas ? notas.value : '', stars};
+  saveData('reviews', reviewData);
+  showToast('Review guardada');
+}
+function renderReviews(){
+  // Reviews se auto-guardan, solo restauramos valores
+  Object.keys(reviewData).forEach(function(mes){
+    const notas = document.getElementById('rev_notas_'+mes);
+    if(notas && reviewData[mes]) notas.value = reviewData[mes].notas || '';
+    if(reviewData[mes] && reviewData[mes].stars) rStar(mes, reviewData[mes].stars);
+  });
+}
+
+/* ═══════════════════════════════════════════
+   RENDER CLIENTES (Freelance)
+═══════════════════════════════════════════ */
+function renderClientes(){
+  const el = document.getElementById('frClList'); if(!el) return;
+  const clientes = projsData.clientes || [];
+  el.innerHTML = clientes.map(function(c,i){
+    return '<div style="background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">'+
+      '<div><div style="font-size:15px;font-weight:700">'+c.name+'</div><div style="font-size:12px;color:var(--muted2)">'+c.email+'</div></div>'+
+      '<button onclick="delCliente('+i+')" style="background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer">×</button></div>';
+  }).join('') || '<div style="text-align:center;color:var(--muted);padding:32px;font-size:14px">Sin clientes. Tocá + para agregar.</div>';
+}
+function delCliente(i){ if(!projsData.clientes) return; projsData.clientes.splice(i,1); saveData('proyectos',projsData); renderClientes(); showToast('Cliente eliminado'); }
+
+/* OVERRIDE renderProj para borrar proyectos */
+var _origRenderProj = renderProj;
+function renderProj(filter){
+  const list=document.getElementById("projListEl");if(!list)return;list.innerHTML="";
+  const data=filter==="all"?[].concat(projsData.todo,projsData.proceso,projsData.done):projsData[filter]||[];
+  data.forEach(function(p,i){
+    const card=document.createElement("div");card.className="proj-card";
+    const allData = filter==="all" ? [].concat(projsData.todo,projsData.proceso,projsData.done) : data;
+    const globalIdx = filter==="all" ? i : null;
+    card.innerHTML='<div class="pc-top"><div class="av" style="background:'+p.col+'">'+p.av+'</div><div class="pc-info"><div class="pc-name">'+p.name+'</div><div class="pc-desc">'+p.desc+'</div></div><span class="badge '+p.badge+'">'+p.blbl+'</span></div><div class="pc-bot"><div class="pc-due">📅 '+p.due+'</div><div style="display:flex;align-items:center;gap:8px"><div class="pc-amt">'+p.amt+'</div></div></div>';
+    // Add delete button
+    const delBtn = document.createElement('button');
+    delBtn.textContent='×'; delBtn.style.cssText='position:absolute;top:10px;right:10px;background:transparent;border:none;color:var(--muted);font-size:20px;cursor:pointer';
+    card.style.position='relative';
+    delBtn.onclick = function(e){ e.stopPropagation(); delProyecto(p); };
+    card.appendChild(delBtn);
+    list.appendChild(card);
+  });
+}
+function delProyecto(p){
+  ['todo','proceso','done'].forEach(function(k){ projsData[k] = projsData[k].filter(function(x){ return x !== p; }); });
+  saveData('proyectos',projsData); renderProj('all'); showToast('Proyecto eliminado');
+}
+
+/* OVERRIDE renderAreas para borrar */
+var _origRenderAreas = renderAreas;
+function renderAreas(){
+  const list=document.getElementById("areasEl");if(!list)return;list.innerHTML="";
+  areasData.forEach(function(a,ai){
+    const card=document.createElement("div");card.className="area-card";card.style.position='relative';
+    card.innerHTML='<div class="area-top"><div class="area-icon">'+a.icon+'</div><div class="area-pct" style="color:'+a.color+'">'+a.pct+'%</div></div><div class="area-name">'+a.name+'</div><div class="area-sub">'+a.metas.length+' meta(s)</div><div class="pbar"><div class="pbar-f" style="width:'+a.pct+'%;background:'+a.color+'"></div></div>';
+    const delBtn=document.createElement('button');delBtn.textContent='×';
+    delBtn.style.cssText='position:absolute;top:8px;right:8px;background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer';
+    delBtn.onclick=function(e){e.stopPropagation();if(confirm('¿Eliminar área '+a.name+'?')){areasData.splice(ai,1);saveData('areas',areasData);renderAreas();showToast('Área eliminada');}};
+    card.onclick=function(){currentAreaIdx=ai;showMetas(ai);};
+    card.appendChild(delBtn);list.appendChild(card);
+  });
+}
+
+/* OVERRIDE showMetas para agregar meta desde contexto */
+function showMetas(ai){
+  currentAreaIdx=ai;
+  const a=areasData[ai];const list=document.getElementById("areasEl");
+  list.innerHTML='<div style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-bottom:12px" onclick="renderAreas()"><span style="color:var(--yellow)">&#8592;</span><span style="font-size:13px;color:var(--muted2)">Todas las areas</span></div><div style="font-family:Fraunces,serif;font-size:20px;font-weight:900;margin-bottom:12px">'+a.icon+' '+a.name+'</div>';
+  a.metas.forEach(function(m,mi){
+    const mc=document.createElement("div");mc.className="meta-c";mc.style.position='relative';
+    const pasosHtml=m.pasos.map(function(p,pi){return '<div class="paso"><div class="pck '+(p.done?"done":"") + '" onclick="toggleP('+ai+','+mi+','+pi+')">'+(p.done?"v":"")+'</div><div class="ptxt '+(p.done?"tach":"")+'">'+p.t+'</div><div class="pmes">'+p.m+'</div></div>';}).join("");
+    mc.innerHTML="<div class=\"mc-top\"><div class=\"mc-title\">"+m.title+"</div></div><div class=\"mc-desc\">"+m.desc+"</div>"+pasosHtml+"<div style=\"margin-top:10px;display:flex;align-items:center;gap:8px\"><div class=\"pbar\" style=\"flex:1;margin:0\"><div class=\"pbar-f\" style=\"width:"+m.pct+"%;background:"+a.color+"\"></div></div><div style=\"font-family:monospace;font-size:11px;color:var(--muted2);width:30px;text-align:right\">"+m.pct+"%</div></div>";
+    const delBtn=document.createElement('button');delBtn.textContent='×';
+    delBtn.style.cssText='position:absolute;top:8px;right:8px;background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer';
+    delBtn.onclick=function(){if(confirm('¿Eliminar meta?')){areasData[ai].metas.splice(mi,1);saveData('areas',areasData);showMetas(ai);showToast('Meta eliminada');}};
+    mc.appendChild(delBtn);list.appendChild(mc);
+  });
+  const addEl=document.createElement("div");
+  addEl.innerHTML='<button class="add-btn" onclick="openM(\'Meta\')">+ Nueva meta en '+a.name+'</button>';
+  list.appendChild(addEl);
+}
+
+/* OVERRIDE toggleH para guardar */
+function toggleH(hi,day){hData[hi].days[day]=hData[hi].days[day]?0:1;saveData('habitos',hData);renderHabits();}
+
+/* OVERRIDE toggleP para guardar */
+function toggleP(ai,mi,pi){
+  areasData[ai].metas[mi].pasos[pi].done=!areasData[ai].metas[mi].pasos[pi].done;
+  const m=areasData[ai].metas[mi];
+  m.pct=Math.round(m.pasos.filter(function(p){return p.done;}).length/Math.max(m.pasos.length,1)*100);
+  areasData[ai].pct=Math.round(areasData[ai].metas.reduce(function(s,m){return s+m.pct;},0)/Math.max(areasData[ai].metas.length,1));
+  saveData('areas',areasData);showMetas(ai);
+}
+
+/* OVERRIDE renderHabits para borrar hábitos */
+function renderHabits(){
+  const c=document.getElementById("habitList");if(!c)return;c.innerHTML="";
+  const today=new Date();const todayD=today.getDate();
+  hData.forEach(function(h,hi){
+    const done=Object.values(h.days).filter(Boolean).length;
+    const pct=Math.round(done/Math.max(todayD,1)*100);
+    let dots="";
+    if(hView==="week"){
+      const start=Math.max(1,todayD-6);
+      for(let i=start;i<=todayD;i++){
+        const d=i-1;const isDone=h.days[d];const isToday=i===todayD;
+        const dt=new Date(2026,1,i);const dn=WDL[dt.getDay()];
+        let cls="wd";if(isDone)cls+=" "+h.cls;else if(isToday)cls+=" tr";else cls+=" ms";
+        dots+='<div class="'+cls+'" onclick="toggleH('+hi+','+d+')"><div class="wd-l">'+dn+'</div><div class="wd-n">'+i+'</div></div>';
+      }
+    } else {
+      for(let i=1;i<=28;i++){
+        const d=i-1;if(i>todayD){dots+='<div class="md fut">'+i+'</div>';continue;}
+        let cls="md";if(h.days[d])cls+=" "+h.cls;else if(i===todayD)cls+=" tr";else cls+=" ms";
+        dots+='<div class="'+cls+'" onclick="toggleH('+hi+','+d+')">'+i+'</div>';
+      }
+    }
+    const card=document.createElement("div");card.className="habit";card.style.position='relative';
+    const wCls=hView==="month"?"mdots":"wdots";
+    card.innerHTML='<div class="h-top"><div class="h-left"><div class="h-icon">'+h.icon+'</div><div><div class="h-name">'+h.name+'</div><div class="h-sub">'+h.sub+'</div></div></div><div class="h-pct">'+pct+'%</div></div><div class="'+wCls+'">'+dots+'</div>';
+    const delBtn=document.createElement('button');delBtn.textContent='×';
+    delBtn.style.cssText='position:absolute;top:8px;right:8px;background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer;z-index:2';
+    delBtn.onclick=function(){hData.splice(hi,1);saveData('habitos',hData);renderHabits();showToast('Hábito eliminado');};
+    card.appendChild(delBtn);c.appendChild(card);
+  });
+}
 
 /* MODULES - definidos por nosotros, no editables por el usuario */
 var MODULE_LIST = ['Agenda','Finanzas','Habitos','Freelance','Metas'];
