@@ -371,11 +371,11 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-
     </div>
     <div class="app-nav">
       <div class="np active" onclick="goPage('Dash',this)">🏠 Inicio</div>
-      <div class="np" onclick="goPage('Agenda',this)">📅 Agenda</div>
-      <div class="np" onclick="goPage('Finanzas',this)">💰 Finanzas</div>
-      <div class="np" onclick="goPage('Habitos',this)">🔥 Hábitos</div>
-      <div class="np" onclick="goPage('Freelance',this)">💼 Freelance</div>
-      <div class="np" onclick="goPage('Metas',this)">🎯 Metas</div>
+      <div class="np" data-mod="agenda" onclick="goPage('Agenda',this)">📅 Agenda</div>
+      <div class="np" data-mod="finanzas" onclick="goPage('Finanzas',this)">💰 Finanzas</div>
+      <div class="np" data-mod="habitos" onclick="goPage('Habitos',this)">🔥 Hábitos</div>
+      <div class="np" data-mod="freelance" onclick="goPage('Freelance',this)">💼 Freelance</div>
+      <div class="np" data-mod="metas" onclick="goPage('Metas',this)">🎯 Metas</div>
     </div>
   </div>
   <div class="app-body" id="appBody">
@@ -1025,26 +1025,82 @@ function showErr(id, msg) { const e=document.getElementById(id); e.textContent=m
 function hideErr(id) { document.getElementById(id).classList.remove('show'); }
 function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 
-function doLogin() {
-  const u=document.getElementById('loginU').value.trim().toLowerCase();
-  const p=document.getElementById('loginP').value;
+var SB_URL='https://ilhlcwesmkaycekbnamm.supabase.co';
+var SB_KEY='sb_publishable_NmaNjpMbMK2CwGo7XGcsEw_wvxnVWTU';
+
+function sbFetch(path,opts){
+  return fetch(SB_URL+'/rest/v1/'+path,Object.assign({
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'}
+  },opts));
+}
+
+function doLogin(){
+  var u=document.getElementById('loginU').value.trim().toLowerCase();
+  var p=document.getElementById('loginP').value;
   if(!u||!p){showErr('errLogin','Completá todos los campos.');return;}
   if(!validEmail(u)){showErr('errLogin','Email inválido.');return;}
-  if(users[u]&&users[u].pass===p){cUser=users[u];hideErr('errLogin');launchApp();}
-  else showErr('errLogin','Email o contraseña incorrectos.');
+  var btn=document.querySelector('#formLogin .btn-main');
+  if(btn){btn.textContent='Verificando...';btn.disabled=true;}
+  sbFetch('usuarios?email=eq.'+encodeURIComponent(u)+'&select=*')
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(btn){btn.textContent='Ingresar →';btn.disabled=false;}
+    if(!data||!data.length){showErr('errLogin','Email o contraseña incorrectos.');return;}
+    var row=data[0];
+    if(row.password!==p){showErr('errLogin','Email o contraseña incorrectos.');return;}
+    if(row.activo===false){showErr('errLogin','Tu cuenta no está activa. Contactá a soporte.');return;}
+    cUser={nombre:row.nombre,user:u,pass:p,moneda:row.moneda||'$',modulos:row.modulos||[],plan:row.plan||''};
+    hideErr('errLogin');
+    launchApp();
+  })
+  .catch(function(){
+    if(btn){btn.textContent='Ingresar →';btn.disabled=false;}
+    // Fallback local si no hay internet
+    if(users[u]&&users[u].pass===p){cUser=users[u];hideErr('errLogin');launchApp();}
+    else showErr('errLogin','Sin conexión. Verificá tu internet.');
+  });
 }
-function doRegister() {
-  const n=document.getElementById('regN').value.trim();
-  const u=document.getElementById('regU').value.trim().toLowerCase();
-  const p=document.getElementById('regP').value;
-  const m=document.getElementById('regM').value;
+
+function doRegister(){
+  var n=document.getElementById('regN').value.trim();
+  var u=document.getElementById('regU').value.trim().toLowerCase();
+  var p=document.getElementById('regP').value;
+  var m=document.getElementById('regM').value;
   if(!n||!u||!p){showErr('errRegister','Completá todos los campos.');return;}
   if(!validEmail(u)){showErr('errRegister','Email inválido.');return;}
   if(p.length<4){showErr('errRegister','Mínimo 4 caracteres.');return;}
-  if(users[u]){showErr('errRegister','Ya existe una cuenta con ese email.');return;}
-  users[u]={nombre:n,user:u,pass:p,moneda:m};
-  localStorage.setItem('ems_users',JSON.stringify(users));
-  cUser=users[u];hideErr('errRegister');launchApp();
+  var btn=document.querySelector('#formRegister .btn-main');
+  if(btn){btn.textContent='Creando cuenta...';btn.disabled=true;}
+  // Verificar si ya existe
+  sbFetch('usuarios?email=eq.'+encodeURIComponent(u)+'&select=id')
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data&&data.length){
+      if(btn){btn.textContent='Crear cuenta →';btn.disabled=false;}
+      showErr('errRegister','Ya existe una cuenta con ese email.');return;
+    }
+    // Crear usuario con módulo Agenda por defecto
+    return sbFetch('usuarios',{method:'POST',body:JSON.stringify({
+      email:u,nombre:n,password:p,moneda:m,
+      modulos:['Agenda'],plan:'agenda',activo:true,
+      expiry:new Date(Date.now()+365*24*3600*1000).toISOString().split('T')[0]
+    })});
+  })
+  .then(function(r){if(!r)return;return r.json();})
+  .then(function(data){
+    if(btn){btn.textContent='Crear cuenta →';btn.disabled=false;}
+    if(!data||data.code){showErr('errRegister','Error al crear cuenta. Intentá de nuevo.');return;}
+    var row=Array.isArray(data)?data[0]:data;
+    cUser={nombre:n,user:u,pass:p,moneda:m,modulos:['Agenda'],plan:'agenda'};
+    // Guardar también local como fallback
+    users[u]={nombre:n,user:u,pass:p,moneda:m};
+    localStorage.setItem('ems_users',JSON.stringify(users));
+    hideErr('errRegister');launchApp();
+  })
+  .catch(function(){
+    if(btn){btn.textContent='Crear cuenta →';btn.disabled=false;}
+    showErr('errRegister','Sin conexión. Verificá tu internet.');
+  });
 }
 function doLogout() {
   if(!confirm('¿Cerrar sesión?'))return;
@@ -1166,7 +1222,26 @@ window.addEventListener('DOMContentLoaded',function(){
   var saved=localStorage.getItem('ems_current');
   if(!saved)return;
   var u=JSON.parse(localStorage.getItem('ems_users')||'{}');
-  if(u[saved]){cUser=u[saved];launchApp();}
+  if(!u[saved])return;
+  // Intentar recargar módulos desde Supabase
+  var localUser=u[saved];
+  sbFetch('usuarios?email=eq.'+encodeURIComponent(saved)+'&select=*')
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data&&data.length){
+      var row=data[0];
+      cUser={nombre:row.nombre,user:saved,pass:localUser.pass,moneda:row.moneda||'$',modulos:row.modulos||[],plan:row.plan||''};
+    } else {
+      cUser=localUser;
+      cUser.modulos=cUser.modulos||['Agenda'];
+    }
+    launchApp();
+  })
+  .catch(function(){
+    cUser=localUser;
+    cUser.modulos=cUser.modulos||['Agenda'];
+    launchApp();
+  });
 });
 
 /* ── OPEN/CLOSE MODAL ── */
@@ -1390,14 +1465,60 @@ function setAg(el,tab){
 }
 
 /* ── MODULES ── */
-var activeModules={agenda:true,finanzas:true,freelance:false,metas:true};
-function loadModules(){try{var m=lv('modules',null);if(m)activeModules=m;}catch(e){}}
-function renderModuleScreen(){
-  var nav=document.getElementById('appNav');
-  if(nav){nav.querySelectorAll('.nav-btn[data-mod]').forEach(function(b){
-    var mod=b.getAttribute('data-mod');b.style.display=(!mod||activeModules[mod]!==false)?'':'none';
-  });}
+var activeModules={agenda:true,finanzas:false,freelance:false,metas:false,habitos:false};
+
+// Mapeo de nombres Supabase → keys internas
+var MOD_MAP={
+  'Agenda':'agenda','agenda':'agenda',
+  'Finanzas':'finanzas','finanzas':'finanzas',
+  'Hábitos':'habitos','Habitos':'habitos','habitos':'habitos',
+  'Metas':'metas','metas':'metas',
+  'Freelance':'freelance','freelance':'freelance'
+};
+
+function loadModules(){
+  // Resetear todo a false
+  activeModules={agenda:false,finanzas:false,freelance:false,metas:false,habitos:false};
+  // Cargar desde cUser.modulos (viene de Supabase)
+  if(cUser&&cUser.modulos&&Array.isArray(cUser.modulos)){
+    cUser.modulos.forEach(function(m){
+      var key=MOD_MAP[m];
+      if(key)activeModules[key]=true;
+    });
+  }
 }
+
+function renderModuleScreen(){
+  // Actualizar nav — ocultar módulos no habilitados
+  var navItems=document.querySelectorAll('.np[data-mod]');
+  navItems.forEach(function(b){
+    var mod=b.getAttribute('data-mod');
+    b.style.display=(!mod||activeModules[mod])?'':'none';
+  });
+  // Renderizar pantalla de módulos (modulesScreen)
+  var list=document.getElementById('modListEl');
+  if(!list)return;
+  var tag=document.getElementById('modUserTag');
+  if(tag&&cUser)tag.textContent='Bienvenido/a, '+cUser.nombre;
+  var allMods=[
+    {key:'agenda',label:'📅 Agenda',desc:'Planificación diaria, semanal y anual'},
+    {key:'finanzas',label:'💰 Finanzas',desc:'Control de ingresos, gastos y ahorro'},
+    {key:'habitos',label:'🔥 Hábitos',desc:'Seguimiento diario de hábitos'},
+    {key:'metas',label:'🎯 Metas',desc:'OKRs, Kanban y revisión semanal'},
+    {key:'freelance',label:'💼 Freelance',desc:'Proyectos, clientes y facturación'},
+  ];
+  list.innerHTML='';
+  allMods.forEach(function(mod){
+    var active=activeModules[mod.key];
+    var div=document.createElement('div');
+    div.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:14px 18px;margin-bottom:10px;border-radius:14px;border:1px solid '+(active?'var(--yellow)':'var(--border)')+';background:'+(active?'rgba(232,197,71,0.08)':'var(--card)')+';';
+    div.innerHTML='<div><div style="font-size:16px;font-weight:700;color:'+(active?'var(--yellow)':'var(--muted2)')+'">'+mod.label+'</div>'
+      +'<div style="font-size:12px;color:var(--muted);margin-top:2px">'+mod.desc+'</div></div>'
+      +'<div style="font-size:11px;font-family:monospace;font-weight:700;padding:4px 10px;border-radius:8px;background:'+(active?'var(--yellow)':'var(--card2)')+';color:'+(active?'#000':'var(--muted)')+';">'+(active?'ACTIVO':'BLOQUEADO')+'</div>';
+    list.appendChild(div);
+  });
+}
+
 function toggleModule(mod){activeModules[mod]=!activeModules[mod];sv('modules',activeModules);renderModuleScreen();}
 
 /* ── AÑO ── */
